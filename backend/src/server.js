@@ -1,15 +1,35 @@
-import express from 'express';
-import { ENV } from './config/env.js';
-import { connectDB } from './config/db.js';
+import express from "express";
+import { ENV } from "./config/env.js";
+import { connectDB } from "./config/db.js";
+import { clerkMiddleware } from "@clerk/express";
+import { functions, inngest } from "./config/inngest.js";
+import { serve } from "inngest/express";
 
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+app.use(express.json());
+app.use(clerkMiddleware());
+
+app.use("/api/inngest", serve({ client: inngest, functions }));
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
 });
 
+const startServer = async () => {
+  try {
+    await connectDB();
+    if (ENV.NODE_ENV !== "production") {
+      app.listen(ENV.PORT, () => {
+        console.log("Сервер запущен на порту:", ENV.PORT);
+      });
+    }
+  } catch (error) {
+    console.error("Ошибка при запуске сервера:", error);
+    process.exit(1);
+  }
+};
 
-app.listen(ENV.PORT, () => {
-  console.log('Сервер запущен на порту:', ENV.PORT);
-  connectDB();
-});
+startServer();
+
+export default app;
