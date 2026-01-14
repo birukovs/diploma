@@ -14,16 +14,22 @@ export const upsertStreamUser = async (userData) => {
 
 export const deleteStreamUser = async (userId) => {
     try {
-        await streamClient.deleteUser(userId);
+        console.log("Stream: attempting to delete user:", userId);
+        const res = await streamClient.deleteUser(userId, {
+            hard_delete: true,
+            mark_messages_deleted: true,
+        });
+        console.log("Stream: deleteUser response:", res);
         console.log("Пользователь Stream успешно удалён:", userId);
     } catch (error) {
         console.error("Ошибка при удалении пользователя Stream:", error);
+        throw error;
     }
 }
 
 export const generateStreamToken = (userId) => {
     try {
-        const userId = userId.toString();
+        const userIdString = userId.toString();
         return streamClient.createToken(userIdString);
     } catch (error) {
         console.error("Ошибка при генерации токена Stream:", error);
