@@ -14,7 +14,7 @@ export const upsertStreamUser = async (userData) => {
 
 export const deleteStreamUser = async (userId) => {
     try {
-        console.log("Stream: attempting to delete user:", userId);
+        console.log("Stream:  attempting to delete user:", userId);
         const res = await streamClient.deleteUser(userId, {
             hard_delete: true,
             mark_messages_deleted: true,
