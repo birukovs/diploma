@@ -4,7 +4,6 @@ import { useSearchParams } from "react-router";
 import { useStreamChat } from "../hooks/useStreamChat";
 import PageLoader from "../components/PageLoader";
 import CreateChannelModal from "../components/CreateChannelModal";
-import { Plus } from "lucide-react";
 import "../styles/stream-chat-theme.css";
 
 import {
@@ -16,11 +15,13 @@ import {
   Thread,
   Window,
 } from "stream-chat-react";
-import { PlusIcon } from "lucide-react";
+import { MessageCircle, PlusIcon, UsersIcon } from "lucide-react";
+import CustomChannelPreview from "../components/CustomChannelPreview";
+import UserList from "../components/UserList";
 
 const HomePage = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [selectedChannel] = useState(null);
+  const [selectedChannel, setSelectedChannel] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { chatClient, error, isLoading } = useStreamChat();
@@ -74,6 +75,44 @@ const HomePage = () => {
                     <span>Создать канал</span>
                   </button>
                 </div>
+
+                <ChannelList
+                  filters={{}}
+                  options={{ state: true, watch: true }}
+                  onSelectChannel={setSelectedChannel}
+                  Preview={({ channel }) => (
+                    <CustomChannelPreview
+                      channel={channel}
+                      activeChannel={activeChannel}
+                      setActiveChannel={(channel) =>
+                        setSearchParams({ channel: channel.id })
+                      }
+                    />
+                  )}
+                  List={(props) => (
+                    <div className="channel-sections">
+                      <div className="section-header">
+                        <div className="section-title">
+                          <MessageCircle className="size-4" />
+                          <span>Каналы</span>
+                        </div>
+                      </div>
+
+                      {props.loading && <div className="loading-message">Загрузка каналов...</div>}
+                      {props.error && <div className="error-message">Ошибка загрузки каналов</div>}
+
+                      <div className="channels-list">{props.children}</div>
+
+                      <div className="section-header direct-messages">
+                        <div className="section-title">
+                          <UsersIcon className="size-4" />
+                          <span>Личные сообщения</span>
+                        </div>
+                      </div>
+                      <UserList activeChannel={activeChannel} />
+                    </div>
+                  )}
+                />
               </div>
             </div>
           </div>

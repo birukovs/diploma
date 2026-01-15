@@ -2,7 +2,7 @@ import { Inngest } from "inngest";
 import { connectDB } from "./db.js";
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
-import { upsertStreamUser, deleteStreamUser } from "./stream.js";
+import { upsertStreamUser, deleteStreamUser, addUserToPublicChannels } from "./stream.js";
 
 export const inngest = new Inngest({ id: "diploma" });
 
@@ -57,6 +57,8 @@ const syncUser = inngest.createFunction(
         image: newUser.avatar,
         ...(saved?.username ? { username: saved.username } : {}),
       })
+
+      await addUserToPublicChannels(newUser.clerkId.toString());
     } catch (err) {
       console.error(`Inngest: error upserting user ${id}:`, err);
     }
