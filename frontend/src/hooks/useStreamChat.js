@@ -11,15 +11,20 @@ export const useStreamChat = () => {
   const { user } = useUser();
   const [chatClient, setChatClient] = useState(null);
 
+  console.log("useStreamChat: user", user);
+
   const {
     data: tokenData,
-    isLoading: tokenLoading,
-    error: tokenError,
+    isLoading,
+    error,
   } = useQuery({
     queryKey: ["streamToken"],
     queryFn: getStreamToken,
     enabled: !!user?.id,
   });
+
+  console.log("useStreamChat: tokenData", tokenData, "isLoading", isLoading, "error", error);
+  console.log("token string:", tokenData?.token);
 
   useEffect(() => {
     const initChat = async () => {
@@ -27,11 +32,16 @@ export const useStreamChat = () => {
 
       try {
         const client = StreamChat.getInstance(STREAM_API_KEY);
+        console.log("Connecting user:", {
+          id: user.id,
+          name: user.fullName,
+          image: user.profileImageUrl,
+        }, "token:", tokenData.token);
         await client.connectUser({
           id: user.id,
           name: user.fullName,
           image: user.profileImageUrl,
-        });
+        }, tokenData.token);
         setChatClient(client);
       } catch (error) {
         console.log("Ошибка инициализации Stream Chat:", error);
@@ -56,7 +66,7 @@ export const useStreamChat = () => {
 
   return {
     chatClient,
-    isLoading: tokenLoading,
-    error: tokenError,
+    isLoading,
+    error,
   };
 };
