@@ -50,6 +50,10 @@
   --spacing-md: 16px;
   --spacing-lg: 24px;
   --spacing-xl: 32px;
+
+  /* Override Stream Chat icon background colors */
+  --str-chat__icon-background: var(--rzd-red);
+  --str-chat__attachment-icon-background: var(--rzd-red);
 }
 
 
@@ -744,7 +748,7 @@
 
 .chat-main {
   flex: 1;
-  background: rgba(255, 255, 255, 0.98);
+  background: transparent;
   border-radius: 0 2rem 2rem 0;
   overflow: hidden;
 }
@@ -1262,3 +1266,116 @@
   background: linear-gradient(180deg, rgba(226, 26, 26, 0.60) 0%, rgba(255, 255, 255, 0.20) 100%);
 }
 
+/* Remove white background from empty channel state */
+.str-chat__empty-channel {
+  background: transparent !important;
+}
+
+/* Dark menu for attachment selector */
+.str-chat__attachment-selector-actions-menu,
+.str-chat__dialog-menu {
+  background: rgba(16, 20, 26, 0.95) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 26, 26, 0.30) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.50) !important;
+}
+
+/* Red icons for attachment menu */
+.str-chat__attachment-selector-menu-button__icon svg,
+.str-chat__attachment-selector-menu-button__icon path,
+.str-chat__attachment-selector-menu-button__icon {
+  color: var(--rzd-red) !important;
+  fill: var(--rzd-red) !important;
+  stroke: var(--rzd-red) !important;
+}
+
+/* Menu item text color */
+.str-chat__attachment-selector-menu-button,
+.str-chat__dialog-menu__button {
+  color: rgba(255, 255, 255, 0.90) !important;
+}
+
+.str-chat__attachment-selector-menu-button:hover,
+.str-chat__dialog-menu__button:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+/* Red icon on hover for attachment button */
+.str-chat__attachment-selector-button:hover svg,
+.str-chat__attachment-selector-button:hover path,
+.str-chat__attachment-selector-button:hover {
+  color: var(--rzd-red) !important;
+  fill: var(--rzd-red) !important;
+  stroke: var(--rzd-red) !important;
+}
+
+/* Plus icon in input */
+.str-chat__icon--plus,
+.str-chat__icon--plus:hover {
+  color: var(--rzd-red) !important;
+}
+
+/* Red background for menu button icon */
+.str-chat__dialog-menu__button-icon {
+  background: var(--rzd-red) !important;
+}
+
+/* Remove white background from menu items */
+.str-chat__dialog-menu__button,
+.str-chat__attachment-selector-menu-button {
+  background: transparent !important;
+}
+
+.str-chat__dialog-menu__button:first-child {
+  background: transparent !important;
+}
+
+.str-chat__dialog-menu__button:first-child:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Red background for attachment selector button icon area */
+.str-chat__attachment-selector-menu-button__icon {
+  background: var(--rzd-red) !important;
+  background-color: var(--rzd-red) !important;
+  border-radius: 4px !important;
+}
+
+.str-chat__attachment-selector-menu-button__icon:hover {
+  background: var(--rzd-red-dark) !important;
+  background-color: var(--rzd-red-dark) !important;
+}
+
+/* Override Stream Chat default background color */
+div.str-chat__attachment-selector-menu-button__icon {
+  background: var(--rzd-red) !important;
+  background-color: var(--rzd-red) !important;
+}
+
+/* Style for the plus button itself */
+button.str-chat__message-input-flat [data-testid="attachment-action-button"],
+button[data-testid="attachment-action-button"],
+.str-chat__attachment-selector-button {
+  background: var(--rzd-red) !important;
+  border-radius: 50% !important;
+  color: white !important;
+}
+
+.str-chat__attachment-selector-button:hover {
+  background: var(--rzd-red-dark) !important;
+}
+
+/* Force red background on the icon container with highest specificity */
+.str-chat__message-input-flat .str-chat__attachment-selector-menu-button__icon,
+.str-chat .str-chat__attachment-selector-menu-button__icon,
+[class*="str-chat__attachment-selector-menu-button__icon"] {
+  background: var(--rzd-red) !important;
+  background-color: var(--rzd-red) !important;
+}
+
+.str-chat__message-input-flat .str-chat__attachment-selector-menu-button__icon:hover,
+.str-chat .str-chat__attachment-selector-menu-button__icon:hover {
+  background: var(--rzd-red-dark) !important;
+  background-color: var(--rzd-red-dark) !important;
+}
