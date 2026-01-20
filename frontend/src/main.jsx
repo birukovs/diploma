@@ -45,6 +45,7 @@ Sentry.init({
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ClerkProvider
+      
       publishableKey={PUBLISHABLE_KEY}
       localization={ruRU}
       appearance={{

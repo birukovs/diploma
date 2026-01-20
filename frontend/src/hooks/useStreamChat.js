@@ -48,7 +48,7 @@ export const useStreamChat = () => {
         Sentry.captureException(error, {
           tags: { component: "useStreamChat" },
           extra: {
-            contrext:
+            context:
               "Ошибка при инициализации Stream Chat в useStreamChat хук",
             userId: user?.id,
             streamApiKey: STREAM_API_KEY ? "present" : "missing",
@@ -60,9 +60,12 @@ export const useStreamChat = () => {
     initChat();
 
     return () => {
-      if (chatClient) chatClient.disconnectUser();
+      if (chatClient) {
+        chatClient.disconnectUser().catch(console.error);
+        setChatClient(null);
+      }
     };
-  }, [tokenData, user, chatClient]);
+  }, [tokenData, user]);
 
   return {
     chatClient,

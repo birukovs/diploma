@@ -1,5 +1,5 @@
 import { UserButton, useUser } from "@clerk/clerk-react";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useSearchParams } from "react-router";
 import { useStreamChat } from "../hooks/useStreamChat";
 import PageLoader from "../components/PageLoader";
@@ -18,6 +18,7 @@ import {
 import { MessageCircle, PlusIcon, UsersIcon } from "lucide-react";
 import CustomChannelPreview from "../components/CustomChannelPreview";
 import UserList from "../components/UserList";
+import CustomChannelHeader from "../components/CustomChannelHeader";
 
 const HomePage = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -48,6 +49,11 @@ const HomePage = () => {
 
   const activeChannel = selectedChannel || urlChannel;
 
+  const handleSelectChannel = useCallback((channel) => {
+    setSelectedChannel(channel);
+    setSearchParams({ channel: channel.id });
+  }, [setSearchParams]);
+
   if (error) return <p>Что-то пошло не так</p>;
   if (isLoading || !chatClient) return <PageLoader />;
 
@@ -77,16 +83,20 @@ const HomePage = () => {
                 </div>
 
                 <ChannelList
-                  filters={{}}
+                  filters={{
+                    type: "messaging",
+                    $or: [
+                      { members: { $in: [chatClient.user.id] } },
+                      { discoverable: true },
+                    ],
+                  }}
                   options={{ state: true, watch: true }}
-                  onSelectChannel={setSelectedChannel}
+                  onSelectChannel={handleSelectChannel}
                   Preview={({ channel }) => (
                     <CustomChannelPreview
                       channel={channel}
                       activeChannel={activeChannel}
-                      setActiveChannel={(channel) =>
-                        setSearchParams({ channel: channel.id })
-                      }
+                      setActiveChannel={handleSelectChannel}
                     />
                   )}
                   List={(props) => (
@@ -109,7 +119,7 @@ const HomePage = () => {
                           <span>Личные сообщения</span>
                         </div>
                       </div>
-                      <UserList activeChannel={activeChannel} />
+                      <UserList activeChannel={activeChannel} setActiveChannel={handleSelectChannel} />
                     </div>
                   )}
                 />
@@ -118,15 +128,21 @@ const HomePage = () => {
           </div>
 
           <div className="chat-main">
-            <Channel channel={activeChannel}>
-              <Window>
-                {/* <CustomChannelHeader /> */}
-                <MessageList />
-                <MessageInput />
-              </Window>
+            {activeChannel ? (
+              <Channel channel={activeChannel}>
+                <Window>
+                  <CustomChannelHeader />
+                  <MessageList />
+                  <MessageInput />
+                </Window>
 
-              <Thread />
-            </Channel>
+                <Thread />
+              </Channel>
+            ) : (
+              <div className="flex h-full items-center justify-center text-gray-500">
+                Выберите канал, чтобы начать общение
+              </div>
+            )}
           </div>
         </div>
 
