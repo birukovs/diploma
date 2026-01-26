@@ -54,6 +54,21 @@
   /* Override Stream Chat icon background colors */
   --str-chat__icon-background: var(--rzd-red);
   --str-chat__attachment-icon-background: var(--rzd-red);
+  
+  /* Override all Stream Chat primary colors to red */
+  --str-chat__primary-color: var(--rzd-red) !important;
+  --str-chat__primary-color-alpha: rgba(226, 26, 26, 0.18) !important;
+  --str-chat__primary-surface-color: var(--rzd-red) !important;
+  --str-chat__primary-surface-color-low-emphasis: rgba(226, 26, 26, 0.15) !important;
+  --str-chat__active-primary-color: var(--rzd-red-dark) !important;
+  --str-chat__border-color-primary: var(--rzd-red) !important;
+  --str-chat__focus-border-color: var(--rzd-red) !important;
+  --str-chat__text-color-primary: var(--rzd-red) !important;
+  
+  /* Force disable any blue hover effects */
+  --str-chat__button-background-hover: linear-gradient(135deg, rgba(226, 26, 26, 0.15) 0%, rgba(226, 26, 26, 0.08) 100%) !important;
+  --str-chat__icon-color-hover: var(--rzd-red) !important;
+  --str-chat__icon-color: rgba(255, 255, 255, 0.80) !important;
 }
 
 
@@ -200,6 +215,47 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.30);
 }
 
+.str-chat__channel-preview-messenger:hover:not(.str-chat__channel-preview-messenger--active) .str-chat__avatar-status,
+.str-chat__channel-preview-messenger:hover:not(.str-chat__channel-preview-messenger--active) .str-chat__avatar-status svg,
+.str-chat__channel-preview-messenger:hover:not(.str-chat__channel-preview-messenger--active) .str-chat__avatar-status circle {
+  filter: none !important;
+  opacity: 1 !important;
+  color: inherit !important;
+  fill: inherit !important;
+  stroke: inherit !important;
+  visibility: visible !important;
+}
+
+/* Prevent avatar status from being colored on any hover */
+.str-chat__avatar-status,
+.str-chat__avatar-status svg,
+.str-chat__avatar-status circle,
+.str-chat__avatar-status path,
+.str-chat__avatar-status g,
+button:hover .str-chat__avatar-status,
+button:hover .str-chat__avatar-status svg,
+button:hover .str-chat__avatar-status circle,
+button:hover .str-chat__avatar-status path,
+button:hover .str-chat__avatar-status g {
+  color: inherit !important;
+  fill: inherit !important;
+  stroke: inherit !important;
+  filter: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Explicitly prevent red color on avatar status stroke */
+.str-chat__avatar-status svg {
+  stroke: currentColor !important;
+}
+
+svg[class*="avatar-status"] {
+  color: inherit !important;
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+
 .str-chat__channel-preview-messenger:hover::before {
   width: 3px;
 }
@@ -208,6 +264,13 @@
 .str-chat__typing-indicator {
   color: rgba(255, 255, 255, 0.75);
   opacity: 0.85;
+  background: transparent !important;
+}
+
+.str-chat__typing-indicator__wrapper,
+.str-chat__typing-indicator__text,
+.str-chat__typing-indicator div {
+  background: transparent !important;
 }
 
 
@@ -648,6 +711,15 @@
   border: 1px solid rgba(226, 26, 26, 0.55);
 }
 
+.create-channel-btn svg,
+.create-channel-btn path,
+.create-channel-btn:hover svg,
+.create-channel-btn:hover path {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+}
+
 .create-channel-btn:active {
   transform: translateY(-1px) scale(1.01);
 }
@@ -985,6 +1057,15 @@
   transform: translateX(4px);
 }
 
+.member-item:hover .str-chat__avatar-status,
+.member-item:hover .str-chat__avatar-status svg,
+.member-item:hover .str-chat__avatar-status path {
+  filter: none !important;
+  opacity: 1 !important;
+  color: inherit !important;
+  fill: inherit !important;
+}
+
 .member-checkbox {
   margin: 0;
   accent-color: var(--rzd-red);
@@ -1112,9 +1193,23 @@
 
 .str-chat__header-livestream,
 .str-chat__header {
-  background: rgba(255, 255, 255, 0.04) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  backdrop-filter: blur(18px);
+  background: transparent !important;
+  border-bottom: 1px solid rgba(226, 26, 26, 0.32) !important;
+  backdrop-filter: none !important;
+}
+
+/* Flatten all header containers to transparent */
+.str-chat__header,
+.str-chat__header-livestream,
+.str-chat__channel-header,
+.str-chat__header-livestream-left,
+.str-chat__header-livestream-right,
+.str-chat__header-livestream-center,
+.str-chat__header-livestream-left--title,
+.str-chat__header-livestream-left--subtitle {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 
@@ -1153,27 +1248,60 @@
 }
 
 .str-chat__message-simple__content {
-  background: rgba(255, 255, 255, 0.045) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: #0f1116 !important;
+  border: 1px solid rgba(226, 26, 26, 0.20) !important;
   border-radius: 14px !important;
   backdrop-filter: blur(14px);
 }
 
+/* Paint incoming message bubble wrapper dark to fill corners */
+.str-chat__message-simple:not(.str-chat__message-simple--me) .str-chat__message-bubble {
+  background: #0f1116 !important; 
+}
 
 .str-chat__message-simple--me .str-chat__message-simple__content {
-  background: rgba(226, 26, 26, 0.10) !important;
-  border: 1px solid rgba(226, 26, 26, 0.22) !important;
-  box-shadow: 0 0 0 1px rgba(226, 26, 26, 0.10);
+  background: var(--rzd-red) !important;
+  color: var(--rzd-white) !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 999px !important;
 }
 
 
-.str-chat__message-simple:hover .str-chat__message-simple__content {
-  background: rgba(255, 255, 255, 0.06) !important;
-  border-color: rgba(255, 255, 255, 0.12) !important;
+.str-chat__message-simple:not(.str-chat__message-simple--me):hover .str-chat__message-simple__content {
+  background: #0f1116 !important;
+  border-color: rgba(226, 26, 26, 0.35) !important;
+}
+.str-chat__message-simple:not(.str-chat__message-simple--me):hover .str-chat__message-bubble {
+  background: #0f1116 !important;
 }
 .str-chat__message-simple--me:hover .str-chat__message-simple__content {
-  background: rgba(226, 26, 26, 0.13) !important;
-  border-color: rgba(226, 26, 26, 0.28) !important;
+  background: var(--rzd-red-dark) !important;
+  border-color: transparent !important;
+}
+
+/* Ensure links and nested text in my messages stay readable on red */
+.str-chat__message-simple--me .str-chat__message-text,
+.str-chat__message-simple--me .str-chat__message-text-inner,
+.str-chat__message-simple--me .str-chat__message-text a {
+  color: var(--rzd-white) !important;
+}
+.str-chat__message-simple--me .str-chat__message-text a:hover {
+  color: var(--rzd-white) !important;
+  text-decoration-color: rgba(255, 255, 255, 0.85);
+}
+
+/* Fallback for other message variants */
+.str-chat__message--me .str-chat__message-text {
+  background: var(--rzd-red) !important;
+  color: var(--rzd-white) !important;
+  border: none !important;
+  border-radius: 999px !important;
+}
+
+/* Paint message bubble wrapper red to fill corners */
+.str-chat__message--me .str-chat__message-bubble {
+  background: var(--rzd-red) !important;
 }
 
 
@@ -1189,65 +1317,292 @@
 
 .str-chat__message-simple__meta,
 .str-chat__message-simple__timestamp,
-.str-chat__message-simple__actions {
-  color: rgba(255, 255, 255, 0.65) !important;
+.str-chat__message-simple__actions,
+.str-chat__message-metadata,
+.str-chat__message-metadata-text,
+.str-chat__message-simple-name,
+time.str-chat__message-simple-timestamp,
+span.str-chat__message-simple-name {
+  color: rgba(255, 255, 255, 0.50) !important;
+  background: transparent !important;
+  background-color: transparent !important;
 }
 
 
 .str-chat__message-input {
-  background: rgba(255, 255, 255, 0.035) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
-  backdrop-filter: blur(18px);
+  background: linear-gradient(180deg, rgba(15, 17, 22, 0.85) 0%, rgba(20, 24, 32, 0.90) 100%) !important;
+  border-top: 1px solid rgba(226, 26, 26, 0.20) !important;
+  backdrop-filter: blur(25px);
+  padding: 1rem 1.5rem !important;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(226, 26, 26, 0.08);
 }
 
+.str-chat__message-textarea-container,
+.str-chat__textarea {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
 
 .str-chat__textarea textarea,
 .str-chat__textarea textarea:focus,
 .str-chat__textarea textarea:active {
-  background: rgba(255, 255, 255, 0.06) !important;
-  color: rgba(255, 255, 255, 0.92) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  border-radius: 14px !important;
-  box-shadow: none !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 16px !important;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+  padding: 0.875rem 1.25rem !important;
+  font-size: 0.95rem !important;
+  line-height: 1.5 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none !important;
 }
 
 .str-chat__textarea textarea::placeholder {
-  color: rgba(255, 255, 255, 0.55) !important;
+  color: rgba(255, 255, 255, 0.45) !important;
+  font-weight: 400;
 }
 
 
 .str-chat__textarea:focus-within textarea {
-  border-color: rgba(226, 26, 26, 0.40) !important;
-  box-shadow: 0 0 0 3px rgba(226, 26, 26, 0.16) !important;
+  border-color: rgba(226, 26, 26, 0.35) !important;
+  box-shadow: 0 0 0 3px rgba(226, 26, 26, 0.08), inset 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  transform: translateY(-1px);
 }
 
 
 .str-chat__message-input button,
 .str-chat__icon-button,
-.str-chat__send-button {
-  color: rgba(255, 255, 255, 0.85) !important;
+.str-chat__send-button,
+.str-chat__message-actions-button,
+button[aria-label*="React"],
+button[aria-label*="Reply"],
+button[aria-label*="Thread"] {
+  color: rgba(255, 255, 255, 0.70) !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 10px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 40px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none !important;
+  opacity: 0.85;
+}
+
+/* Set default color for all button SVGs */
+.str-chat__message-input button svg,
+.str-chat__icon-button svg,
+.str-chat__message-actions-button svg,
+button[aria-label*="React"] svg,
+button[aria-label*="Reply"] svg,
+button[aria-label*="Thread"] svg,
+.str-chat__message-input button svg path,
+.str-chat__icon-button svg path,
+.str-chat__message-actions-button svg path,
+button[aria-label*="React"] svg path,
+button[aria-label*="Reply"] svg path,
+button[aria-label*="Thread"] svg path {
+  color: rgba(255, 255, 255, 0.70) !important;
+  fill: rgba(255, 255, 255, 0.70) !important;
+  stroke: rgba(255, 255, 255, 0.70) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Override all icon buttons and their hover states to red */
+.str-chat__icon-button:hover,
+button:hover svg,
+button:hover path,
+.str-chat__message-input button:hover,
+.str-chat__message-input button:hover svg,
+.str-chat__message-input button:hover path,
+.str-chat__message-actions-button:hover,
+.str-chat__message-actions-button:hover svg,
+.str-chat__message-actions-button:hover path,
+.str-chat__message-input .str-chat__icon-button:hover,
+.str-chat__message-input .str-chat__icon-button:hover svg,
+.str-chat__message-input .str-chat__icon-button:hover svg path,
+.str-chat__message-input .str-chat__icon-button:hover svg circle,
+.str-chat__message-input .str-chat__icon-button:hover svg rect {
+  color: var(--rzd-red) !important;
+  fill: var(--rzd-red) !important;
+  stroke: var(--rzd-red) !important;
+  background: rgba(226, 26, 26, 0.10) !important;
+  border: none !important;
+  transform: scale(1.15);
+  box-shadow: 0 0 20px rgba(226, 26, 26, 0.35) !important;
+  opacity: 1;
+}
+
+/* Message action buttons styling */
+.str-chat__message-actions-list button,
+.str-chat__message-reactions-list-button,
+.str-chat__message-reply-button,
+[class*="message-actions"] button {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 10px !important;
+  color: rgba(255, 255, 255, 0.70) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 8px 12px !important;
+  box-shadow: none !important;
+  opacity: 0.85;
+}
+
+.str-chat__message-actions-list button:hover,
+.str-chat__message-reactions-list-button:hover,
+.str-chat__message-reply-button:hover,
+[class*="message-actions"] button:hover {
+  color: var(--rzd-red) !important;
+  background: rgba(226, 26, 26, 0.10) !important;
+  border: none !important;
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(226, 26, 26, 0.35) !important;
+  opacity: 1;
+}
+
+.str-chat__message-actions-list button:hover svg,
+.str-chat__message-reactions-list-button:hover svg,
+.str-chat__message-reply-button:hover svg,
+[class*="message-actions"] button:hover svg {
+  color: var(--rzd-red) !important;
+  fill: var(--rzd-red) !important;
+  stroke: var(--rzd-red) !important;
 }
 
 .str-chat__send-button {
   background: linear-gradient(135deg, var(--rzd-red) 0%, var(--rzd-red-dark) 60%, var(--rzd-red-deep) 100%) !important;
-  border: 1px solid rgba(226, 26, 26, 0.35) !important;
+  border: 1px solid rgba(226, 26, 26, 0.45) !important;
   border-radius: 12px !important;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.30), 0 6px 14px rgba(226, 26, 26, 0.20);
+  box-shadow: 0 4px 12px rgba(226, 26, 26, 0.35), 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  padding: 10px !important;
+}
+
+.str-chat__send-button svg,
+.str-chat__send-button svg path {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
 }
 
 .str-chat__send-button:hover {
-  border-color: rgba(226, 26, 26, 0.55) !important;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.34), 0 8px 18px rgba(226, 26, 26, 0.26);
+  border-color: rgba(226, 26, 26, 0.65) !important;
+  box-shadow: 0 8px 20px rgba(226, 26, 26, 0.45), 0 4px 10px rgba(0, 0, 0, 0.3) !important;
+  transform: translateY(-2px) scale(1.05);
 }
+
 
 
 .str-chat__tooltip,
 .str-chat__message-actions-box,
-.str-chat__dropdown {
-  background: rgba(16, 20, 26, 0.92) !important;
-  border: 1px solid rgba(255, 255, 255, 0.10) !important;
-  color: rgba(255, 255, 255, 0.90) !important;
+.str-chat__dropdown,
+.str-chat__attachment-selector-actions-menu,
+.str-chat__dialog-menu,
+.str-chat__attachment-selector-menu {
+  background: #0f1116 !important;
+  border: 1px solid rgba(226, 26, 26, 0.25) !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45) !important;
   backdrop-filter: blur(18px);
+  border-radius: 12px !important;
+}
+
+/* Message actions text/link colors */
+.str-chat__message-actions-box button,
+.str-chat__dropdown-item,
+.str-chat__dropdown-item span,
+.str-chat__dropdown-item label,
+.str-chat__dropdown-item div,
+.str-chat__dialog-menu__button,
+.str-chat__attachment-selector-menu-button,
+.str-chat__attachment-selector-actions-menu button,
+.str-chat__attachment-list-item,
+.str-chat__attachment-list-item span,
+.str-chat__attachment-list-item div,
+.str-chat__attachment-list-item label,
+.str-chat__attachment-selector-menu-button span,
+.str-chat__attachment-selector-menu-button div {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.str-chat__dropdown-item,
+.str-chat__dialog-menu__button,
+.str-chat__attachment-selector-menu-button,
+.str-chat__attachment-selector-actions-menu button,
+.str-chat__attachment-list-item,
+.str-chat__message-actions-box button {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.str-chat__message-actions-box button:hover,
+.str-chat__dropdown-item:hover,
+.str-chat__dropdown-item:hover span,
+.str-chat__dropdown-item:hover label,
+.str-chat__dropdown-item:hover div,
+.str-chat__dialog-menu__button:hover,
+.str-chat__attachment-selector-menu-button:hover,
+.str-chat__attachment-selector-actions-menu button:hover,
+.str-chat__attachment-list-item:hover,
+.str-chat__attachment-list-item:hover span,
+.str-chat__attachment-list-item:hover div,
+.str-chat__attachment-list-item:hover label {
+  background: linear-gradient(135deg, #0f1116 0%, rgba(226, 26, 26, 0.08) 100%) !important;
+  color: rgba(255, 255, 255, 1) !important;
+  box-shadow: inset 0 0 15px rgba(226, 26, 26, 0.12), 0 4px 12px rgba(226, 26, 26, 0.15) !important;
+  transform: translateY(-1px);
+  border: none !important;
+  outline: none !important;
+}
+
+.str-chat__message-actions-box button:disabled,
+.str-chat__dropdown-item--disabled,
+.str-chat__dropdown-item--disabled span {
+  color: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Style message action icons - apply same style to all action icons */
+.str-chat__message-action-icon,
+.str-chat__message-action-icon svg,
+.str-chat__message-action-icon svg path,
+button[aria-label*="React"] svg,
+button[aria-label*="React"] svg path,
+button[aria-label*="Reply"] svg,
+button[aria-label*="Reply"] svg path,
+button[aria-label*="Thread"] svg,
+button[aria-label*="Thread"] svg path {
+  color: rgba(255, 255, 255, 0.85) !important;
+  fill: rgba(255, 255, 255, 0.85) !important;
+  stroke: rgba(255, 255, 255, 0.85) !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.str-chat__message-action-icon:hover,
+.str-chat__message-action-icon:hover svg,
+.str-chat__message-action-icon:hover svg path,
+button[aria-label*="React"]:hover svg,
+button[aria-label*="React"]:hover svg path,
+button[aria-label*="Reply"]:hover svg,
+button[aria-label*="Reply"]:hover svg path,
+button[aria-label*="Thread"]:hover svg,
+button[aria-label*="Thread"]:hover svg path {
+  color: var(--rzd-red) !important;
+  fill: var(--rzd-red) !important;
+  stroke: var(--rzd-red) !important;
+}
+
+.str-chat__message-actions-box button:hover .str-chat__message-action-icon,
+.str-chat__message-actions-box button:hover .str-chat__message-action-icon svg,
+.str-chat__message-actions-box button:hover .str-chat__message-action-icon svg path {
+  color: var(--rzd-red) !important;
+  fill: var(--rzd-red) !important;
+  stroke: var(--rzd-red) !important;
 }
 
 
@@ -1266,9 +1621,66 @@
   background: linear-gradient(180deg, rgba(226, 26, 26, 0.60) 0%, rgba(255, 255, 255, 0.20) 100%);
 }
 
-/* Remove white background from empty channel state */
-.str-chat__empty-channel {
+/* Remove white background from unread messages separator */
+.str-chat__unread-messages-separator {
   background: transparent !important;
+  color: rgba(255, 255, 255, 0.70) !important;
+  border: none !important;
+  padding: 0.75rem 1rem !important;
+  margin: 0.5rem 0 !important;
+}
+
+/* Dark theme for reactions menu */
+.str-chat__message-reactions-list,
+.str-chat__message-reactions-options,
+.str-chat__reaction-selector,
+[class*="message-reactions"] {
+  background: #0f1116 !important;
+  border: 1px solid rgba(226, 26, 26, 0.25) !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45) !important;
+  backdrop-filter: blur(18px);
+  border-radius: 12px !important;
+}
+
+.str-chat__message-reactions-list button,
+.str-chat__message-reactions-options button,
+.str-chat__reaction-selector button {
+  background: transparent !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.str-chat__message-reactions-list button:hover,
+.str-chat__message-reactions-options button:hover,
+.str-chat__reaction-selector button:hover {
+  background: linear-gradient(135deg, #0f1116 0%, rgba(226, 26, 26, 0.08) 100%) !important;
+  transform: scale(1.1);
+}
+
+/* Remove borders between messages */
+.str-chat__message-simple,
+.str-chat__message,
+.str-chat__li {
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+.str-chat__list {
+  border: none !important;
+}
+
+.str-chat__li:not(:last-child) {
+  border-bottom: none !important;
+}
+
+/* Remove borders from message inner elements */
+.str-chat__message-inner,
+.str-chat__message-inner * {
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
 }
 
 /* Dark menu for attachment selector */
@@ -1293,38 +1705,157 @@
 .str-chat__attachment-selector-menu-button,
 .str-chat__dialog-menu__button {
   color: rgba(255, 255, 255, 0.90) !important;
+  background: transparent !important;
 }
 
 .str-chat__attachment-selector-menu-button:hover,
 .str-chat__dialog-menu__button:hover {
-  background: rgba(255, 255, 255, 0.05) !important;
+  background: transparent !important;
   color: rgba(255, 255, 255, 1) !important;
+}
+
+.str-chat__attachment-selector-menu-button:hover .str-chat__attachment-selector-menu-button__icon,
+.str-chat__attachment-selector-actions-menu_upload-file-button:hover,
+button:hover .str-chat__attachment-selector-menu-button__icon,
+button:hover .str-chat__attachment-selector-actions-menu_upload-file-button {
+  background: var(--rzd-red-dark) !important;
+  background-color: var(--rzd-red-dark) !important;
+  box-shadow: 0 0 12px rgba(226, 26, 26, 0.50) !important;
+}
+
+.str-chat__attachment-selector-menu-button:hover .str-chat__attachment-selector-menu-button__icon svg,
+.str-chat__attachment-selector-actions-menu_upload-file-button:hover svg {
+  filter: brightness(1.2);
+}
+
+/* Ensure all menu item icons are red */
+.str-chat__attachment-selector-menu-button__icon,
+.str-chat__dialog-menu__button-icon {
+  background: var(--rzd-red) !important;
+  background-color: var(--rzd-red) !important;
 }
 
 /* Red icon on hover for attachment button */
 .str-chat__attachment-selector-button:hover svg,
 .str-chat__attachment-selector-button:hover path,
-.str-chat__attachment-selector-button:hover {
+.str-chat__attachment-selector-button:hover,
+.str-chat__attachment-selector-button svg:hover,
+.str-chat__attachment-selector-button path:hover {
   color: var(--rzd-red) !important;
   fill: var(--rzd-red) !important;
   stroke: var(--rzd-red) !important;
 }
 
+/* Plus action button: force red in all states */
+button[data-testid="attachment-action-button"],
+button[data-testid="attachment-action-button"]:hover,
+button[data-testid="attachment-action-button"]:focus {
+  color: var(--rzd-red) !important;
+  border-color: var(--rzd-red) !important;
+}
+
+button[data-testid="attachment-action-button"] svg,
+button[data-testid="attachment-action-button"] path,
+button[data-testid="attachment-action-button"] circle,
+button[data-testid="attachment-action-button"] line,
+button[data-testid="attachment-action-button"] polyline {
+  color: var(--rzd-red) !important;
+  stroke: var(--rzd-red) !important;
+  fill: transparent !important;
+}
+
+button[data-testid="attachment-action-button"]:hover svg,
+button[data-testid="attachment-action-button"]:hover path,
+button[data-testid="attachment-action-button"]:hover circle,
+button[data-testid="attachment-action-button"]:hover line,
+button[data-testid="attachment-action-button"]:hover polyline {
+  color: var(--rzd-red-dark) !important;
+  stroke: var(--rzd-red-dark) !important;
+}
+
+/* Force all SVG icons to red on hover, EXCEPT avatar status indicators */
+.str-chat__message-input svg:hover,
+.str-chat__message-input path:hover,
+.str-chat__message-input button:hover svg,
+.str-chat__message-input button:hover path {
+  color: var(--rzd-red) !important;
+  fill: var(--rzd-red) !important;
+  stroke: var(--rzd-red) !important;
+}
+
+/* Override red color for avatar status with highest specificity */
+.str-chat button:hover .str-chat__avatar-status circle,
+.str-chat button:hover .str-chat__avatar-status svg circle,
+.str-chat__channel-preview-messenger:hover .str-chat__avatar-status circle,
+.str-chat__channel-preview-messenger:hover .str-chat__avatar-status svg circle {
+  stroke: #06cf6c !important;
+  fill: #06cf6c !important;
+  color: #06cf6c !important;
+}
+
 /* Plus icon in input */
 .str-chat__icon--plus,
-.str-chat__icon--plus:hover {
+.str-chat__icon--plus svg,
+.str-chat__icon--plus path,
+button[data-testid="attachment-action-button"] svg,
+button[data-testid="attachment-action-button"] path {
   color: var(--rzd-red) !important;
+  fill: var(--rzd-red) !important;
+  stroke: var(--rzd-red) !important;
 }
 
-/* Red background for menu button icon */
-.str-chat__dialog-menu__button-icon {
+.str-chat__icon--plus:hover,
+.str-chat__icon--plus svg:hover,
+.str-chat__icon--plus path:hover,
+button[data-testid="attachment-action-button"]:hover svg,
+button[data-testid="attachment-action-button"]:hover path {
+  color: var(--rzd-red-dark) !important;
+  fill: var(--rzd-red-dark) !important;
+  stroke: var(--rzd-red-dark) !important;
+}
+
+/* Unified icon styling for all menu items (File, Poll, Location) */
+.str-chat__dialog-menu__button-icon,
+.str-chat__attachment-selector-menu-button__icon,
+.str-chat__attachment-selector-menu-button__icon svg,
+.str-chat__attachment-selector-actions-menu_upload-file-button {
   background: var(--rzd-red) !important;
+  color: var(--rzd-white) !important;
+  fill: var(--rzd-white) !important;
+  stroke: var(--rzd-white) !important;
+  width: 20px !important;
+  height: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 6px !important;
 }
 
-/* Remove white background from menu items */
-.str-chat__dialog-menu__button,
-.str-chat__attachment-selector-menu-button {
-  background: transparent !important;
+.str-chat__dialog-menu__button-icon svg,
+.str-chat__attachment-selector-menu-button__icon svg {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+.str-chat__dialog-menu__button:hover .str-chat__dialog-menu__button-icon,
+.str-chat__attachment-selector-menu-button:hover .str-chat__attachment-selector-menu-button__icon,
+.str-chat__attachment-selector-actions-menu_upload-file-button:hover,
+button:hover .str-chat__attachment-selector-actions-menu_upload-file-button,
+.str-chat__attachment-selector-actions-menu button:hover .str-chat__dialog-menu__button-icon,
+[class*="upload-file-button"]:hover [class*="button-icon"] {
+  background: var(--rzd-red-dark) !important;
+  box-shadow: 0 0 12px rgba(226, 26, 26, 0.50) !important;
+}
+
+.str-chat__dialog-menu__button:hover .str-chat__dialog-menu__button-icon svg,
+.str-chat__attachment-selector-menu-button:hover .str-chat__attachment-selector-menu-button__icon svg,
+.str-chat__attachment-selector-actions-menu_upload-file-button:hover svg,
+.str-chat__attachment-selector-actions-menu button:hover svg,
+[class*="upload-file-button"]:hover svg {
+  color: var(--rzd-white) !important;
+  fill: var(--rzd-white) !important;
+  stroke: var(--rzd-white) !important;
+  filter: brightness(1.2);
 }
 
 .str-chat__dialog-menu__button:first-child {
@@ -1357,13 +1888,26 @@ div.str-chat__attachment-selector-menu-button__icon {
 button.str-chat__message-input-flat [data-testid="attachment-action-button"],
 button[data-testid="attachment-action-button"],
 .str-chat__attachment-selector-button {
-  background: var(--rzd-red) !important;
+  background: #0f1116 !important;
+  border: 1px solid rgba(226, 26, 26, 0.25) !important;
   border-radius: 50% !important;
-  color: white !important;
+  color: rgba(255, 255, 255, 0.85) !important;
 }
 
 .str-chat__attachment-selector-button:hover {
-  background: var(--rzd-red-dark) !important;
+  background: #161820 !important;
+  border-color: rgba(226, 26, 26, 0.40) !important;
+}
+
+.str-chat__attachment-selector-button:hover svg,
+.str-chat__attachment-selector-button:hover path,
+.str-chat__attachment-selector-button:hover circle,
+.str-chat__attachment-selector-button svg:hover,
+.str-chat__attachment-selector-button path:hover,
+.str-chat__attachment-selector-button circle:hover {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
 }
 
 /* Force red background on the icon container with highest specificity */
@@ -1378,4 +1922,68 @@ button[data-testid="attachment-action-button"],
 .str-chat .str-chat__attachment-selector-menu-button__icon:hover {
   background: var(--rzd-red-dark) !important;
   background-color: var(--rzd-red-dark) !important;
+}
+
+/* Additional specificity for menu button hover */
+.str-chat__message-input .str-chat__attachment-selector-menu-button:hover .str-chat__attachment-selector-menu-button__icon,
+.str-chat__attachment-selector-menu-button:hover .str-chat__attachment-selector-menu-button__icon,
+button.str-chat__attachment-selector-menu-button:hover .str-chat__attachment-selector-menu-button__icon {
+  background: var(--rzd-red-dark) !important;
+  background-color: var(--rzd-red-dark) !important;
+}
+
+/* Deleted message styles */
+.str-chat__message--deleted {
+  background: transparent !important;
+}
+
+/* Deleted message containers: mine vs others */
+.str-chat__message--me.str-chat__message--deleted {
+  display: flex !important;
+  justify-content: flex-end !important;
+}
+
+.str-chat__message:not(.str-chat__message--me).str-chat__message--deleted {
+  display: inline-flex !important;
+  align-self: flex-start !important;
+  width: auto !important;
+  max-width: 75% !important;
+  margin: 0 !important;
+}
+
+.str-chat__message--deleted-inner {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 8px 12px !important;
+  border-radius: 999px !important;
+  width: auto !important;
+  max-width: 100% !important;
+  margin-left: 40px !important;
+  margin-bottom: 8px !important;
+}
+
+/* My deleted messages - red */
+.str-chat__message--me .str-chat__message--deleted-inner {
+  background: var(--rzd-red) !important;
+  color: white !important;
+}
+
+/* Other users' deleted messages - dark like regular incoming messages */
+.str-chat__message:not(.str-chat__message--me) .str-chat__message--deleted-inner {
+  background: #0f1116 !important;
+  color: white !important;
+}
+
+/* Read status checkmark - red */
+.str-chat__message-simple-status svg,
+.str-chat__message-status svg,
+.str-chat__message-simple-status path,
+.str-chat__message-status path {
+  fill: var(--rzd-red) !important;
+  stroke: var(--rzd-red) !important;
+}
+
+/* Status number - gray like metadata text */
+.str-chat__message-simple-status-number {
+  color: rgba(255, 255, 255, 0.65) !important;
 }

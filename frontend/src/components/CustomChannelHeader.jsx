@@ -64,7 +64,7 @@ const CustomChannelHeader = () => {
   };
 
   return (
-    <div className="h-14 border-b border-gray-200 flex items-center px-4 justify-between bg-white">
+    <div className="h-14 border-b border-red-500/50 flex items-center px-4 justify-between bg-transparent">
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-2">
           {channel.data?.private ? (
@@ -81,7 +81,7 @@ const CustomChannelHeader = () => {
             />
           )}
 
-          <span className="font-medium text-[#1D1C1D]">
+          <span className="font-medium text-white">
             {isDM
               ? otherUser?.user?.name || otherUser?.user?.id
               : channel.data?.id}
@@ -91,15 +91,15 @@ const CustomChannelHeader = () => {
 
       <div className="flex items-center gap-3">
         <button
-          className="flex items-center gap-2 hover:bg-[#121212] py-1 px-2 rounded"
+          className="flex items-center gap-2 bg-transparent hover:bg-transparent py-1 px-2 rounded"
           onClick={() => setShowMembers(true)}
         >
-          <UsersIcon className="size-5 text-[#616061]" />
-          <span className="text-sm text-[#616061]">{memberCount}</span>
+          <UsersIcon className="size-5 text-[#e21a1a]" />
+          <span className="text-sm text-white">{memberCount}</span>
         </button>
 
         <button
-          className="hover:bg-[#F8F8F8] p-1 rounded"
+          className="p-1 rounded hover:bg-transparent hover:border-transparent"
           onClick={handleVideoCall}
           title="Start Video Call"
         >
@@ -116,10 +116,10 @@ const CustomChannelHeader = () => {
         )}
 
         <button
-          className="hover:bg-[#F8F8F8] p-1 rounded"
+          className="p-1 rounded hover:bg-transparent hover:border-transparent"
           onClick={handleShowPinned}
         >
-          <PinIcon className="size-4 text-[#616061]" />
+          <PinIcon className="size-5 text-[#e21a1a]" />
         </button>
       </div>
       {showMembers && (

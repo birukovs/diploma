@@ -19,6 +19,8 @@ import { MessageCircle, PlusIcon, UsersIcon } from "lucide-react";
 import CustomChannelPreview from "../components/CustomChannelPreview";
 import UserList from "../components/UserList";
 import CustomChannelHeader from "../components/CustomChannelHeader";
+import { i18nInstance } from "../lib/translations";
+
 
 const HomePage = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -59,7 +61,7 @@ const HomePage = () => {
 
   return (
     <div className="chat-wrapper">
-      <Chat client={chatClient}>
+      <Chat client={chatClient} i18nInstance={i18nInstance}>
         <div className="chat-container">
           <div className="str-chat__channel-list">
             <div className="team-channel-list">
