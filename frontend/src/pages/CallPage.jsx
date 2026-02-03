@@ -10,11 +10,15 @@ import {
   StreamVideo,
   StreamVideoClient,
   StreamCall,
-  CallControls,
   SpeakerLayout,
   StreamTheme,
   CallingState,
   useCallStateHooks,
+  ToggleAudioPublishingButton,
+  ToggleVideoPublishingButton,
+  ScreenShareButton,
+  ReactionsButton,
+  CancelCallButton,
 } from "@stream-io/video-react-sdk";
 
 import "@stream-io/video-react-sdk/dist/css/styles.css";
@@ -93,6 +97,27 @@ const CallPage = () => {
   );
 };
 
+/**
+ * Custom call controls: screen share enabled, recording removed
+ */
+const CustomCallControls = () => {
+  return (
+    <div
+      className="str-video__call-controls"
+      data-ui="call-recording-hidden"
+      style={{ display: "flex", justifyContent: "center", gap: "8px", padding: "16px" }}
+    >
+      <ToggleAudioPublishingButton />
+      <ToggleVideoPublishingButton />
+      <span data-ui="call-screenshare-visible">
+        <ScreenShareButton />
+      </span>
+      <ReactionsButton />
+      <CancelCallButton />
+    </div>
+  );
+};
+
 const CallContent = () => {
   const { useCallCallingState } = useCallStateHooks();
 
@@ -104,7 +129,7 @@ const CallContent = () => {
   return (
     <StreamTheme>
       <SpeakerLayout />
-      <CallControls />
+      <CustomCallControls />
     </StreamTheme>
   );
 };

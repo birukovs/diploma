@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { useCallback } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Search } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import { useChatContext } from "stream-chat-react";
 import * as Sentry from "@sentry/react";
 import UserPreview from "./UserPreview";
+import { isSystemUser } from "../lib/userUtils";
 
 const UserList = ({ activeChannel, setActiveChannel }) => {
   const { client } = useChatContext();
@@ -17,10 +19,11 @@ const UserList = ({ activeChannel, setActiveChannel }) => {
         id: { $ne: client.user.id }
       },
       { name: 1 },
-      { limit: 20 }
+      { limit: 20, presence: true }
     );
 
-    const usersOnly = response.users.filter((user) => !user.id.startsWith("recording-"));
+    // Filter out system users (recording-*, egress-*, etc.)
+    const usersOnly = response.users.filter((user) => !isSystemUser(user));
 
     return usersOnly;
   }, [client]);
@@ -35,6 +38,59 @@ const UserList = ({ activeChannel, setActiveChannel }) => {
     enabled: !!client?.user,
     staleTime: 1000 * 60 * 5,
   });
+  const [presenceOverrides, setPresenceOverrides] = useState({});
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const usersState = useMemo(() => {
+    if (!users?.length) return [];
+    return users.map((user) => {
+      const onlineOverride = presenceOverrides[user.id];
+      if (onlineOverride === undefined) return user;
+      return { ...user, online: onlineOverride };
+    });
+  }, [users, presenceOverrides]);
+
+  const filteredUsers = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) return usersState;
+    const tokens = query.split(/\s+/).filter(Boolean);
+    return usersState.filter((user) => {
+      const haystack = [
+        user.name,
+        user.username,
+        user.first_name,
+        user.last_name,
+        user.id,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+      return tokens.every((token) => haystack.includes(token));
+    });
+  }, [searchQuery, usersState]);
+
+  useEffect(() => {
+    if (!client) return undefined;
+    const handlePresence = (event) => {
+      const nextUser =
+        event?.user ||
+        (event?.user_id ? client?.state?.users?.[event.user_id] : null);
+      const nextOnline = event?.online ?? nextUser?.online;
+      if (!nextUser?.id) return;
+      if (nextOnline === undefined) return;
+      setPresenceOverrides((prev) => {
+        if (prev[nextUser.id] === nextOnline) return prev;
+        return { ...prev, [nextUser.id]: nextOnline };
+      });
+    };
+
+    client.on("user.presence.changed", handlePresence);
+    client.on("user.updated", handlePresence);
+    return () => {
+      client.off("user.presence.changed", handlePresence);
+      client.off("user.updated", handlePresence);
+    };
+  }, [client]);
 
   const startDirectMessage = async (targetUser) => {
     if (!targetUser || !client?.user) return;
@@ -78,22 +134,36 @@ const UserList = ({ activeChannel, setActiveChannel }) => {
         Ошибка загрузки пользователей
       </div>
     );
-  if (!users.length)
+  if (!usersState.length)
     return (
       <div className="team-channel-list__message">Пользователи не найдены</div>
     );
 
   return (
-    <div className="team-channel-list__users">
-      {users.map((user) => (
-        <UserPreview
-          key={user.id}
-          user={user}
-          client={client}
-          activeChannel={activeChannel}
-          onSelectUser={startDirectMessage}
+    <div className="team-channel-list__users" data-ui="system-user-filtered">
+      <div className="user-search">
+        <Search className="user-search-icon" aria-hidden="true" />
+        <input
+          type="text"
+          className="user-search-input"
+          placeholder="Поиск по логину или имени"
+          value={searchQuery}
+          onChange={(event) => setSearchQuery(event.target.value)}
         />
-      ))}
+      </div>
+      {filteredUsers.length === 0 ? (
+        <div className="team-channel-list__message">Ничего не найдено</div>
+      ) : (
+        filteredUsers.map((user) => (
+          <UserPreview
+            key={user.id}
+            user={user}
+            client={client}
+            activeChannel={activeChannel}
+            onSelectUser={startDirectMessage}
+          />
+        ))
+      )}
     </div>
   );
 };

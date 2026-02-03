@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { StreamChat } from "stream-chat";
 import { useUser } from "@clerk/clerk-react";
 import { useQuery } from "@tanstack/react-query";
@@ -10,6 +10,7 @@ const STREAM_API_KEY = import.meta.env.VITE_STREAM_API_KEY;
 export const useStreamChat = () => {
   const { user } = useUser();
   const [chatClient, setChatClient] = useState(null);
+  const chatClientRef = useRef(null);
 
   console.log("useStreamChat: user", user);
 
@@ -27,6 +28,8 @@ export const useStreamChat = () => {
   console.log("token string:", tokenData?.token);
 
   useEffect(() => {
+    let cancelled = false;
+
     const initChat = async () => {
       if (!tokenData || !user) return;
 
@@ -37,11 +40,20 @@ export const useStreamChat = () => {
           name: user.fullName,
           image: user.profileImageUrl,
         }, "token:", tokenData.token);
-        await client.connectUser({
-          id: user.id,
-          name: user.fullName,
-          image: user.profileImageUrl,
-        }, tokenData.token);
+        await client.connectUser(
+          {
+            id: user.id,
+            name: user.fullName,
+            image: user.profileImageUrl,
+          },
+          tokenData.token,
+          { presence: true }
+        );
+        if (cancelled) {
+          client.disconnectUser().catch(console.error);
+          return;
+        }
+        chatClientRef.current = client;
         setChatClient(client);
       } catch (error) {
         console.log("Ошибка инициализации Stream Chat:", error);
@@ -60,10 +72,12 @@ export const useStreamChat = () => {
     initChat();
 
     return () => {
-      if (chatClient) {
-        chatClient.disconnectUser().catch(console.error);
-        setChatClient(null);
+      cancelled = true;
+      if (chatClientRef.current) {
+        chatClientRef.current.disconnectUser().catch(console.error);
+        chatClientRef.current = null;
       }
+      setChatClient(null);
     };
   }, [tokenData, user]);
 

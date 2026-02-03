@@ -1,0 +1,189 @@
+.clerk-card {
+  background: var(--rzd-bg-1);
+  border: 1px solid var(--border-weak);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.clerk-header-title {
+  color: var(--rzd-white);
+}
+
+.clerk-header-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.clerk-form-label {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.clerk-form-input {
+  background: var(--rzd-bg-2);
+  color: var(--rzd-white);
+  border: 1px solid var(--border-weak);
+}
+
+.clerk-form-input:focus {
+  outline: none;
+  border-color: var(--rzd-red);
+  box-shadow: 0 0 0 2px rgba(226, 26, 26, 0.25);
+}
+
+.clerk-primary-button {
+  background: var(--rzd-red);
+  color: var(--rzd-white);
+  border: none;
+  box-shadow: 0 10px 25px rgba(226, 26, 26, 0.25);
+}
+
+.clerk-primary-button:hover {
+  background: var(--rzd-red-dark);
+}
+
+.clerk-link {
+  color: var(--rzd-red);
+}
+
+.clerk-divider-line {
+  background: var(--border-mid);
+}
+
+.clerk-divider-text {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.clerk-social-button {
+  background: var(--rzd-bg-2);
+  color: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border-weak);
+}
+
+.clerk-social-button:hover {
+  border-color: var(--rzd-red);
+}
+
+/* Clerk default buttons (UserProfile / UserButton) */
+.cl-button,
+.cl-button__primary {
+  background: var(--rzd-red) !important;
+  color: var(--rzd-white) !important;
+  border: 1px solid var(--rzd-red) !important;
+  border-radius: 10px;
+  padding: 8px 14px;
+  min-height: 36px;
+  font-weight: 600;
+}
+
+.cl-button:hover,
+.cl-button__primary:hover {
+  background: var(--rzd-red-dark) !important;
+  border-color: var(--rzd-red-dark) !important;
+}
+
+.cl-button__secondary,
+.cl-button__neutral {
+  background: var(--rzd-bg-2) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+  border: 1px solid var(--border-mid) !important;
+  border-radius: 10px;
+  padding: 8px 14px;
+  min-height: 36px;
+  font-weight: 600;
+}
+
+.cl-button__secondary:hover,
+.cl-button__neutral:hover {
+  border-color: var(--rzd-red) !important;
+  color: rgba(255, 255, 255, 0.98) !important;
+}
+
+.cl-iconButton {
+  background: var(--rzd-bg-2) !important;
+  border: 1px solid var(--border-weak) !important;
+  border-radius: 10px;
+  width: 32px;
+  height: 32px;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.cl-iconButton:hover {
+  border-color: var(--rzd-red) !important;
+}
+
+/* Remove blue focus outlines / rings from Clerk containers */
+.cl-modal,
+.cl-card,
+.cl-userProfile,
+.cl-userProfilePage,
+.cl-userProfile__root,
+.cl-userButtonPopoverCard,
+.cl-userProfilePage__root {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: var(--border-weak) !important;
+}
+
+.cl-modal *:focus,
+.cl-card *:focus,
+.cl-userProfile *:focus,
+.cl-userProfilePage *:focus,
+.cl-userButtonPopoverCard *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove red background on user/avatar buttons */
+.cl-userButtonTrigger,
+.cl-userButtonAvatarBox,
+.cl-avatarBox {
+  background: var(--rzd-bg-2) !important;
+  border: 1px solid var(--border-weak) !important;
+  box-shadow: none !important;
+}
+
+.cl-userButtonTrigger:hover,
+.cl-userButtonAvatarBox:hover,
+.cl-avatarBox:hover {
+  border-color: var(--border-mid) !important;
+}
+
+/* Aggressive overrides for Clerk modal containers (remove blue frame) */
+.cl-rootBox,
+.cl-modalBackdrop,
+.cl-modalContent,
+.cl-userProfile-root,
+.cl-userProfile-rootBox,
+.cl-userProfilePage,
+.cl-userProfileCard,
+.cl-cardBox {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.cl-modalBackdrop {
+  background: rgba(0, 0, 0, 0.6) !important;
+}
+
+.cl-modalContent,
+.cl-userProfile-root,
+.cl-userProfilePage,
+.cl-userProfileCard,
+.cl-cardBox {
+  background: var(--rzd-bg-1) !important;
+}
+
+/* Prevent global hover rules from forcing red inside Clerk */
+.cl-rootBox button:hover svg,
+.cl-rootBox button:hover path,
+.cl-rootBox button:hover rect,
+.cl-rootBox button:hover circle,
+.cl-rootBox button:hover line,
+.cl-rootBox button:hover polyline {
+  color: inherit !important;
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+
+.cl-rootBox button:hover {
+  background: inherit !important;
+}

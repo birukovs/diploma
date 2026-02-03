@@ -1,6 +1,9 @@
 import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
+import "./styles/stream-chat-theme.css";
+import "./styles/polls.css";
+import "./styles/clerk-theme.css";
 import App from "./App.jsx";
 import { ClerkProvider } from "@clerk/clerk-react";
 import { ruRU } from "@clerk/localizations";
@@ -49,7 +52,30 @@ createRoot(document.getElementById("root")).render(
       publishableKey={PUBLISHABLE_KEY}
       localization={ruRU}
       appearance={{
-        variables: { fontFamily: "Manrope, system-ui, sans-serif" },
+        variables: {
+          fontFamily: "Manrope, system-ui, sans-serif",
+          colorPrimary: "var(--rzd-red)",
+          colorDanger: "var(--rzd-red)",
+          colorText: "rgba(255, 255, 255, 0.92)",
+          colorTextSecondary: "rgba(255, 255, 255, 0.72)",
+          colorBackground: "var(--rzd-bg-1)",
+          colorInputBackground: "var(--rzd-bg-2)",
+          colorInputText: "rgba(255, 255, 255, 0.92)",
+          colorNeutral: "var(--rzd-gray-300)",
+        },
+        elements: {
+          card: "clerk-card",
+          headerTitle: "clerk-header-title",
+          headerSubtitle: "clerk-header-subtitle",
+          formFieldLabel: "clerk-form-label",
+          formFieldInput: "clerk-form-input",
+          formButtonPrimary: "clerk-primary-button",
+          footerActionLink: "clerk-link",
+          dividerLine: "clerk-divider-line",
+          dividerText: "clerk-divider-text",
+          socialButtonsBlockButton: "clerk-social-button",
+          socialButtonsIconButton: "clerk-social-button",
+        },
       }}
     >
       <BrowserRouter>

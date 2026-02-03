@@ -4,21 +4,17 @@ import { useSearchParams } from "react-router";
 import { useStreamChat } from "../hooks/useStreamChat";
 import PageLoader from "../components/PageLoader";
 import CreateChannelModal from "../components/CreateChannelModal";
-import "../styles/stream-chat-theme.css";
-
-import {
-  Chat,
-  Channel,
-  ChannelList,
-  MessageList,
-  MessageInput,
-  Thread,
-  Window,
-} from "stream-chat-react";
+import { Chat, Channel, ChannelList, Window } from "stream-chat-react";
 import { MessageCircle, PlusIcon, UsersIcon } from "lucide-react";
 import CustomChannelPreview from "../components/CustomChannelPreview";
 import UserList from "../components/UserList";
 import CustomChannelHeader from "../components/CustomChannelHeader";
+import InlineMessageList from "../components/InlineMessageList";
+import InlineComposerInput from "../components/InlineComposerInput";
+import { InlineComposerProvider } from "../components/InlineComposerContext";
+import InlineMessageOptions from "../components/InlineMessageOptions";
+import InlineQuotedMessage from "../components/InlineQuotedMessage";
+import ChatMessage from "../components/ChatMessage";
 import { i18nInstance } from "../lib/translations";
 
 
@@ -40,7 +36,7 @@ const HomePage = () => {
   );
 
   const urlChannel = useMemo(() => {
-    if (chatClient) {
+    if (chatClient?.user?.id) {
       const channelId = searchParams.get("channel");
       if (channelId) {
         return chatClient.channel("messaging", channelId);
@@ -57,7 +53,7 @@ const HomePage = () => {
   }, [setSearchParams]);
 
   if (error) return <p>Что-то пошло не так</p>;
-  if (isLoading || !chatClient) return <PageLoader />;
+  if (isLoading || !chatClient || !chatClient.user?.id) return <PageLoader />;
 
   return (
     <div className="chat-wrapper">
@@ -131,14 +127,23 @@ const HomePage = () => {
 
           <div className="chat-main">
             {activeChannel ? (
-              <Channel channel={activeChannel}>
-                <Window>
-                  <CustomChannelHeader />
-                  <MessageList />
-                  <MessageInput />
-                </Window>
+              <Channel
+                channel={activeChannel}
+                Message={ChatMessage}
+                MessageOptions={InlineMessageOptions}
+                QuotedMessage={InlineQuotedMessage}
+              >
+                <InlineComposerProvider>
+                  <Window>
+                    <CustomChannelHeader />
+                    <InlineMessageList
+                      messageActions={["react", "reply", "edit", "pin", "delete"]}
+                    />
+                    <InlineComposerInput />
+                  </Window>
+                </InlineComposerProvider>
 
-                <Thread />
+                {/* Thread view removed to keep replies inline */}
               </Channel>
             ) : (
               <div className="flex h-full items-center justify-center text-gray-500">

@@ -1,0 +1,521 @@
+﻿.chat-row {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.chat-row.my {
+  justify-content: flex-end;
+  padding-left: 0;
+}
+
+.chat-row.other {
+  justify-content: flex-start;
+  padding-right: 0;
+}
+
+.chat-row-host {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  filter: none !important;
+  outline: none !important;
+}
+
+.chat-row-host::before,
+.chat-row-host::after {
+  content: none !important;
+  background: transparent !important;
+}
+
+.chat-actions-slot {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  z-index: 1;
+}
+
+.chat-row.my .chat-actions-slot {
+  margin-right: 6px;
+}
+
+.chat-row.other .chat-actions-slot {
+  margin-left: 6px;
+}
+
+.chat-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  padding-top: 0;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  position: relative;
+  z-index: 50;
+}
+
+.chat-row.other .chat-actions .str-chat__message-options {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 6px;
+}
+
+.chat-row:hover .chat-actions {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.chat-actions button {
+  font-size: 0;
+  line-height: 0;
+}
+
+.chat-actions svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.chat-actions .str-chat__message-reactions-button {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.chat-actions .str-chat__message-reactions-button:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.chat-message-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 70%;
+  z-index: 1;
+}
+
+.chat-row.my .chat-message-content {
+  align-items: flex-end;
+}
+
+.chat-bubble {
+  border-radius: 18px;
+  padding: 10px 12px;
+  position: relative;
+  overflow: visible;
+  outline: 2px solid transparent;
+  box-shadow: none;
+  filter: none;
+  pointer-events: auto;
+}
+
+.str-chat__message-bubble,
+.str-chat__message-simple__content {
+  overflow: visible !important;
+  pointer-events: auto;
+}
+
+/* Hide old overlay reactions - using new inline meta reactions instead */
+.inline-reactions-list {
+  display: none !important;
+}
+
+.chat-row.my .chat-bubble {
+  background: var(--rzd-red);
+  color: var(--rzd-white);
+}
+
+.chat-row.other .chat-bubble {
+  background: #1a1c22;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* Override bubble background for poll messages - isolate from bubble color */
+.chat-bubble .poll-card {
+  background: #1e2128 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.chat-row.my .chat-bubble .poll-card,
+.chat-row.other .chat-bubble .poll-card {
+  background: #1e2128 !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.chat-text {
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  pointer-events: auto;
+}
+
+.chat-text a {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  color: inherit;
+  pointer-events: auto;
+}
+
+/* Meta with reactions inline */
+.chat-meta {
+  margin-top: 4px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+
+.chat-meta.mine {
+  justify-content: flex-end;
+}
+
+.chat-meta.other {
+  justify-content: flex-start;
+}
+
+.chat-time {
+  opacity: 0.7;
+}
+
+.chat-meta-reactions {
+  display: inline-flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+  justify-content: flex-start;
+  white-space: nowrap;
+}
+
+.reaction-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.chat-meta-reaction {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 20px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(30, 33, 40, 0.75);
+  border: none;
+  box-shadow: none;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.chat-meta-reaction:hover {
+  background: rgba(30, 33, 40, 0.9);
+  transform: scale(1.05);
+}
+
+.chat-meta-reaction:active {
+  transform: scale(0.95);
+}
+
+.chat-meta-reaction-emoji {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.chat-meta-reaction-count {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Tooltip for reactions */
+.reaction-tooltip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease;
+  background: rgba(0, 0, 0, 0.85);
+  color: rgba(255, 255, 255, 0.95);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.reaction-wrap:hover .reaction-tooltip {
+  opacity: 1;
+}
+
+/* OLD OVERLAY REACTIONS - DISABLED (now using inline meta reactions) */
+
+/* Composer top divider killer - remove all possible dividers */
+.str-chat__message-input,
+.str-chat__message-input::before,
+.str-chat__message-input::after,
+.str-chat__input-flat,
+.str-chat__input-flat-wrapper,
+.str-chat__input-flat-wrapper::before,
+.str-chat__input-flat-wrapper::after,
+.str-chat__window,
+.str-chat__main-panel,
+.str-chat__main-panel-inner,
+.str-chat__channel,
+.str-chat__container,
+.str-chat__list,
+.str-chat__message-list,
+.str-chat__message-list-scroll,
+.str-chat__virtual-list {
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+
+.str-chat__message-input::before,
+.str-chat__message-input::after,
+.str-chat__input-flat-wrapper::before,
+.str-chat__input-flat-wrapper::after,
+.str-chat__list::before,
+.str-chat__list::after,
+.str-chat__message-list::before,
+.str-chat__message-list::after,
+.str-chat__message-list-scroll::before,
+.str-chat__message-list-scroll::after,
+.str-chat__window::before,
+.str-chat__window::after {
+  content: none !important;
+  display: none !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  mask-image: none !important;
+}
+
+/* Date separator line should blend into chat background */
+.str-chat__date-separator,
+.str-chat__date-separator-line {
+  border-color: var(--rzd-bg-0) !important;
+  background: var(--rzd-bg-0) !important;
+}
+
+/* Remove any gradient fade overlays at bottom of message list */
+.str-chat__list > *:last-child::after,
+.str-chat__message-list > *:last-child::after,
+.str-chat [class*="scroll"]::after,
+.str-chat [class*="scroll"]::before {
+  content: none !important;
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Extra aggressive - remove any separators/dividers in channel area */
+.str-chat__channel > *,
+.str-chat__main-panel > * {
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+/* Reaction picker popover styles (for adding reactions) */
+.inline-reactions-popover {
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.quick-reactions-bar {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.quick-reaction-button {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.quick-reaction-button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: scale(1.1);
+}
+
+.quick-reaction-button:active {
+  transform: scale(0.95);
+}
+
+.quick-reaction-emoji {
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========== ATTACHMENTS STYLES ========== */
+.chat-attachments {
+  margin-top: 8px;
+  max-width: 100%;
+  overflow: visible;
+  pointer-events: auto;
+}
+
+.chat-attachments img {
+  max-width: 100%;
+  border-radius: 12px;
+  display: block;
+  pointer-events: auto;
+}
+
+.chat-attachments .str-chat__message-attachment {
+  margin: 0;
+  max-width: 100%;
+}
+
+.chat-attachments .str-chat__message-attachment--image {
+  max-width: 280px;
+}
+
+.chat-attachments .str-chat__message-attachment--file {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chat-attachments .str-chat__message-attachment-file--item {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+/* ========== POLL STYLES ========== */
+/* Stream Chat poll component styles */
+.str-chat__poll,
+[data-poll-root],
+.poll-root {
+  display: none !important;
+}
+
+.chat-bubble .str-chat__poll,
+.chat-bubble [data-poll-root],
+.chat-bubble .poll-root {
+  display: none !important;
+}
+
+/* Legacy fallback poll styles */
+.chat-poll {
+  margin-top: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 12px;
+  min-width: 200px;
+}
+
+.chat-poll-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.chat-poll-icon {
+  font-size: 18px;
+}
+
+.chat-poll-question {
+  flex: 1;
+  word-break: break-word;
+}
+
+.chat-poll-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chat-poll-option {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  color: rgba(255, 255, 255, 0.92);
+  text-align: left;
+}
+
+.chat-poll-option:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.chat-poll-option:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.chat-poll-option--voted {
+  background: rgba(226, 26, 26, 0.15);
+  border: 1px solid rgba(226, 26, 26, 0.3);
+}
+
+.chat-poll-option-text {
+  flex: 1;
+}
+
+.chat-poll-option-check {
+  color: rgba(226, 26, 26, 0.9);
+  margin-left: 8px;
+}
+
+.chat-poll-option-count {
+  margin-left: 8px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+}

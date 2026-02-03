@@ -65,9 +65,15 @@
   --str-chat__focus-border-color: var(--rzd-red) !important;
   --str-chat__text-color-primary: var(--rzd-red) !important;
   
+    /* Force dark theme for all modals */
+    --str-chat__surface-color: rgba(15, 17, 22, 0.98) !important;
+    --str-chat__modal-background-color: rgba(15, 17, 22, 0.98) !important;
+    --str-chat__background-color: rgba(15, 17, 22, 0.98) !important;
+    --str-chat__text-color: rgba(255, 255, 255, 0.95) !important;
+  
   /* Force disable any blue hover effects */
   --str-chat__button-background-hover: linear-gradient(135deg, rgba(226, 26, 26, 0.15) 0%, rgba(226, 26, 26, 0.08) 100%) !important;
-  --str-chat__icon-color-hover: var(--rzd-red) !important;
+  --str-chat__icon-color-hover: rgba(255, 255, 255, 0.80) !important;
   --str-chat__icon-color: rgba(255, 255, 255, 0.80) !important;
 }
 
@@ -81,10 +87,6 @@
       rgba(226, 26, 26, 0.18) 0%,
       rgba(226, 26, 26, 0.08) 38%,
       transparent 70%
-    ),
-    radial-gradient(circle at 28% 78%,
-      rgba(176, 15, 27, 0.10) 0%,
-      transparent 62%
     ),
     radial-gradient(circle at 22% 22%,
       rgba(255, 255, 255, 0.06) 0%,
@@ -140,6 +142,7 @@
 
 .str-chat {
   height: 100%;
+  background: var(--rzd-bg-0);
 }
 
 
@@ -254,6 +257,15 @@ svg[class*="avatar-status"] {
   color: inherit !important;
   fill: currentColor !important;
   stroke: currentColor !important;
+}
+
+/* Prevent hover from changing avatar status colors */
+*:hover > .str-chat__avatar-status,
+*:hover > .str-chat__avatar > .str-chat__avatar-status,
+button:hover .str-chat__avatar .str-chat__avatar-status {
+  color: inherit !important;
+  fill: inherit !important;
+  stroke: inherit !important;
 }
 
 .str-chat__channel-preview-messenger:hover::before {
@@ -390,11 +402,11 @@ svg[class*="avatar-status"] {
   border-radius: 3px;
 }
 .create-channel-modal__form::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.20);
+  background: #1e2228;
   border-radius: 3px;
 }
 .create-channel-modal__form::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.28);
+  background: #282c34;
 }
 
 .form-group {
@@ -581,12 +593,12 @@ svg[class*="avatar-status"] {
   border-radius: 3px;
 }
 .team-channel-list__content::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(226, 26, 26, 0.55) 0%, rgba(255, 255, 255, 0.18) 100%);
+  background: #1e2228;
   border-radius: 3px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 .team-channel-list__content::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, rgba(226, 26, 26, 0.70) 0%, rgba(255, 255, 255, 0.24) 100%);
+  background: #282c34;
 }
 
 
@@ -818,9 +830,45 @@ svg[class*="avatar-status"] {
   position: relative;
 }
 
+.user-search {
+  padding: 0.25rem 0 0.75rem;
+  position: relative;
+}
+
+.user-search-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.75rem;
+  padding: 0.6rem 0.9rem 0.6rem 2.4rem;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.9rem;
+}
+
+.user-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.user-search-input:focus {
+  outline: none;
+  border-color: rgba(226, 26, 26, 0.45);
+  box-shadow: 0 0 0 2px rgba(226, 26, 26, 0.18);
+}
+
+.user-search-icon {
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: rgba(255, 255, 255, 0.55);
+  pointer-events: none;
+}
+
 .chat-main {
   flex: 1;
-  background: transparent;
+  background: var(--rzd-bg-0);
   border-radius: 0 2rem 2rem 0;
   overflow: hidden;
 }
@@ -1037,8 +1085,11 @@ svg[class*="avatar-status"] {
   border-radius: 3px;
 }
 .members-list::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.20);
+  background: #1e2228;
   border-radius: 3px;
+}
+.members-list::-webkit-scrollbar-thumb:hover {
+  background: #282c34;
 }
 .members-list .member-item {
   display: flex;
@@ -1224,7 +1275,14 @@ svg[class*="avatar-status"] {
 .str-chat__message-list,
 .str-chat__list,
 .str-chat__virtual-list {
+  background: var(--rzd-bg-0) !important;
+}
+
+
+/* Empty channel state - transparent background */
+.str-chat__empty-channel {
   background: transparent !important;
+  color: rgba(255, 255, 255, 0.6) !important;
 }
 
 
@@ -1242,99 +1300,165 @@ svg[class*="avatar-status"] {
 }
 
 
-.str-chat__message-simple__content,
-.str-chat__message-text-inner {
-  color: rgba(255, 255, 255, 0.92) !important;
-}
-
-.str-chat__message-simple__content {
-  background: #0f1116 !important;
-  border: 1px solid rgba(226, 26, 26, 0.20) !important;
-  border-radius: 14px !important;
-  backdrop-filter: blur(14px);
-}
-
-/* Paint incoming message bubble wrapper dark to fill corners */
-.str-chat__message-simple:not(.str-chat__message-simple--me) .str-chat__message-bubble {
-  background: #0f1116 !important; 
-}
-
-.str-chat__message-simple--me .str-chat__message-simple__content {
-  background: var(--rzd-red) !important;
-  color: var(--rzd-white) !important;
-  border: none !important;
-  box-shadow: none !important;
-  border-radius: 999px !important;
-}
-
-
-.str-chat__message-simple:not(.str-chat__message-simple--me):hover .str-chat__message-simple__content {
-  background: #0f1116 !important;
-  border-color: rgba(226, 26, 26, 0.35) !important;
-}
-.str-chat__message-simple:not(.str-chat__message-simple--me):hover .str-chat__message-bubble {
-  background: #0f1116 !important;
-}
-.str-chat__message-simple--me:hover .str-chat__message-simple__content {
-  background: var(--rzd-red-dark) !important;
-  border-color: transparent !important;
-}
-
-/* Ensure links and nested text in my messages stay readable on red */
-.str-chat__message-simple--me .str-chat__message-text,
-.str-chat__message-simple--me .str-chat__message-text-inner,
-.str-chat__message-simple--me .str-chat__message-text a {
-  color: var(--rzd-white) !important;
-}
-.str-chat__message-simple--me .str-chat__message-text a:hover {
-  color: var(--rzd-white) !important;
-  text-decoration-color: rgba(255, 255, 255, 0.85);
-}
-
-/* Fallback for other message variants */
-.str-chat__message--me .str-chat__message-text {
-  background: var(--rzd-red) !important;
-  color: var(--rzd-white) !important;
-  border: none !important;
-  border-radius: 999px !important;
-}
-
-/* Paint message bubble wrapper red to fill corners */
-.str-chat__message--me .str-chat__message-bubble {
-  background: var(--rzd-red) !important;
-}
-
-
-.str-chat__message-text a {
-  color: rgba(255, 255, 255, 0.92) !important;
-  text-decoration-color: rgba(226, 26, 26, 0.35);
-}
-.str-chat__message-text a:hover {
-  color: rgba(255, 255, 255, 1) !important;
-  text-decoration-color: rgba(226, 26, 26, 0.65);
-}
-
-
-.str-chat__message-simple__meta,
-.str-chat__message-simple__timestamp,
-.str-chat__message-simple__actions,
-.str-chat__message-metadata,
-.str-chat__message-metadata-text,
-.str-chat__message-simple-name,
-time.str-chat__message-simple-timestamp,
-span.str-chat__message-simple-name {
-  color: rgba(255, 255, 255, 0.50) !important;
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-
-.str-chat__message-input {
+.str-chat__message-input,
+[role="presentation"].str-chat__message-input {
   background: linear-gradient(180deg, rgba(15, 17, 22, 0.85) 0%, rgba(20, 24, 32, 0.90) 100%) !important;
-  border-top: 1px solid rgba(226, 26, 26, 0.20) !important;
+  border-top: none !important;
   backdrop-filter: blur(25px);
   padding: 1rem 1.5rem !important;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(226, 26, 26, 0.08);
+  box-shadow: none !important;
+}
+
+/* Message input in reply modal */
+[role="dialog"] .str-chat__message-input,
+[role="dialog"] [role="presentation"].str-chat__message-input {
+  padding: 8px 16px !important;
+  margin: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-top: none !important;
+  min-height: 0 !important;
+  align-self: stretch !important;
+  position: static !important;
+  z-index: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  height: auto !important;
+  flex: 0 0 auto !important;
+}
+
+/* Reply modal (Ответить на сообщение) */
+[role="dialog"][aria-labelledby]:has(.str-chat__message-input),
+[role="dialog"],
+.str-chat__thread,
+.str-chat__thread-container {
+  background: rgba(15, 17, 22, 0.98) !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  min-height: 180px !important;
+  border-radius: 18px !important;
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.25) !important;
+  overflow: visible !important;
+}
+
+/* All elements inside dialog */
+[role="dialog"] *,
+[role="dialog"] div,
+[role="dialog"] span,
+[role="dialog"] p {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Dialog header title */
+[role="dialog"] [id*="dialog-title"],
+[role="dialog"] h2,
+[role="dialog"] h3 {
+  color: rgba(255, 255, 255, 0.95) !important;
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;  
+  margin: 0 !important;
+  padding: 16px 24px !important;
+}
+
+/* Quoted/parent message card in reply modal */
+[role="dialog"] .str-chat__quoted-message-preview,
+[role="dialog"] .str-chat__parent-message-preview,
+[role="dialog"] [class*="quoted"],
+[role="dialog"] [class*="parent-message"],
+[role="dialog"] > div > div:first-child,
+.str-chat__message-input .str-chat__quoted-message-preview,
+.str-chat__message-input .str-chat__parent-message-preview {
+  background: rgba(255,255,255,0.07) !important;
+  border: 1.5px solid rgba(255,255,255,0.13) !important;
+  border-radius: 12px 12px 8px 8px !important;
+  padding: 12px 20px 8px 20px !important;
+  margin: 18px 18px 8px 18px !important;
+  width: auto !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+  font-size: 1.04rem !important;
+  font-weight: 500 !important;
+}
+
+[role="dialog"] .str-chat__quoted-message-preview *,
+[role="dialog"] .str-chat__parent-message-preview *,
+.str-chat__message-input .str-chat__quoted-message-preview *,
+.str-chat__message-input .str-chat__parent-message-preview * {
+  color: rgba(255, 255, 255, 0.85) !important;
+  background: transparent !important;
+}
+
+/* Attachment preview container in reply modal */
+.str-chat__message-input .str-chat__attachment-preview-list,
+[role="dialog"] .str-chat__attachment-preview-list {
+  display: flex !important;
+  gap: 8px !important;
+  padding: 8px 12px !important;
+  margin: 0 0 12px 0 !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Individual attachment preview items */
+.str-chat__message-input .str-chat__attachment-preview-item,
+[role="dialog"] .str-chat__attachment-preview-item {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  border-radius: 8px !important;
+  padding: 0 18px 18px 18px !important;
+  margin: 0 !important;
+}
+/* File icons in attachment preview */
+.str-chat__message-input .str-chat__attachment-preview-item svg,
+[role="dialog"] .str-chat__attachment-preview-item svg {
+  width: 32px !important;
+  height: 32px !important;
+  color: rgba(226, 26, 26, 0.90) !important;
+  fill: rgba(226, 26, 26, 0.90) !important;
+}
+
+/* Attachment text/filename */
+.str-chat__message-input .str-chat__attachment-preview-item span,
+[role="dialog"] .str-chat__attachment-preview-item span {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 0.875rem !important;
+}
+
+/* Delete button on attachments */
+.str-chat__message-input .str-chat__attachment-preview-item button,
+[role="dialog"] .str-chat__attachment-preview-item button {
+  background: rgba(226, 26, 26, 0.15) !important;
+  border-radius: 6px !important;
+  padding: 4px !important;
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  margin: 0 !important;
+}
+
+.str-chat__message-input .str-chat__attachment-preview-item button:hover,
+[role="dialog"] .str-chat__attachment-preview-item button:hover {
+  background: rgba(226, 26, 26, 0.35) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.str-chat__message-input .str-chat__attachment-preview-item button svg,
+[role="dialog"] .str-chat__attachment-preview-item button svg {
+  width: 14px !important;
+  height: 14px !important;
+  color: rgba(255, 255, 255, 0.90) !important;
+  fill: rgba(255, 255, 255, 0.90) !important;
 }
 
 .str-chat__message-textarea-container,
@@ -1343,11 +1467,57 @@ span.str-chat__message-simple-name {
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
+  position: relative !important;
+}
+
+.str-chat__message-textarea-container {
+  display: flex !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  align-self: center !important;
+}
+
+/* Message input wrapper - fix button positioning */
+.str-chat__message-input-inner,
+[role="dialog"] .str-chat__message-input-inner {
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  gap: 8px !important;
+  position: relative !important;
+}
+
+/* Attachment button (plus) */
+.str-chat__message-input [data-testid="attachment-action-button"],
+[role="dialog"] [data-testid="attachment-action-button"],
+.str-chat__message-input button[aria-label*="Attach"],
+[role="dialog"] button[aria-label*="Attach"] {
+  position: relative !important;
+  flex-shrink: 0 !important;
+  order: 0 !important;
+  margin: 0 !important;
+  align-self: center !important;
+  grid-column: 1 !important;
+}
+
+/* Send button */
+.str-chat__message-input .str-chat__send-button,
+[role="dialog"] .str-chat__send-button {
+  position: relative !important;
+  flex-shrink: 0 !important;
+  order: 0 !important;
+  margin: 0 !important;
+  margin-left: auto !important;
+  align-self: center !important;
+  grid-column: 3 !important;
 }
 
 .str-chat__textarea textarea,
 .str-chat__textarea textarea:focus,
-.str-chat__textarea textarea:active {
+.str-chat__textarea textarea:active,
+[role="dialog"] .str-chat__textarea textarea,
+[role="dialog"] .str-chat__textarea textarea:focus {
   background: rgba(255, 255, 255, 0.04) !important;
   color: rgba(255, 255, 255, 0.95) !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -1360,17 +1530,37 @@ span.str-chat__message-simple-name {
   outline: none !important;
 }
 
-.str-chat__textarea textarea::placeholder {
+.str-chat__textarea textarea::placeholder,
+[role="dialog"] .str-chat__textarea textarea::placeholder {
   color: rgba(255, 255, 255, 0.45) !important;
   font-weight: 400;
 }
 
 
-.str-chat__textarea:focus-within textarea {
+.str-chat__textarea:focus-within textarea,
+[role="dialog"] .str-chat__textarea:focus-within textarea {
   border-color: rgba(226, 26, 26, 0.35) !important;
   box-shadow: 0 0 0 3px rgba(226, 26, 26, 0.08), inset 0 2px 6px rgba(0, 0, 0, 0.15) !important;
   background: rgba(255, 255, 255, 0.06) !important;
-  transform: translateY(-1px);
+  transform: none !important;
+}
+
+/* Fix textarea container to not affect button positioning */
+.str-chat__message-input .str-chat__textarea,
+[role="dialog"] .str-chat__textarea {
+  flex: 1 !important;
+  min-width: 0 !important;
+  align-self: center !important;
+  display: flex !important;
+  grid-column: 2 !important;
+}
+
+.str-chat__message-input .str-chat__textarea textarea,
+[role="dialog"] .str-chat__textarea textarea {
+  min-height: 44px !important;
+  height: 44px !important;
+  max-height: 44px !important;
+  resize: none !important;
 }
 
 
@@ -1388,11 +1578,14 @@ button[aria-label*="Thread"] {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   min-width: 40px;
   min-height: 40px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   box-shadow: none !important;
   opacity: 0.85;
+  position: relative;
+  margin: 0;
+  flex-shrink: 0;
 }
 
 /* Set default color for all button SVGs */
@@ -1407,7 +1600,11 @@ button[aria-label*="Thread"] svg,
 .str-chat__message-actions-button svg path,
 button[aria-label*="React"] svg path,
 button[aria-label*="Reply"] svg path,
-button[aria-label*="Thread"] svg path {
+button[aria-label*="Thread"] svg path,
+.str-chat__message-input button svg circle,
+.str-chat__message-input button svg rect,
+.str-chat__icon-button svg circle,
+.str-chat__icon-button svg rect {
   color: rgba(255, 255, 255, 0.70) !important;
   fill: rgba(255, 255, 255, 0.70) !important;
   stroke: rgba(255, 255, 255, 0.70) !important;
@@ -1437,6 +1634,106 @@ button:hover path,
   transform: scale(1.15);
   box-shadow: 0 0 20px rgba(226, 26, 26, 0.35) !important;
   opacity: 1;
+}
+
+/* Message option circle buttons (reactions + menu) - unified look */
+.message-circle-action-button,
+.str-chat__message-actions-box-button,
+.str-chat__message-reactions-button {
+  width: var(--str-chat__message-options-button-size) !important;
+  height: var(--str-chat__message-options-button-size) !important;
+  min-width: var(--str-chat__message-options-button-size) !important;
+  min-height: var(--str-chat__message-options-button-size) !important;
+  padding: 0 !important;
+  border-radius: 9999px !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+  box-shadow: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+}
+
+.message-circle-action-button::before,
+.message-circle-action-button::after,
+.str-chat__message-actions-box-button::before,
+.str-chat__message-actions-box-button::after,
+.str-chat__message-reactions-button::before,
+.str-chat__message-reactions-button::after {
+  content: none !important;
+}
+
+.message-circle-action-button--no-border {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.message-circle-action-button--no-border:focus-visible {
+  outline: 2px solid rgba(226, 26, 26, 0.35) !important;
+  outline-offset: 2px;
+}
+
+.message-circle-action-button:hover,
+.str-chat__message-actions-box-button:hover,
+.str-chat__message-reactions-button:hover,
+.str-chat__message-options--active .message-circle-action-button,
+.str-chat__message-options--active .str-chat__message-actions-box-button,
+.str-chat__message-options--active .str-chat__message-reactions-button {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.message-circle-action-button:active,
+.str-chat__message-actions-box-button:active,
+.str-chat__message-reactions-button:active {
+  background: rgba(255, 255, 255, 0.12) !important;
+  transform: none !important;
+}
+
+.message-circle-action-button:focus-visible,
+.str-chat__message-actions-box-button:focus-visible,
+.str-chat__message-reactions-button:focus-visible {
+  outline: 2px solid rgba(226, 26, 26, 0.35) !important;
+  outline-offset: 2px;
+}
+
+.message-circle-action-button .str-chat__message-action-icon,
+.message-circle-action-button .str-chat__message-action-icon svg,
+.str-chat__message-actions-box-button .str-chat__message-action-icon,
+.str-chat__message-actions-box-button .str-chat__message-action-icon svg,
+.str-chat__message-reactions-button .str-chat__message-action-icon,
+.str-chat__message-reactions-button .str-chat__message-action-icon svg {
+  width: 18px;
+  height: 18px;
+  color: currentColor !important;
+  transform: none !important;
+}
+
+.message-circle-action-button .str-chat__message-action-icon svg,
+.str-chat__message-actions-box-button .str-chat__message-action-icon svg,
+.str-chat__message-reactions-button .str-chat__message-action-icon svg,
+.message-ellipsis-icon {
+  display: block !important;
+  overflow: visible !important;
+}
+
+.message-circle-action-button .str-chat__message-action-icon svg path,
+.message-circle-action-button .str-chat__message-action-icon svg circle,
+.str-chat__message-actions-box-button .str-chat__message-action-icon svg path,
+.str-chat__message-actions-box-button .str-chat__message-action-icon svg circle,
+.str-chat__message-reactions-button .str-chat__message-action-icon svg path,
+.str-chat__message-reactions-button .str-chat__message-action-icon svg circle {
+  stroke: currentColor !important;
+  fill: currentColor !important;
 }
 
 /* Message action buttons styling */
@@ -1567,6 +1864,43 @@ button:hover path,
   color: rgba(255, 255, 255, 0.25) !important;
 }
 
+/* Make menu items fully clickable across entire width */
+.str-chat__message-actions-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.str-chat__message-actions-list li {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.str-chat__message-actions-list-item,
+.str-chat__message-actions-box .str-chat__message-actions-list button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 10px !important;
+  width: 100% !important;
+  padding: 10px 12px !important;
+  cursor: pointer !important;
+  text-align: left !important;
+}
+
+.str-chat__message-actions-list-item svg,
+.str-chat__message-actions-box .str-chat__message-actions-list button svg {
+  pointer-events: none !important;
+  flex-shrink: 0 !important;
+}
+
+.str-chat__message-actions-list-item span,
+.str-chat__message-actions-box .str-chat__message-actions-list button span {
+  pointer-events: none !important;
+  flex: 1 !important;
+}
+
 /* Style message action icons - apply same style to all action icons */
 .str-chat__message-action-icon,
 .str-chat__message-action-icon svg,
@@ -1577,9 +1911,9 @@ button[aria-label*="Reply"] svg,
 button[aria-label*="Reply"] svg path,
 button[aria-label*="Thread"] svg,
 button[aria-label*="Thread"] svg path {
-  color: rgba(255, 255, 255, 0.85) !important;
-  fill: rgba(255, 255, 255, 0.85) !important;
-  stroke: rgba(255, 255, 255, 0.85) !important;
+  color: rgba(255, 255, 255, 0.70) !important;
+  fill: rgba(255, 255, 255, 0.70) !important;
+  stroke: rgba(255, 255, 255, 0.70) !important;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1605,6 +1939,54 @@ button[aria-label*="Thread"]:hover svg path {
   stroke: var(--rzd-red) !important;
 }
 
+/* Disable Location option in attachment menu */
+.str-chat__attachment-selector-actions-menu button[aria-label*="Location"],
+.str-chat__attachment-selector-actions-menu button[aria-label*="Местоположение"],
+.str-chat__attachment-selector-menu-button[aria-label*="Location"],
+.str-chat__attachment-selector-menu-button[aria-label*="Местоположение"],
+.str-chat__attachment-list-item[data-testid*="location"],
+.str-chat__attachment-list-item[data-testid*="geolocation"],
+.str-chat__dialog-menu__button[aria-label*="Location"],
+.str-chat__dialog-menu__button[aria-label*="Местоположение"] {
+  pointer-events: none !important;
+  cursor: not-allowed !important;
+  opacity: 0.55 !important;
+  filter: grayscale(100%) !important;
+}
+
+/* Completely hide Location option (remove from menu) */
+.str-chat__attachment-selector-actions-menu button[aria-label*="Location"],
+.str-chat__attachment-selector-actions-menu button[aria-label*="Местоположение"],
+.str-chat__attachment-selector-menu-button[aria-label*="Location"],
+.str-chat__attachment-selector-menu-button[aria-label*="Местоположение"],
+.str-chat__dialog-menu__button[aria-label*="Location"],
+.str-chat__dialog-menu__button[aria-label*="Местоположение"],
+.str-chat__attachment-list-item[data-testid*="location"],
+.str-chat__attachment-list-item[data-testid*="geolocation"] {
+  display: none !important;
+}
+
+/* Fallback: hide last item in attachment menus (Location) */
+.str-chat__attachment-selector-actions-menu > *:last-child,
+.str-chat__attachment-selector-actions-menu > button:last-child,
+.str-chat__attachment-selector-actions-menu > .str-chat__dialog-menu__button:last-child,
+.str-chat__dialog-menu > *:last-child,
+.str-chat__dialog-menu > button:last-child,
+.str-chat__attachment-selector-menu .str-chat__attachment-list-item:last-child {
+  display: none !important;
+}
+
+.str-chat__attachment-selector-actions-menu button[aria-label*="Location"]:hover,
+.str-chat__attachment-selector-actions-menu button[aria-label*="Местоположение"]:hover,
+.str-chat__attachment-selector-menu-button[aria-label*="Location"]:hover,
+.str-chat__attachment-selector-menu-button[aria-label*="Местоположение"]:hover,
+.str-chat__dialog-menu__button[aria-label*="Location"]:hover,
+.str-chat__dialog-menu__button[aria-label*="Местоположение"]:hover {
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
 
 .str-chat__main-panel ::-webkit-scrollbar {
   width: 8px;
@@ -1613,12 +1995,12 @@ button[aria-label*="Thread"]:hover svg path {
   background: rgba(255, 255, 255, 0.04);
 }
 .str-chat__main-panel ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(226, 26, 26, 0.45) 0%, rgba(255, 255, 255, 0.16) 100%);
+  background: #1e2228;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 .str-chat__main-panel ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, rgba(226, 26, 26, 0.60) 0%, rgba(255, 255, 255, 0.20) 100%);
+  background: #282c34;
 }
 
 /* Remove white background from unread messages separator */
@@ -1628,32 +2010,6 @@ button[aria-label*="Thread"]:hover svg path {
   border: none !important;
   padding: 0.75rem 1rem !important;
   margin: 0.5rem 0 !important;
-}
-
-/* Dark theme for reactions menu */
-.str-chat__message-reactions-list,
-.str-chat__message-reactions-options,
-.str-chat__reaction-selector,
-[class*="message-reactions"] {
-  background: #0f1116 !important;
-  border: 1px solid rgba(226, 26, 26, 0.25) !important;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45) !important;
-  backdrop-filter: blur(18px);
-  border-radius: 12px !important;
-}
-
-.str-chat__message-reactions-list button,
-.str-chat__message-reactions-options button,
-.str-chat__reaction-selector button {
-  background: transparent !important;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.str-chat__message-reactions-list button:hover,
-.str-chat__message-reactions-options button:hover,
-.str-chat__reaction-selector button:hover {
-  background: linear-gradient(135deg, #0f1116 0%, rgba(226, 26, 26, 0.08) 100%) !important;
-  transform: scale(1.1);
 }
 
 /* Remove borders between messages */
@@ -1667,6 +2023,8 @@ button[aria-label*="Thread"]:hover svg path {
 
 .str-chat__list {
   border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .str-chat__li:not(:last-child) {
@@ -1692,13 +2050,105 @@ button[aria-label*="Thread"]:hover svg path {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.50) !important;
 }
 
-/* Red icons for attachment menu */
+/* Poll/Quiz Modal Styling */
+.str-chat__modal,
+.str-chat__modal-wrapper,
+[role="dialog"],
+div[style*="background: rgb(255, 255, 255)"],
+div[style*="background-color: rgb(255, 255, 255)"],
+div[style*="background: white"],
+div[style*="background-color: white"] {
+  background: linear-gradient(165deg, rgba(15, 17, 22, 0.98) 0%, rgba(20, 24, 32, 0.98) 100%) !important;
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(226, 26, 26, 0.25) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6) !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* All text in modals */
+.str-chat__modal *,
+[role="dialog"] *,
+div[style*="background: rgb(255, 255, 255)"] *,
+div[style*="background-color: rgb(255, 255, 255)"] * {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Poll modal inputs and textareas */
+.str-chat__modal input,
+.str-chat__modal textarea,
+[role="dialog"] input,
+[role="dialog"] textarea {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  border-radius: 12px !important;
+  padding: 0.75rem 1rem !important;
+  min-width: 250px !important;
+  width: 100% !important;
+}
+
+.str-chat__modal input:focus,
+.str-chat__modal textarea:focus,
+[role="dialog"] input:focus,
+[role="dialog"] textarea:focus {
+  border-color: rgba(226, 26, 26, 0.5) !important;
+  box-shadow: 0 0 0 3px rgba(226, 26, 26, 0.15) !important;
+  outline: none !important;
+}
+
+/* Poll modal labels */
+.str-chat__modal label,
+[role="dialog"] label {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-weight: 500 !important;
+}
+
+/* Toggle switches in polls */
+.str-chat__modal input[type="checkbox"],
+[role="dialog"] input[type="checkbox"] {
+  accent-color: #e21a1a !important;
+}
+
+/* Poll modal buttons */
+.str-chat__modal button,
+[role="dialog"] button:not(.str-chat__send-button) {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: rgba(255, 255, 255, 0.90) !important;
+  border-radius: 10px !important;
+  padding: 0.65rem 1.5rem !important;
+  transition: all 0.3s ease !important;
+}
+
+.str-chat__modal button:hover,
+[role="dialog"] button:hover:not(.str-chat__send-button) {
+  background: rgba(226, 26, 26, 0.15) !important;
+  border-color: rgba(226, 26, 26, 0.4) !important;
+  color: rgba(255, 255, 255, 1) !important;
+  transform: translateY(-1px);
+}
+
+.str-chat__modal button[type="submit"],
+[role="dialog"] button[type="submit"] {
+  background: linear-gradient(135deg, #e21a1a 0%, #b00f1b 100%) !important;
+  border-color: rgba(226, 26, 26, 0.4) !important;
+  color: white !important;
+}
+
+.str-chat__modal button[type="submit"]:hover,
+[role="dialog"] button[type="submit"]:hover {
+  background: linear-gradient(135deg, #ff2626 0%, #e21a1a 100%) !important;
+  box-shadow: 0 4px 15px rgba(226, 26, 26, 0.4) !important;
+}
+
+/* Gray icons for attachment menu by default */
 .str-chat__attachment-selector-menu-button__icon svg,
 .str-chat__attachment-selector-menu-button__icon path,
 .str-chat__attachment-selector-menu-button__icon {
-  color: var(--rzd-red) !important;
-  fill: var(--rzd-red) !important;
-  stroke: var(--rzd-red) !important;
+  color: rgba(255, 255, 255, 0.70) !important;
+  fill: rgba(255, 255, 255, 0.70) !important;
+  stroke: rgba(255, 255, 255, 0.70) !important;
 }
 
 /* Menu item text color */
@@ -1710,8 +2160,11 @@ button[aria-label*="Thread"]:hover svg path {
 
 .str-chat__attachment-selector-menu-button:hover,
 .str-chat__dialog-menu__button:hover {
-  background: transparent !important;
+  /* Match hover styling with Poll item */
+  background: linear-gradient(135deg, #0f1116 0%, rgba(226, 26, 26, 0.08) 100%) !important;
   color: rgba(255, 255, 255, 1) !important;
+  box-shadow: inset 0 0 15px rgba(226, 26, 26, 0.12), 0 4px 12px rgba(226, 26, 26, 0.15) !important;
+  transform: translateY(-1px);
 }
 
 .str-chat__attachment-selector-menu-button:hover .str-chat__attachment-selector-menu-button__icon,
@@ -1783,6 +2236,14 @@ button[data-testid="attachment-action-button"]:hover polyline {
   stroke: var(--rzd-red) !important;
 }
 
+/* Keep user list presence dot color tied to actual status (no hover override) */
+.str-chat__channel-preview-messenger .user-status-dot,
+.str-chat__channel-preview-messenger:hover .user-status-dot {
+  color: var(--status-color) !important;
+  fill: var(--status-color) !important;
+  stroke: var(--status-color) !important;
+}
+
 /* Override red color for avatar status with highest specificity */
 .str-chat button:hover .str-chat__avatar-status circle,
 .str-chat button:hover .str-chat__avatar-status svg circle,
@@ -1791,6 +2252,20 @@ button[data-testid="attachment-action-button"]:hover polyline {
   stroke: #06cf6c !important;
   fill: #06cf6c !important;
   color: #06cf6c !important;
+}
+
+/* Offline status on hover - keep gray */
+.str-chat button:hover .str-chat__avatar-status[offline] circle,
+.str-chat button:hover .str-chat__avatar-status.offline circle,
+.str-chat button:hover .str-chat__avatar-status[offline] svg circle,
+.str-chat button:hover .str-chat__avatar-status.offline svg circle,
+.str-chat__channel-preview-messenger:hover .str-chat__avatar-status[offline] circle,
+.str-chat__channel-preview-messenger:hover .str-chat__avatar-status.offline circle,
+.str-chat__channel-preview-messenger:hover .str-chat__avatar-status[offline] svg circle,
+.str-chat__channel-preview-messenger:hover .str-chat__avatar-status.offline svg circle {
+  stroke: #9ea4ae !important;
+  fill: #9ea4ae !important;
+  color: #9ea4ae !important;
 }
 
 /* Plus icon in input */
@@ -1863,7 +2338,10 @@ button:hover .str-chat__attachment-selector-actions-menu_upload-file-button,
 }
 
 .str-chat__dialog-menu__button:first-child:hover {
-  background: rgba(255, 255, 255, 0.05) !important;
+  /* Remove grey highlight; match poll/file hover */
+  background: linear-gradient(135deg, #0f1116 0%, rgba(226, 26, 26, 0.08) 100%) !important;
+  box-shadow: inset 0 0 15px rgba(226, 26, 26, 0.12), 0 4px 12px rgba(226, 26, 26, 0.15) !important;
+  transform: translateY(-1px);
 }
 
 /* Red background for attachment selector button icon area */
@@ -1986,4 +2464,2245 @@ button.str-chat__attachment-selector-menu-button:hover .str-chat__attachment-sel
 /* Status number - gray like metadata text */
 .str-chat__message-simple-status-number {
   color: rgba(255, 255, 255, 0.65) !important;
+}
+
+/* Force dark palette for Stream Chat modals (e.g., poll creation) via theme variables */
+.str-chat {
+  --str-chat__surface-color: rgba(15, 17, 22, 0.97);
+  --str-chat__modal-background-color: rgba(15, 17, 22, 0.97);
+  --str-chat__background-color: rgba(15, 17, 22, 0.97);
+  --str-chat__text-color: rgba(245, 245, 245, 0.95);
+  --str-chat__primary-color: var(--rzd-red);
+}
+
+.str-chat .str-chat__modal,
+.str-chat .str-chat__modal *,
+.str-chat__modal-header,
+div.str-chat__modal-header,
+.str-chat__geolocation-modal,
+.str-chat__geolocation-modal * {
+  background-color: rgba(15, 17, 22, 0.97) !important;
+  color: rgba(245, 245, 245, 0.95) !important;
+}
+
+/* Geolocation modal specific */
+.str-chat__geolocation-modal,
+div[class*="geolocation"],
+div[class*="location-modal"] {
+  background: rgba(15, 17, 22, 0.97) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 16px !important;
+  padding: 1.5rem !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55) !important;
+}
+
+.str-chat__geolocation-modal h2,
+.str-chat__geolocation-modal h3,
+div[class*="geolocation"] h2,
+div[class*="geolocation"] h3,
+div[class*="location-modal"] h2,
+div[class*="location-modal"] h3 {
+  color: rgba(245, 245, 245, 0.95) !important;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 1rem !important;
+}
+
+.str-chat__geolocation-modal label,
+div[class*="geolocation"] label,
+div[class*="location-modal"] label {
+  color: rgba(245, 245, 245, 0.85) !important;
+  font-weight: 500 !important;
+  margin-bottom: 0.5rem !important;
+  display: block !important;
+}
+
+/* Modal header specific styles */
+.str-chat__modal-header,
+div.str-chat__modal-header,
+.str-chat .str-chat__modal-header,
+[role="dialog"] > div:first-child,
+.str-chat__modal > div:first-child {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  padding: 1rem 1.25rem !important;
+  margin-top: 0 !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+}
+
+.str-chat__modal-header h2,
+.str-chat__modal-header h3,
+.str-chat__modal-header h4,
+div.str-chat__modal-header h2,
+div.str-chat__modal-header h3,
+div.str-chat__modal-header h4,
+.str-chat__modal-header *,
+div.str-chat__modal-header * {
+  color: rgba(245, 245, 245, 0.95) !important;
+  margin: 0 !important;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  flex: 1 !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  display: inline !important;
+}
+
+.str-chat .str-chat__modal div[style*="background"],
+.str-chat .str-chat__modal div[style*="background-color"],
+.str-chat .str-chat__modal div[style*="rgb(255, 255, 255)"],
+.str-chat .str-chat__modal div[style*="white"],
+.str-chat [role="dialog"] div[style*="background"],
+.str-chat [role="dialog"] div[style*="background-color"],
+.str-chat [role="dialog"] div[style*="rgb(255, 255, 255)"],
+.str-chat [role="dialog"] div[style*="white"] {
+  background-color: rgba(15, 17, 22, 0.97) !important;
+  color: rgba(245, 245, 245, 0.95) !important;
+}
+
+/* Hide scrollbar inside Stream Chat modals (poll form) */
+.str-chat .str-chat__modal,
+.str-chat [role="dialog"],
+.str-chat [role="dialog"] *,
+.str-chat [class*="rf-modal"],
+.str-chat [class*="rf-modal"] * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.str-chat .str-chat__dialog__body,
+.str-chat .str-chat__dialog__body * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.str-chat .str-chat__dialog__body {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+}
+
+[role="dialog"] .str-chat__quoted-message-preview,
+[role="dialog"] .str-chat__parent-message-preview,
+[role="dialog"] [class*="quoted"],
+[role="dialog"] [class*="parent-message"] {
+  order: 1 !important;
+}
+
+[role="dialog"] .str-chat__message-input {
+  order: 2 !important;
+  background: rgba(15, 17, 22, 0.95) !important;
+  border-top: 1px solid rgba(226, 26, 26, 0.20) !important;
+}
+
+.str-chat .str-chat__modal::-webkit-scrollbar,
+.str-chat [role="dialog"]::-webkit-scrollbar,
+.str-chat [role="dialog"] *::-webkit-scrollbar,
+.str-chat [class*="rf-modal"]::-webkit-scrollbar,
+.str-chat [class*="rf-modal"] *::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
+.str-chat .str-chat__dialog__body::-webkit-scrollbar,
+.str-chat .str-chat__dialog__body *::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
+/* Make poll checkboxes visible as toggles */
+.str-chat .str-chat__modal input[type="checkbox"],
+.str-chat [role="dialog"] input[type="checkbox"] {
+  appearance: none !important;
+  width: 44px !important;
+  height: 24px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(245, 245, 245, 0.25) !important;
+  background: rgba(245, 245, 245, 0.08) !important;
+  position: relative !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  vertical-align: middle;
+}
+
+.str-chat .str-chat__modal input[type="checkbox"]::after,
+.str-chat [role="dialog"] input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(245, 245, 245, 0.9);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.str-chat .str-chat__modal input[type="checkbox"]:checked,
+.str-chat [role="dialog"] input[type="checkbox"]:checked {
+  background: rgba(226, 26, 26, 0.75) !important;
+  border-color: rgba(226, 26, 26, 0.9) !important;
+}
+
+.str-chat .str-chat__modal input[type="checkbox"]:checked::after,
+.str-chat [role="dialog"] input[type="checkbox"]:checked::after {
+  transform: translateX(20px);
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.str-chat .str-chat__modal input[type="checkbox"]:focus-visible,
+.str-chat [role="dialog"] input[type="checkbox"]:focus-visible {
+  outline: 2px solid rgba(226, 26, 26, 0.6) !important;
+  outline-offset: 2px !important;
+}
+
+/* Stream Chat switch (label/input + switch div + handle) */
+.str-chat .str-chat__form__switch-field__switch {
+  width: 44px !important;
+  height: 24px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(245, 245, 245, 0.22) !important;
+  background: rgba(245, 245, 245, 0.08) !important;
+  position: relative;
+  transition: all 0.2s ease !important;
+}
+
+.str-chat .str-chat__form__switch-field__switch-handle {
+  width: 18px !important;
+  height: 18px !important;
+  border-radius: 50% !important;
+  background: rgba(245, 245, 245, 0.9) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+  position: absolute !important;
+  top: 3px;
+  left: 3px;
+  transition: all 0.2s ease !important;
+}
+
+.str-chat input[type="checkbox"]:checked + .str-chat__form__switch-field__switch,
+.str-chat .str-chat__form__switch-field--checked .str-chat__form__switch-field__switch {
+  background: rgba(226, 26, 26, 0.75) !important;
+  border-color: rgba(226, 26, 26, 0.9) !important;
+}
+
+.str-chat input[type="checkbox"]:checked + .str-chat__form__switch-field__switch .str-chat__form__switch-field__switch-handle,
+.str-chat .str-chat__form__switch-field--checked .str-chat__form__switch-field__switch-handle {
+  transform: translateX(20px);
+  background: rgba(255, 255, 255, 0.98) !important;
+}
+
+.str-chat input[type="checkbox"]:focus-visible + .str-chat__form__switch-field__switch {
+  outline: 2px solid rgba(226, 26, 26, 0.6) !important;
+  outline-offset: 2px !important;
+}
+/* Ensure back/close buttons stay visible */
+.str-chat .str-chat__modal button[aria-label*="Back"],
+.str-chat .str-chat__modal button[aria-label*="Назад"],
+.str-chat .str-chat__modal button[aria-label*="Close"],
+.str-chat .str-chat__modal button[data-testid*="back"],
+.str-chat .str-chat__modal button[data-testid*="close"],
+.str-chat [role="dialog"] button[aria-label*="Back"],
+.str-chat [role="dialog"] button[aria-label*="Назад"],
+.str-chat [role="dialog"] button[aria-label*="Close"],
+.str-chat [role="dialog"] button[data-testid*="back"],
+.str-chat [role="dialog"] button[data-testid*="close"] {
+  color: rgba(245, 245, 245, 0.95) !important;
+  border: 1px solid rgba(245, 245, 245, 0.35) !important;
+  background: rgba(255, 255, 255, 0.10) !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0.4rem 0.85rem !important;
+  min-height: 38px;
+  border-radius: 999px !important;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+}
+
+.str-chat .str-chat__modal button[aria-label*="Back"] svg,
+.str-chat .str-chat__modal button[aria-label*="Назад"] svg,
+.str-chat .str-chat__modal button[aria-label*="Close"] svg,
+.str-chat [role="dialog"] button[aria-label*="Back"] svg,
+.str-chat [role="dialog"] button[aria-label*="Назад"] svg,
+.str-chat [role="dialog"] button[aria-label*="Close"] svg {
+  color: rgba(245, 245, 245, 0.95) !important;
+  stroke: rgba(245, 245, 245, 0.95) !important;
+  fill: rgba(245, 245, 245, 0.95) !important;
+}
+
+.str-chat .str-chat__modal button[aria-label*="Back"]:hover,
+.str-chat .str-chat__modal button[aria-label*="Назад"]:hover,
+.str-chat .str-chat__modal button[aria-label*="Close"]:hover,
+.str-chat [role="dialog"] button[aria-label*="Back"]:hover,
+.str-chat [role="dialog"] button[aria-label*="Назад"]:hover,
+.str-chat [role="dialog"] button[aria-label*="Close"]:hover {
+  background: rgba(226, 26, 26, 0.18) !important;
+  border-color: rgba(226, 26, 26, 0.5) !important;
+  box-shadow: 0 6px 16px rgba(226, 26, 26, 0.28) !important;
+}
+
+/* Close (X) button in modal header */
+.str-chat .str-chat__modal-header__close-button,
+.str-chat__modal-header button[aria-label*="Close"],
+.str-chat__modal-header button[aria-label*="close"],
+[role="dialog"] > div:first-child button:last-child {
+  position: relative !important;
+  width: 28px !important;
+  height: 36px !important;
+  min-width: 28px !important;
+  min-height: 36px !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(245, 245, 245, 0.35) !important;
+  background: rgba(255, 255, 255, 0.10) !important;
+  color: rgba(245, 245, 245, 0.95) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+  transition: all 0.2s ease !important;
+  flex-shrink: 0 !important;
+  margin-left: auto !important;
+}
+
+.str-chat .str-chat__modal-header__close-button::before,
+.str-chat .str-chat__modal-header__close-button::after {
+  content: "" !important;
+  position: absolute !important;
+  width: 12px !important;
+  height: 2px !important;
+  background: currentColor !important;
+  border-radius: 999px !important;
+}
+
+.str-chat .str-chat__modal-header__close-button::before {
+  transform: rotate(45deg) !important;
+}
+
+.str-chat .str-chat__modal-header__close-button::after {
+  transform: rotate(-45deg) !important;
+}
+
+.str-chat .str-chat__modal-header__close-button:hover,
+.str-chat__modal-header button[aria-label*="Close"]:hover,
+.str-chat__modal-header button[aria-label*="close"]:hover,
+[role="dialog"] > div:first-child button:last-child:hover {
+  background: rgba(226, 26, 26, 0.18) !important;
+  border-color: rgba(226, 26, 26, 0.5) !important;
+  color: rgba(255, 255, 255, 1) !important;
+  box-shadow: 0 6px 16px rgba(226, 26, 26, 0.28) !important;
+}
+
+/* Poll message bubble styling inside chat */
+.str-chat .str-chat__message-bubble:has(.str-chat__poll),
+.str-chat .str-chat__message-bubble:has([class*="rf-poll"]),
+.str-chat .str-chat__message-bubble:has(.rf-poll) {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* Location message bubble styling inside chat */
+.str-chat .str-chat__message-bubble:has([class*="location"]),
+.str-chat .str-chat__message-bubble:has([class*="geolocation"]) {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.str-chat .str-chat__message .str-chat__poll,
+.str-chat .str-chat__message .str-chat__poll-card,
+.str-chat .str-chat__message [class*="rf-poll"],
+.str-chat .str-chat__message .rf-poll-card,
+.str-chat .str-chat__message .rf-poll {
+  background: linear-gradient(145deg, #0f1116 0%, #161b24 100%) !important;
+  border: none !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45) !important;
+  color: rgba(245, 245, 245, 0.95) !important;
+  border-radius: 14px !important;
+  padding: 14px 16px !important;
+  overflow: hidden;
+  outline: none !important;
+  margin-top: 10px;
+
+/* Location message card styling */
+.str-chat .str-chat__message [class*="location"],
+.str-chat .str-chat__message [class*="geolocation"],
+.str-chat .str-chat__message [data-testid*="location"],
+.str-chat .str-chat__message [data-testid*="geolocation"] {
+  background: linear-gradient(145deg, #0f1116 0%, #161b24 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45) !important;
+  color: rgba(245, 245, 245, 0.95) !important;
+  border-radius: 14px !important;
+  padding: 14px 16px !important;
+  outline: none !important;
+}
+
+/* Flatten nested location card layers */
+.str-chat .str-chat__message [class*="location"] [class*="card"],
+.str-chat .str-chat__message [class*="geolocation"] [class*="card"] {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: none !important;
+}
+
+/* Location action button */
+.str-chat .str-chat__message [class*="location"] button,
+.str-chat .str-chat__message [class*="geolocation"] button {
+  background: rgba(226, 26, 26, 0.15) !important;
+  border: 1px solid rgba(226, 26, 26, 0.35) !important;
+  color: rgba(255, 255, 255, 0.98) !important;
+  border-radius: 12px !important;
+  padding: 0.6rem 1rem !important;
+  width: 100% !important;
+}
+
+.str-chat .str-chat__message [class*="location"] button:hover,
+.str-chat .str-chat__message [class*="geolocation"] button:hover {
+  background: rgba(226, 26, 26, 0.28) !important;
+  border-color: rgba(226, 26, 26, 0.55) !important;
+}
+}
+
+.str-chat .str-chat__message .str-chat__poll h1,
+.str-chat .str-chat__message .str-chat__poll h2,
+.str-chat .str-chat__message .str-chat__poll h3,
+.str-chat .str-chat__message .str-chat__poll p,
+.str-chat .str-chat__message .str-chat__poll span,
+.str-chat .str-chat__message [class*="rf-poll"] h1,
+.str-chat .str-chat__message [class*="rf-poll"] h2,
+.str-chat .str-chat__message [class*="rf-poll"] h3,
+.str-chat .str-chat__message [class*="rf-poll"] p,
+.str-chat .str-chat__message [class*="rf-poll"] span {
+  color: rgba(245, 245, 245, 0.95) !important;
+}
+
+.str-chat .str-chat__message .str-chat__poll .rf-progress,
+.str-chat .str-chat__message .rf-poll .rf-progress,
+.str-chat .str-chat__message .rf-poll [class*="progress"] {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-radius: 999px !important;
+  height: 8px !important;
+}
+
+.str-chat .str-chat__message .str-chat__poll .rf-progress-bar,
+.str-chat .str-chat__message .rf-poll .rf-progress-bar,
+.str-chat .str-chat__message .rf-poll [class*="progress-bar"] {
+  background: var(--rzd-red) !important;
+  border-radius: 999px !important;
+}
+
+.str-chat .str-chat__message .str-chat__poll button,
+.str-chat .str-chat__message .rf-poll button,
+.str-chat__poll-actions button,
+div.str-chat__poll-actions button {
+  background: rgba(255, 255, 255, 0.10) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  color: rgba(245, 245, 245, 0.95) !important;
+  border-radius: 10px !important;
+  padding: 0.4rem 0.9rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.str-chat .str-chat__message .str-chat__poll button:hover,
+.str-chat .str-chat__message .rf-poll button:hover,
+.str-chat__poll-actions button:hover,
+div.str-chat__poll-actions button:hover {
+  background: rgba(226, 26, 26, 0.18) !important;
+  border-color: rgba(226, 26, 26, 0.45) !important;
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+/* Poll choice radios/checkboxes visibility */
+.str-chat .str-chat__message .str-chat__poll input[type="radio"],
+.str-chat .str-chat__message .rf-poll input[type="radio"],
+.str-chat .str-chat__message .str-chat__poll input[type="checkbox"],
+.str-chat .str-chat__message .rf-poll input[type="checkbox"] {
+  appearance: none !important;
+  width: 16px !important;
+  height: 16px !important;
+  border: 2px solid rgba(245, 245, 245, 0.35) !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  position: relative;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.str-chat .str-chat__message .str-chat__poll input[type="checkbox"],
+.str-chat .str-chat__message .rf-poll input[type="checkbox"] {
+  border-radius: 4px !important;
+}
+
+.str-chat .str-chat__message .str-chat__poll input[type="radio"]:checked,
+.str-chat .str-chat__message .rf-poll input[type="radio"]:checked,
+.str-chat .str-chat__message .str-chat__poll input[type="checkbox"]:checked,
+.str-chat .str-chat__message .rf-poll input[type="checkbox"]:checked {
+  border-color: var(--rzd-red) !important;
+  background: var(--rzd-red) !important;
+}
+
+.str-chat .str-chat__message .str-chat__poll input[type="radio"]:checked::after,
+.str-chat .str-chat__message .rf-poll input[type="radio"]:checked::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.str-chat .str-chat__message .str-chat__poll input[type="checkbox"]:checked::after,
+.str-chat .str-chat__message .rf-poll input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Checkmark - default state (empty square with border) */
+.str-chat .str-chat__checkmark,
+.str-chat__message .str-chat__checkmark,
+div.str-chat__checkmark,
+.str-chat__poll .str-chat__checkmark,
+.rf-poll .str-chat__checkmark {
+  background: transparent !important;
+  border: 2px solid rgba(245, 245, 245, 0.35) !important;
+  border-radius: 4px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  padding: 0 !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+  overflow: visible !important;
+}
+
+/* Hide checkmark icon by default */
+.str-chat .str-chat__checkmark svg,
+.str-chat__message .str-chat__checkmark svg,
+div.str-chat__checkmark svg,
+.str-chat__poll .str-chat__checkmark svg,
+.rf-poll .str-chat__checkmark svg,
+.str-chat__message [class*="poll"] svg[class*="check"],
+.str-chat__message [class*="poll"] [class*="check"] svg {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  width: 12px !important;
+  height: 12px !important;
+}
+
+/* Poll option selected state */
+.str-chat .str-chat__message [class*="rf-poll-option--selected"],
+.str-chat .str-chat__message [class*="poll-option"][class*="selected"],
+.str-chat .str-chat__message .rf-poll-option--selected,
+.str-chat__poll [class*="selected"],
+.rf-poll [class*="selected"],
+[class*="rf-poll-option"][class*="selected"] {
+  background: rgba(226, 26, 26, 0.12) !important;
+  border-color: var(--rzd-red) !important;
+  position: relative !important;
+}
+
+/* Show progress bar for selected option */
+.str-chat .str-chat__message [class*="rf-poll-option--selected"] .rf-progress,
+.str-chat .str-chat__message [class*="poll-option"][class*="selected"] .rf-progress,
+.str-chat .str-chat__message .rf-poll-option--selected .rf-progress,
+.str-chat .str-chat__message [class*="rf-poll-option--selected"] [class*="progress"],
+.str-chat .str-chat__message [class*="poll-option"][class*="selected"] [class*="progress"],
+.str-chat .str-chat__message .rf-poll-option--selected [class*="progress"] {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Selected checkmark - RED FILLED square with WHITE checkmark */
+.str-chat__checkmark--checked,
+.str-chat .str-chat__checkmark--checked,
+.str-chat__message .str-chat__checkmark--checked,
+div.str-chat__checkmark--checked,
+.str-chat .str-chat__message [class*="rf-poll-option--selected"] .str-chat__checkmark,
+.str-chat .str-chat__message [class*="poll-option"][class*="selected"] .str-chat__checkmark,
+.str-chat .str-chat__message .rf-poll-option--selected .str-chat__checkmark,
+.str-chat .str-chat__message [aria-selected="true"] .str-chat__checkmark,
+.str-chat .str-chat__message [aria-checked="true"] .str-chat__checkmark,
+.str-chat input[type="checkbox"]:checked + .str-chat__checkmark,
+.str-chat input[type="radio"]:checked + .str-chat__checkmark,
+.str-chat input[type="checkbox"]:checked ~ .str-chat__checkmark,
+.str-chat input[type="radio"]:checked ~ .str-chat__checkmark,
+[class*="selected"] .str-chat__checkmark,
+[class*="rf-poll-option--selected"] .str-chat__checkmark,
+.str-chat__poll [class*="selected"] .str-chat__checkmark,
+.rf-poll [class*="selected"] .str-chat__checkmark,
+.str-chat .str-chat__message [class*="rf-poll-option--selected"] [class*="check"],
+.str-chat .str-chat__message [class*="poll-option"][class*="selected"] [class*="check"],
+.str-chat__message [class*="selected"] [class*="check"] {
+  /* Selected: RED background, RED border, white tick */
+  background: #e21a1a !important;
+  background-color: #e21a1a !important;
+  border: 2px solid #e21a1a !important;
+  border-color: #e21a1a !important;
+  position: relative !important;
+}
+
+/* Draw WHITE checkmark using ::before pseudo-element */
+.str-chat__checkmark--checked::before,
+.str-chat .str-chat__checkmark--checked::before,
+.str-chat__message .str-chat__checkmark--checked::before,
+div.str-chat__checkmark--checked::before,
+.str-chat .str-chat__message [class*="rf-poll-option--selected"] .str-chat__checkmark::before,
+.str-chat .str-chat__message [class*="poll-option"][class*="selected"] .str-chat__checkmark::before,
+.str-chat .str-chat__message .rf-poll-option--selected .str-chat__checkmark::before,
+.str-chat .str-chat__message [aria-selected="true"] .str-chat__checkmark::before,
+.str-chat .str-chat__message [aria-checked="true"] .str-chat__checkmark::before,
+.str-chat input[type="checkbox"]:checked + .str-chat__checkmark::before,
+.str-chat input[type="radio"]:checked + .str-chat__checkmark::before,
+.str-chat input[type="checkbox"]:checked ~ .str-chat__checkmark::before,
+.str-chat input[type="radio"]:checked ~ .str-chat__checkmark::before,
+[class*="selected"] .str-chat__checkmark::before,
+[class*="rf-poll-option--selected"] .str-chat__checkmark::before,
+.str-chat__poll [class*="selected"] .str-chat__checkmark::before,
+.rf-poll [class*="selected"] .str-chat__checkmark::before,
+.str-chat .str-chat__message [class*="rf-poll-option--selected"] [class*="check"]::before,
+.str-chat .str-chat__message [class*="poll-option"][class*="selected"] [class*="check"]::before,
+.str-chat__message [class*="selected"] [class*="check"]::before {
+  content: "✓" !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  color: #ffffff !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  display: block !important;
+  z-index: 100 !important;
+  pointer-events: none !important;
+}
+
+/* Show checkmark icon when selected */
+/* Force hide any SVG in selected options to let pseudo-element show */
+.str-chat__checkmark--checked svg,
+.str-chat .str-chat__checkmark--checked svg,
+.str-chat__message .str-chat__checkmark--checked svg,
+div.str-chat__checkmark--checked svg,
+.str-chat .str-chat__message [class*="rf-poll-option--selected"] svg,
+.str-chat .str-chat__message [class*="poll-option"][class*="selected"] svg,
+.str-chat .str-chat__message .rf-poll-option--selected svg,
+.str-chat__poll [class*="selected"] svg,
+.rf-poll [class*="selected"] svg,
+.str-chat .str-chat__message [class*="rf-poll-option--selected"] .str-chat__checkmark svg,
+.str-chat .str-chat__message [class*="poll-option"][class*="selected"] .str-chat__checkmark svg,
+.str-chat__message [class*="selected"] [class*="check"] svg {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+.str-chat .str-chat__message [class*="rf-poll-option--selected"] .str-chat__checkmark svg path,
+.str-chat .str-chat__message [class*="poll-option"][class*="selected"] .str-chat__checkmark svg path,
+.str-chat .str-chat__message .rf-poll-option--selected .str-chat__checkmark svg path,
+.str-chat input[type="checkbox"]:checked + .str-chat__checkmark svg path,
+.str-chat input[type="radio"]:checked + .str-chat__checkmark svg path,
+[class*="selected"] .str-chat__checkmark svg path,
+[class*="rf-poll-option--selected"] .str-chat__checkmark svg path {
+  fill: var(--rzd-red) !important;
+  stroke: var(--rzd-red) !important;
+  stroke-width: 2.5 !important;
+}
+
+/* Force one-line input layout and hide textarea scrollbar */
+.str-chat__message-input .str-chat__message-input-inner,
+.str-chat__message-input-flat .str-chat__message-input-inner,
+[role="dialog"] .str-chat__message-input-inner {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  flex: 0 0 auto !important;
+  align-self: stretch !important;
+}
+
+.str-chat__message-input .str-chat__message-textarea-container,
+.str-chat__message-input-flat .str-chat__message-textarea-container,
+[role="dialog"] .str-chat__message-textarea-container {
+  flex: 1 !important;
+  min-width: 0 !important;
+  order: 1 !important;
+}
+
+.str-chat__message-input .str-chat__attachment-selector,
+.str-chat__message-input [data-testid="attachment-action-button"],
+.str-chat__message-input button[aria-label*="Attach"],
+[role="dialog"] .str-chat__attachment-selector,
+[role="dialog"] [data-testid="attachment-action-button"],
+[role="dialog"] button[aria-label*="Attach"] {
+  order: 0 !important;
+  flex: 0 0 auto !important;
+  align-self: center !important;
+}
+
+.str-chat__message-input .str-chat__send-button,
+[role="dialog"] .str-chat__send-button {
+  order: 2 !important;
+  flex: 0 0 auto !important;
+  align-self: center !important;
+}
+
+.str-chat__message-input .str-chat__textarea,
+[role="dialog"] .str-chat__textarea {
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+.str-chat__message-input .str-chat__textarea textarea,
+[role="dialog"] .str-chat__textarea textarea {
+  overflow: hidden !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.str-chat__message-input .str-chat__textarea textarea::-webkit-scrollbar,
+[role="dialog"] .str-chat__textarea textarea::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
+/* Reply modal: keep the input row pinned to the bottom so icons don't float */
+.str-chat__message-input,
+[role="dialog"] .str-chat__message-input {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+}
+
+.str-chat__message-input-inner,
+[role="dialog"] .str-chat__message-input-inner {
+  margin-top: auto !important;
+}
+
+/* Remove tinted overlay from Stream modal inner container */
+.str-chat-react__modal__inner,
+.str-chat__modal__inner,
+.str-chat__modal-inner,
+[class*="modal__inner"] {
+  background: transparent !important;
+  box-shadow: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  padding: 16px !important;
+  width: min(680px, 100%) !important;
+  margin: 0 auto !important;
+  position: relative !important;
+}
+
+[role="dialog"] .str-chat__message-input-inner {
+  margin-top: 0 !important;
+}
+
+/* Match reply/edit modal to poll modal look */
+[role="dialog"] .str-chat__edit-message-form {
+  background: rgba(15, 17, 22, 0.97) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 16px !important;
+  padding: 20px !important;
+  width: min(560px, 100%) !important;
+  margin: 0 auto !important;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.55) !important;
+}
+
+[role="dialog"] .str-chat__edit-message-form .str-chat__message-input-inner {
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin: 0 0 14px 0 !important;
+}
+
+[role="dialog"] .str-chat__edit-message-form .str-chat__textarea textarea {
+  min-height: 52px !important;
+  height: 52px !important;
+  border-radius: 12px !important;
+  padding: 0.75rem 1rem !important;
+}
+
+[role="dialog"] .str-chat__edit-message-form-actions {
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 12px !important;
+}
+
+[role="dialog"] .str-chat__edit-message-form-actions button {
+  min-width: 140px !important;
+  height: 42px !important;
+  border-radius: 10px !important;
+}
+
+/* Edit message form styling */
+.str-chat .str-chat__edit-message-form,
+.str-chat [class*="edit-message-form"] {
+  background: rgba(15, 17, 22, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  border-radius: 16px !important;
+  padding: 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+.str-chat .str-chat__edit-message-form .str-chat__message-input-inner,
+.str-chat [class*="edit-message-form"] .str-chat__message-input-inner {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+}
+
+.str-chat .str-chat__edit-message-form,
+.str-chat [class*="edit-message-form"] {
+  align-items: stretch !important;
+}
+
+.str-chat .str-chat__edit-message-form-actions,
+.str-chat [class*="edit-message-form-actions"] {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  flex-wrap: nowrap !important;
+  gap: 10px !important;
+  align-self: stretch !important;
+}
+
+.str-chat .str-chat__edit-message-form-actions > button,
+.str-chat [class*="edit-message-form-actions"] > button,
+.str-chat .str-chat__edit-message-form-actions > .str-chat__btn,
+.str-chat [class*="edit-message-form-actions"] > .str-chat__btn {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  min-width: 0 !important;
+}
+
+/* Reply modal reset: keep textarea visible and layout sane */
+[role="dialog"][aria-labelledby]:has(.str-chat__message-input) {
+  display: block !important;
+  padding: 16px !important;
+}
+
+[role="dialog"] .str-chat__dialog__body {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  max-height: 70vh !important;
+  overflow: auto !important;
+  padding-bottom: 88px !important;
+}
+
+[role="dialog"] .str-chat__quoted-message-preview,
+[role="dialog"] .str-chat__parent-message-preview,
+[role="dialog"] [class*="quoted"],
+[role="dialog"] [class*="parent-message"] {
+  order: 0 !important;
+  margin: 0 0 12px 0 !important;
+  align-self: stretch !important;
+  max-width: none !important;
+}
+
+[role="dialog"] .str-chat__message-input {
+  order: 0 !important;
+  position: absolute !important;
+  left: 16px !important;
+  right: 16px !important;
+  bottom: 32px !important;
+  width: auto !important;
+  transform: none !important;
+  z-index: 20 !important;
+  background: rgba(15, 17, 22, 0.98) !important;
+  border: 1px solid rgba(226, 26, 26, 0.20) !important;
+  border-radius: 16px !important;
+  padding: 12px 16px !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+/* Reply menu: keep the input in its normal place and add quoted message above */
+[role="dialog"] .str-chat__dialog__body {
+  display: block !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding-bottom: 0 !important;
+}
+
+[role="dialog"] .str-chat__message-input {
+  position: static !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  width: 100% !important;
+  z-index: auto !important;
+  background: linear-gradient(180deg, rgba(15, 17, 22, 0.85) 0%, rgba(20, 24, 32, 0.90) 100%) !important;
+}
+
+[role="dialog"] .str-chat__message-input-inner {
+  margin-top: 0 !important;
+}
+
+[role="dialog"] .str-chat__quoted-message-preview,
+[role="dialog"] .str-chat__parent-message-preview,
+[role="dialog"] [class*="quoted"],
+[role="dialog"] [class*="parent-message"] {
+  margin: 0 0 12px 0 !important;
+  align-self: stretch !important;
+}
+
+/* Reply modal: quoted message above, input stays normal (no fixed/absolute) */
+[role="dialog"] .str-chat__dialog__body {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  overflow: visible !important;
+  padding-bottom: 0 !important;
+}
+
+[role="dialog"] .str-chat__quoted-message-preview,
+[role="dialog"] .str-chat__parent-message-preview,
+[role="dialog"] [class*="quoted"],
+[role="dialog"] [class*="parent-message"] {
+  order: 0 !important;
+  margin: 0 !important;
+}
+
+[role="dialog"] .str-chat__message-input {
+  order: 1 !important;
+  position: static !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  width: 100% !important;
+  z-index: auto !important;
+  background: linear-gradient(180deg, rgba(15, 17, 22, 0.85) 0%, rgba(20, 24, 32, 0.90) 100%) !important;
+  border-top: 1px solid rgba(226, 26, 26, 0.20) !important;
+  border-radius: 16px !important;
+  padding: 1rem 1.5rem !important;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(226, 26, 26, 0.08) !important;
+}
+
+[role="dialog"] .str-chat__message-input-inner {
+  margin-top: 0 !important;
+}
+
+[role="dialog"] .str-chat__message-input-inner {
+  margin-top: 0 !important;
+  width: 100% !important;
+}
+
+[role="dialog"] .str-chat__textarea textarea {
+  min-height: 48px !important;
+  height: 48px !important;
+}
+
+.str-chat .str-chat__edit-message-form .str-chat__textarea textarea,
+.str-chat [class*="edit-message-form"] .str-chat__textarea textarea {
+  height: auto !important;
+  min-height: 140px !important;
+  max-height: 280px !important;
+  overflow: auto !important;
+  border-color: rgba(226, 26, 26, 0.35) !important;
+}
+
+.str-chat .str-chat__edit-message-form-actions,
+.str-chat [class*="edit-message-form-actions"] {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  flex-wrap: nowrap !important;
+  width: 100% !important;
+  gap: 10px !important;
+}
+
+.str-chat .str-chat__edit-message-form-actions > *,
+.str-chat [class*="edit-message-form-actions"] > * {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  display: inline-flex !important;
+}
+
+.str-chat .str-chat__edit-message-form-actions button,
+.str-chat [class*="edit-message-form-actions"] button {
+  min-height: 40px !important;
+  padding: 0 16px !important;
+  width: auto !important;
+  display: inline-flex !important;
+  white-space: nowrap !important;
+}
+
+/* Final: reply/edit modal should look like poll modal (compact card) */
+[role="dialog"]:has(.str-chat__message-input),
+.str-chat__modal:has(.str-chat__message-input),
+.str-chat__modal-wrapper:has(.str-chat__message-input) {
+  background: rgba(0, 0, 0, 0.55) !important;
+  border: none !important;
+  box-shadow: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 32px 16px !important;
+}
+
+[role="dialog"]:has(.str-chat__message-input) .str-chat__dialog__body,
+.str-chat__modal:has(.str-chat__message-input) .str-chat__dialog__body,
+.str-chat__modal-wrapper:has(.str-chat__message-input) .str-chat__dialog__body,
+[role="dialog"]:has(.str-chat__message-input) .str-chat__modal__inner,
+.str-chat__modal:has(.str-chat__message-input) .str-chat__modal__inner,
+.str-chat__modal-wrapper:has(.str-chat__message-input) .str-chat__modal__inner,
+[role="dialog"]:has(.str-chat__message-input) .str-chat__modal-inner,
+.str-chat__modal:has(.str-chat__message-input) .str-chat__modal-inner,
+.str-chat__modal-wrapper:has(.str-chat__message-input) .str-chat__modal-inner,
+[role="dialog"]:has(.str-chat__message-input) .str-chat-react__modal__inner,
+.str-chat__modal:has(.str-chat__message-input) .str-chat-react__modal__inner,
+.str-chat__modal-wrapper:has(.str-chat__message-input) .str-chat-react__modal__inner {
+  background: rgba(15, 17, 22, 0.97) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 16px !important;
+  padding: 24px !important;
+  width: min(560px, 92vw) !important;
+  margin: 0 auto !important;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.55) !important;
+}
+
+[role="dialog"]:has(.str-chat__message-input) .str-chat__message-input,
+.str-chat__modal:has(.str-chat__message-input) .str-chat__message-input,
+.str-chat__modal-wrapper:has(.str-chat__message-input) .str-chat__message-input {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+[role="dialog"]:has(.str-chat__message-input) .str-chat__message-input-inner,
+.str-chat__modal:has(.str-chat__message-input) .str-chat__message-input-inner,
+.str-chat__modal-wrapper:has(.str-chat__message-input) .str-chat__message-input-inner {
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+[role="dialog"]:has(.str-chat__message-input) .str-chat__textarea textarea,
+.str-chat__modal:has(.str-chat__message-input) .str-chat__textarea textarea,
+.str-chat__modal-wrapper:has(.str-chat__message-input) .str-chat__textarea textarea {
+  min-height: 52px !important;
+  height: 52px !important;
+  border-radius: 12px !important;
+  padding: 0.75rem 1rem !important;
+}
+
+[role="dialog"]:has(.str-chat__message-input) .str-chat__edit-message-form-actions,
+.str-chat__modal:has(.str-chat__message-input) .str-chat__edit-message-form-actions,
+.str-chat__modal-wrapper:has(.str-chat__message-input) .str-chat__edit-message-form-actions {
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 12px !important;
+  margin-top: 16px !important;
+}
+
+[role="dialog"]:has(.str-chat__message-input) .str-chat__edit-message-form-actions button,
+.str-chat__modal:has(.str-chat__message-input) .str-chat__edit-message-form-actions button,
+.str-chat__modal-wrapper:has(.str-chat__message-input) .str-chat__edit-message-form-actions button {
+  min-width: 140px !important;
+  height: 42px !important;
+  border-radius: 10px !important;
+}
+
+/* Reply preview: keep the composer row tight under the quoted message */
+.str-chat__message-input:has(.str-chat__quoted-message-preview) .str-chat__message-input-inner,
+.str-chat__message-input:has(.str-chat__parent-message-preview) .str-chat__message-input-inner,
+.str-chat__message-input:has([class*="quoted"]) .str-chat__message-input-inner,
+.str-chat__message-input:has([class*="parent-message"]) .str-chat__message-input-inner {
+  margin-top: 0 !important;
+}
+
+/* Reply layout: don't push the composer to the bottom */
+[role="dialog"]:has(.str-chat__quoted-message-preview),
+[role="dialog"]:has(.str-chat__parent-message-preview),
+[role="dialog"]:has([class*="quoted"]),
+[role="dialog"]:has([class*="parent-message"]),
+.str-chat__thread:has(.str-chat__quoted-message-preview),
+.str-chat__thread:has(.str-chat__parent-message-preview),
+.str-chat__thread-container:has(.str-chat__quoted-message-preview),
+.str-chat__thread-container:has(.str-chat__parent-message-preview) {
+  justify-content: flex-start !important;
+  min-height: 0 !important;
+}
+
+[role="dialog"]:has(.str-chat__quoted-message-preview) .str-chat__message-input,
+[role="dialog"]:has(.str-chat__parent-message-preview) .str-chat__message-input,
+[role="dialog"]:has([class*="quoted"]) .str-chat__message-input,
+[role="dialog"]:has([class*="parent-message"]) .str-chat__message-input,
+.str-chat__thread:has(.str-chat__quoted-message-preview) .str-chat__message-input,
+.str-chat__thread:has(.str-chat__parent-message-preview) .str-chat__message-input,
+.str-chat__thread-container:has(.str-chat__quoted-message-preview) .str-chat__message-input,
+.str-chat__thread-container:has(.str-chat__parent-message-preview) .str-chat__message-input {
+  margin-top: 0 !important;
+}
+
+/* Reply modal: force compact vertical flow (no stretching) */
+[role="dialog"] .str-chat__dialog__body {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+}
+
+[role="dialog"] .str-chat__dialog__body > * {
+  flex: 0 0 auto !important;
+}
+
+[role="dialog"] .str-chat__message-input,
+[role="dialog"] [role="presentation"].str-chat__message-input {
+  flex: 0 0 auto !important;
+  align-self: stretch !important;
+  height: auto !important;
+}
+
+[role="dialog"] .str-chat__message-input .str-chat__message-input-inner {
+  margin-top: 0 !important;
+}
+
+/* Final override: remove flex-end pushing in reply dialogs/threads */
+[role="dialog"],
+.str-chat__thread,
+.str-chat__thread-container {
+  justify-content: flex-start !important;
+  min-height: 0 !important;
+}
+
+/* Force compact heights for reply composer row */
+[role="dialog"] .str-chat__message-input-inner,
+.str-chat__message-input .str-chat__message-input-inner {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  align-items: center !important;
+}
+
+[role="dialog"] .str-chat__message-textarea-container,
+.str-chat__message-input .str-chat__message-textarea-container,
+[role="dialog"] .str-chat__textarea,
+.str-chat__message-input .str-chat__textarea {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  align-items: center !important;
+}
+
+/* Final hard override: stop Stream's column/centered reply layout */
+[role="dialog"] .str-chat__message-input .str-chat__message-input-inner,
+.str-chat__message-input .str-chat__message-input-inner {
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) auto !important;
+  flex-direction: row !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  flex: 0 0 auto !important;
+}
+
+[role="dialog"] .str-chat__message-input .str-chat__message-textarea-container,
+.str-chat__message-input .str-chat__message-textarea-container,
+[role="dialog"] .str-chat__message-input .str-chat__textarea,
+.str-chat__message-input .str-chat__textarea {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  flex: 1 1 auto !important;
+  width: 100% !important;
+}
+
+/* Reply composer: keep quoted message above the input row */
+.str-chat__message-input {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+}
+
+/* Prevent dialog overlay from blocking the composer, but keep dialogs clickable */
+.str-chat__dialog-overlay {
+  background: transparent !important;
+  pointer-events: none !important;
+}
+
+.str-chat__dialog-overlay > * {
+  pointer-events: auto !important;
+}
+
+.str-chat__message-input .str-chat__quoted-message-preview-header,
+.str-chat__message-input .str-chat__quoted-message-preview,
+.str-chat__message-input .str-chat__parent-message-preview {
+  order: 0 !important;
+  width: 100% !important;
+  align-self: stretch !important;
+  margin: 0 0 8px 0 !important;
+}
+
+.str-chat__message-input .str-chat__message-input-inner {
+  order: 1 !important;
+  width: 100% !important;
+}
+
+/* Reply composer: don't push the input inner to the bottom when a quoted header exists */
+.str-chat__message-input .str-chat__quoted-message-preview-header ~ .str-chat__message-input-inner,
+.str-chat__message-input .str-chat__parent-message-preview-header ~ .str-chat__message-input-inner,
+.str-chat__message-input [class*="quoted-message-preview"] ~ .str-chat__message-input-inner,
+.str-chat__message-input [class*="parent-message-preview"] ~ .str-chat__message-input-inner {
+  margin-top: 0 !important;
+}
+
+/* Reply layout: place quoted preview on its own row, input row below */
+.str-chat__message-input-inner:has(.str-chat__quoted-message-preview),
+.str-chat__message-input-inner:has(.str-chat__parent-message-preview),
+.str-chat__message-input-inner:has(.str-chat__quoted-message-preview-header) {
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) auto !important;
+  grid-template-rows: auto auto !important;
+  row-gap: 8px !important;
+  align-items: center !important;
+}
+
+.str-chat__message-input-inner:has(.str-chat__quoted-message-preview) .str-chat__quoted-message-preview,
+.str-chat__message-input-inner:has(.str-chat__parent-message-preview) .str-chat__parent-message-preview,
+.str-chat__message-input-inner:has(.str-chat__quoted-message-preview-header) .str-chat__quoted-message-preview-header {
+  grid-column: 1 / -1 !important;
+  grid-row: 1 !important;
+  justify-self: stretch !important;
+}
+
+.str-chat__message-input-inner:has(.str-chat__quoted-message-preview) .str-chat__attachment-selector,
+.str-chat__message-input-inner:has(.str-chat__quoted-message-preview) [data-testid="attachment-action-button"],
+.str-chat__message-input-inner:has(.str-chat__quoted-message-preview) button[aria-label*="Attach"],
+.str-chat__message-input-inner:has(.str-chat__quoted-message-preview) .str-chat__message-textarea-container,
+.str-chat__message-input-inner:has(.str-chat__quoted-message-preview) .str-chat__textarea,
+.str-chat__message-input-inner:has(.str-chat__quoted-message-preview) .str-chat__send-button,
+.str-chat__message-input-inner:has(.str-chat__parent-message-preview) .str-chat__attachment-selector,
+.str-chat__message-input-inner:has(.str-chat__parent-message-preview) [data-testid="attachment-action-button"],
+.str-chat__message-input-inner:has(.str-chat__parent-message-preview) button[aria-label*="Attach"],
+.str-chat__message-input-inner:has(.str-chat__parent-message-preview) .str-chat__message-textarea-container,
+.str-chat__message-input-inner:has(.str-chat__parent-message-preview) .str-chat__textarea,
+.str-chat__message-input-inner:has(.str-chat__parent-message-preview) .str-chat__send-button,
+.str-chat__message-input-inner:has(.str-chat__quoted-message-preview-header) .str-chat__attachment-selector,
+.str-chat__message-input-inner:has(.str-chat__quoted-message-preview-header) [data-testid="attachment-action-button"],
+.str-chat__message-input-inner:has(.str-chat__quoted-message-preview-header) button[aria-label*="Attach"],
+.str-chat__message-input-inner:has(.str-chat__quoted-message-preview-header) .str-chat__message-textarea-container,
+.str-chat__message-input-inner:has(.str-chat__quoted-message-preview-header) .str-chat__textarea,
+.str-chat__message-input-inner:has(.str-chat__quoted-message-preview-header) .str-chat__send-button {
+  grid-row: 2 !important;
+}
+
+/* Reply modal: stack preview above input (same column, separate rows) */
+[role="dialog"] .str-chat__message-input {
+  display: grid !important;
+  grid-auto-flow: row !important;
+  row-gap: 8px !important;
+  align-content: start !important;
+}
+
+[role="dialog"] .str-chat__message-input > .str-chat__quoted-message-preview-header,
+[role="dialog"] .str-chat__message-input > .str-chat__quoted-message-preview,
+[role="dialog"] .str-chat__message-input > .str-chat__parent-message-preview,
+[role="dialog"] .str-chat__message-input > [class*="quoted-message-preview"],
+[role="dialog"] .str-chat__message-input > [class*="parent-message-preview"] {
+  grid-column: 1 / -1 !important;
+}
+
+[role="dialog"] .str-chat__message-input > .str-chat__message-input-inner {
+  grid-column: 1 / -1 !important;
+}
+
+/* Reply preview inside input-inner: force wrap so preview sits on its own line */
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__quoted-message-preview),
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__parent-message-preview),
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__quoted-message-preview-header) {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  column-gap: 8px !important;
+  row-gap: 8px !important;
+}
+
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__quoted-message-preview)
+  .str-chat__quoted-message-preview,
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__parent-message-preview)
+  .str-chat__parent-message-preview,
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__quoted-message-preview-header)
+  .str-chat__quoted-message-preview-header {
+  flex: 0 0 100% !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  order: 0 !important;
+}
+
+/* Ultra-safe: any quoted/parent preview inside input-inner goes full width on its own row */
+.str-chat__message-input-inner:has([class*="quoted-message"]),
+.str-chat__message-input-inner:has([class*="parent-message"]) {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  column-gap: 8px !important;
+  row-gap: 8px !important;
+}
+
+.str-chat__message-input-inner:has([class*="quoted-message"]) [class*="quoted-message"],
+.str-chat__message-input-inner:has([class*="parent-message"]) [class*="parent-message"] {
+  flex: 0 0 100% !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  order: 0 !important;
+}
+
+.str-chat__message-input-inner:has([class*="quoted-message"]) .str-chat__attachment-selector,
+.str-chat__message-input-inner:has([class*="quoted-message"]) [data-testid="attachment-action-button"],
+.str-chat__message-input-inner:has([class*="quoted-message"]) button[aria-label*="Attach"],
+.str-chat__message-input-inner:has([class*="parent-message"]) .str-chat__attachment-selector,
+.str-chat__message-input-inner:has([class*="parent-message"]) [data-testid="attachment-action-button"],
+.str-chat__message-input-inner:has([class*="parent-message"]) button[aria-label*="Attach"] {
+  order: 1 !important;
+}
+
+.str-chat__message-input-inner:has([class*="quoted-message"]) .str-chat__message-textarea-container,
+.str-chat__message-input-inner:has([class*="quoted-message"]) .str-chat__textarea,
+.str-chat__message-input-inner:has([class*="parent-message"]) .str-chat__message-textarea-container,
+.str-chat__message-input-inner:has([class*="parent-message"]) .str-chat__textarea {
+  order: 2 !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+
+.str-chat__message-input-inner:has([class*="quoted-message"]) .str-chat__send-button,
+.str-chat__message-input-inner:has([class*="parent-message"]) .str-chat__send-button {
+  order: 3 !important;
+}
+
+/* Reply modal: do not pin composer; keep it naturally at the top */
+[role="dialog"] .str-chat__message-input,
+[role="dialog"] [role="presentation"].str-chat__message-input {
+  position: static !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  align-self: flex-start !important;
+  justify-content: flex-start !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+/* Reply dialog only: stack preview above input, keep input row in one line */
+[role="dialog"] .str-chat__message-input,
+[role="dialog"] [role="presentation"].str-chat__message-input {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+}
+
+[role="dialog"] .str-chat__message-input > .str-chat__quoted-message-preview-header,
+[role="dialog"] .str-chat__message-input > .str-chat__quoted-message-preview,
+[role="dialog"] .str-chat__message-input > .str-chat__parent-message-preview,
+[role="dialog"] .str-chat__message-input > [class*="quoted-message"],
+[role="dialog"] .str-chat__message-input > [class*="parent-message"],
+[role="dialog"] [role="presentation"].str-chat__message-input > .str-chat__quoted-message-preview-header,
+[role="dialog"] [role="presentation"].str-chat__message-input > .str-chat__quoted-message-preview,
+[role="dialog"] [role="presentation"].str-chat__message-input > .str-chat__parent-message-preview,
+[role="dialog"] [role="presentation"].str-chat__message-input > [class*="quoted-message"],
+[role="dialog"] [role="presentation"].str-chat__message-input > [class*="parent-message"] {
+  order: 0 !important;
+  width: 100% !important;
+}
+
+[role="dialog"] .str-chat__message-input > .str-chat__message-input-inner,
+[role="dialog"] [role="presentation"].str-chat__message-input > .str-chat__message-input-inner {
+  order: 1 !important;
+  width: 100% !important;
+}
+
+[role="dialog"] .str-chat__message-input .str-chat__message-input-inner,
+[role="dialog"] [role="presentation"].str-chat__message-input .str-chat__message-input-inner {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+}
+
+[role="dialog"] .str-chat__message-input .str-chat__message-input-inner > [class*="quoted-message"],
+[role="dialog"] .str-chat__message-input .str-chat__message-input-inner > [class*="parent-message"],
+[role="dialog"] [role="presentation"].str-chat__message-input .str-chat__message-input-inner > [class*="quoted-message"],
+[role="dialog"] [role="presentation"].str-chat__message-input .str-chat__message-input-inner > [class*="parent-message"] {
+  flex: 0 0 100% !important;
+  width: 100% !important;
+  order: 0 !important;
+}
+
+[role="dialog"] .str-chat__message-input .str-chat__message-input-inner > .str-chat__attachment-selector,
+[role="dialog"] .str-chat__message-input .str-chat__message-input-inner > [data-testid="attachment-action-button"],
+[role="dialog"] .str-chat__message-input .str-chat__message-input-inner > button[aria-label*="Attach"],
+[role="dialog"] [role="presentation"].str-chat__message-input .str-chat__message-input-inner > .str-chat__attachment-selector,
+[role="dialog"] [role="presentation"].str-chat__message-input .str-chat__message-input-inner > [data-testid="attachment-action-button"],
+[role="dialog"] [role="presentation"].str-chat__message-input .str-chat__message-input-inner > button[aria-label*="Attach"] {
+  order: 1 !important;
+}
+
+[role="dialog"] .str-chat__message-input .str-chat__message-input-inner > .str-chat__message-textarea-container,
+[role="dialog"] .str-chat__message-input .str-chat__message-input-inner > .str-chat__textarea,
+[role="dialog"] [role="presentation"].str-chat__message-input .str-chat__message-input-inner > .str-chat__message-textarea-container,
+[role="dialog"] [role="presentation"].str-chat__message-input .str-chat__message-input-inner > .str-chat__textarea {
+  order: 2 !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+
+[role="dialog"] .str-chat__message-input .str-chat__message-input-inner > .str-chat__send-button,
+[role="dialog"] [role="presentation"].str-chat__message-input .str-chat__message-input-inner > .str-chat__send-button {
+  order: 3 !important;
+}
+
+/* Reply inline (non-dialog): stack quoted preview above the input row */
+.str-chat__message-input:has(> [class*="quoted-message"]),
+.str-chat__message-input:has(> [class*="parent-message"]),
+.str-chat__message-input:has(> .str-chat__quoted-message-preview-header),
+[role="presentation"].str-chat__message-input:has(> [class*="quoted-message"]),
+[role="presentation"].str-chat__message-input:has(> [class*="parent-message"]),
+[role="presentation"].str-chat__message-input:has(> .str-chat__quoted-message-preview-header) {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+}
+
+.str-chat__message-input:has(> [class*="quoted-message"]) > [class*="quoted-message"],
+.str-chat__message-input:has(> [class*="parent-message"]) > [class*="parent-message"],
+.str-chat__message-input:has(> .str-chat__quoted-message-preview-header) > .str-chat__quoted-message-preview-header,
+[role="presentation"].str-chat__message-input:has(> [class*="quoted-message"]) > [class*="quoted-message"],
+[role="presentation"].str-chat__message-input:has(> [class*="parent-message"]) > [class*="parent-message"],
+[role="presentation"].str-chat__message-input:has(> .str-chat__quoted-message-preview-header) > .str-chat__quoted-message-preview-header {
+  order: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.str-chat__message-input:has(> [class*="quoted-message"]) > .str-chat__message-input-inner,
+.str-chat__message-input:has(> [class*="parent-message"]) > .str-chat__message-input-inner,
+.str-chat__message-input:has(> .str-chat__quoted-message-preview-header) > .str-chat__message-input-inner,
+[role="presentation"].str-chat__message-input:has(> [class*="quoted-message"]) > .str-chat__message-input-inner,
+[role="presentation"].str-chat__message-input:has(> [class*="parent-message"]) > .str-chat__message-input-inner,
+[role="presentation"].str-chat__message-input:has(> .str-chat__quoted-message-preview-header) > .str-chat__message-input-inner {
+  order: 1 !important;
+  width: 100% !important;
+}
+
+/* Fallback (no :has support): always stack header above input */
+.str-chat__message-input,
+[role="presentation"].str-chat__message-input {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+}
+
+.str-chat__message-input > .str-chat__quoted-message-preview-header,
+.str-chat__message-input > .str-chat__quoted-message-preview,
+.str-chat__message-input > .str-chat__parent-message-preview,
+[role="presentation"].str-chat__message-input > .str-chat__quoted-message-preview-header,
+[role="presentation"].str-chat__message-input > .str-chat__quoted-message-preview,
+[role="presentation"].str-chat__message-input > .str-chat__parent-message-preview {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-bottom: 8px !important;
+}
+
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__quoted-message-preview)
+  .str-chat__message-textarea-container,
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__parent-message-preview)
+  .str-chat__message-textarea-container,
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__quoted-message-preview-header)
+  .str-chat__message-textarea-container,
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__quoted-message-preview)
+  .str-chat__textarea,
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__parent-message-preview)
+  .str-chat__textarea,
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__quoted-message-preview-header)
+  .str-chat__textarea {
+  order: 2 !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__quoted-message-preview)
+  .str-chat__attachment-selector,
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__quoted-message-preview)
+  [data-testid="attachment-action-button"],
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__quoted-message-preview)
+  button[aria-label*="Attach"],
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__parent-message-preview)
+  .str-chat__attachment-selector,
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__parent-message-preview)
+  [data-testid="attachment-action-button"],
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__parent-message-preview)
+  button[aria-label*="Attach"],
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__quoted-message-preview-header)
+  .str-chat__attachment-selector,
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__quoted-message-preview-header)
+  [data-testid="attachment-action-button"],
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__quoted-message-preview-header)
+  button[aria-label*="Attach"] {
+  order: 1 !important;
+}
+
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__quoted-message-preview)
+  .str-chat__send-button,
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__parent-message-preview)
+  .str-chat__send-button,
+.str-chat__message-input .str-chat__message-input-inner:has(.str-chat__quoted-message-preview-header)
+  .str-chat__send-button {
+  order: 3 !important;
+}
+
+/* Inline reply preview */
+.inline-message-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inline-reply-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.inline-reply-preview__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.inline-reply-preview__icon {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.inline-reply-preview__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 2px;
+}
+
+.inline-reply-preview__title {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inline-reply-preview__snippet {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.65);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inline-reply-preview__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.2s ease;
+}
+
+.inline-reply-preview__close:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Inline edit bar */
+.inline-edit-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.inline-edit-bar__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.inline-edit-bar__icon {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.inline-edit-bar__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 2px;
+}
+
+.inline-edit-bar__title {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inline-edit-bar__snippet {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.65);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inline-edit-bar__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.2s ease;
+}
+
+.inline-edit-bar__close:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Quoted message inside sent message (compact, messenger-style) */
+.inline-quoted-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  margin: 0 0 6px 0;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  max-width: 100%;
+}
+
+.inline-quoted-message__bar {
+  width: 3px;
+  align-self: stretch;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.4);
+  flex-shrink: 0;
+}
+
+.inline-quoted-message__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.inline-quoted-message__author {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inline-quoted-message__snippet {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inline-quoted-message--mine {
+  background: rgba(0, 0, 0, 0.18);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.inline-quoted-message--mine .inline-quoted-message__bar {
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.str-chat__message .str-chat__quoted-message-preview .str-chat__avatar--quoted-message-sender {
+  display: none;
+}
+
+.str-chat__message .str-chat__quoted-message-bubble {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  min-width: 0;
+}
+
+.str-chat__message .str-chat__quoted-message-bubble__text,
+.str-chat__message .str-chat__quoted-message-text {
+  font-size: 0.8rem;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.85);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Hide Stream's default quoted header inside the composer */
+.str-chat__message-input .str-chat__quoted-message-preview-header,
+.str-chat__message-input .str-chat__quoted-message-preview {
+  display: none !important;
+}
+
+/* Hard reset: reply preview header must be above the input row */
+.str-chat__message-input,
+[role="presentation"].str-chat__message-input {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+}
+
+.str-chat__message-input > .str-chat__quoted-message-preview-header,
+.str-chat__message-input > .str-chat__quoted-message-preview,
+.str-chat__message-input > .str-chat__parent-message-preview,
+[role="presentation"].str-chat__message-input > .str-chat__quoted-message-preview-header,
+[role="presentation"].str-chat__message-input > .str-chat__quoted-message-preview,
+[role="presentation"].str-chat__message-input > .str-chat__parent-message-preview {
+  order: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  align-self: stretch !important;
+  position: static !important;
+}
+
+.str-chat__message-input > .str-chat__message-input-inner,
+[role="presentation"].str-chat__message-input > .str-chat__message-input-inner {
+  order: 1 !important;
+  width: 100% !important;
+  position: static !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+
+.str-chat__message-input > .str-chat__message-input-inner > .str-chat__attachment-selector,
+.str-chat__message-input > .str-chat__message-input-inner > [data-testid="attachment-action-button"],
+.str-chat__message-input > .str-chat__message-input-inner > button[aria-label*="Attach"],
+[role="presentation"].str-chat__message-input > .str-chat__message-input-inner > .str-chat__attachment-selector,
+[role="presentation"].str-chat__message-input > .str-chat__message-input-inner > [data-testid="attachment-action-button"],
+[role="presentation"].str-chat__message-input > .str-chat__message-input-inner > button[aria-label*="Attach"] {
+  order: 1 !important;
+}
+
+.str-chat__message-input > .str-chat__message-input-inner > .str-chat__message-textarea-container,
+.str-chat__message-input > .str-chat__message-input-inner > .str-chat__textarea,
+[role="presentation"].str-chat__message-input > .str-chat__message-input-inner > .str-chat__message-textarea-container,
+[role="presentation"].str-chat__message-input > .str-chat__message-input-inner > .str-chat__textarea {
+  order: 2 !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+
+.str-chat__message-input > .str-chat__message-input-inner > .str-chat__send-button,
+[role="presentation"].str-chat__message-input > .str-chat__message-input-inner > .str-chat__send-button {
+  order: 3 !important;
+}
+
+.reaction-users-tooltip {
+  padding: 8px 10px;
+  max-width: 240px;
+  max-height: 180px;
+  overflow: auto;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.reaction-users-tooltip__header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 6px;
+}
+
+.reaction-users-tooltip__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.reaction-users-tooltip__item,
+.reaction-users-tooltip__more {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Hide Stream's default quoted header inside the composer */
+
+/* Custom Poll Creation Dialog Styles */
+.str-chat__poll-creation-dialog {
+  background: rgba(15, 17, 22, 0.98);
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 500px;
+  width: 90vw;
+}
+
+.str-chat__poll-creation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.str-chat__poll-creation-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.str-chat__poll-creation-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.str-chat__form-group label {
+  display: block;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+}
+
+.str-chat__input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.07);
+  transition: all 0.2s ease;
+}
+
+.str-chat__input:focus {
+  outline: none;
+  border-color: var(--rzd-red);
+  background: rgba(255, 255, 255, 0.10);
+  box-shadow: 0 0 0 3px rgba(226, 26, 26, 0.18);
+}
+
+.str-chat__input--small {
+  width: 80px;
+  margin-top: 8px;
+}
+
+.str-chat__poll-option-input-wrapper {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.str-chat__poll-option-remove {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  transition: all 0.2s ease;
+}
+
+.str-chat__poll-option-remove:hover {
+  background: rgba(239, 68, 68, 0.3);
+}
+
+.str-chat__poll-add-option {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+
+.str-chat__poll-add-option:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.str-chat__poll-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+}
+
+.str-chat__poll-setting {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.str-chat__checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+}
+
+.str-chat__checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--rzd-red);
+}
+
+.str-chat__poll-max-votes {
+  margin-left: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.str-chat__poll-max-votes label {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: normal;
+}
+
+.str-chat__poll-creation-footer {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.str-chat__button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.str-chat__button--primary {
+  background: var(--rzd-red);
+  color: white;
+}
+
+.str-chat__button--primary:hover:not(:disabled) {
+  background: var(--rzd-red-dark);
+}
+
+.str-chat__button--primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.str-chat__button--secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.str-chat__button--secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Force message input to accept clicks and input */
+.str-chat__message-input,
+.str-chat__message-input *,
+.str-chat__input-flat,
+.str-chat__input-flat *,
+.str-chat__textarea,
+.str-chat__textarea *,
+.str-chat__message-textarea-react-host,
+.str-chat__message-textarea-react-host * {
+  pointer-events: auto !important;
+  user-select: text !important;
+}
+
+.str-chat__message-input textarea,
+.str-chat__textarea textarea {
+  pointer-events: auto !important;
+  user-select: text !important;
+}
+
+/* Composer cleanup for inline input row */
+.inline-message-input-row .str-chat__message-input {
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.inline-message-input-row .str-chat__message-input-inner {
+  display: flex !important;
+  background: linear-gradient(180deg, rgba(15, 17, 22, 0.85) 0%, rgba(20, 24, 32, 0.9) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 18px !important;
+  padding: 6px 8px !important;
+  gap: 6px !important;
+  align-items: flex-end !important;
+}
+
+.inline-message-input-row .str-chat__message-input-inner:focus-within {
+  border-color: rgba(226, 26, 26, 0.35) !important;
+  box-shadow: 0 0 0 3px rgba(226, 26, 26, 0.08) !important;
+}
+
+.inline-message-input-row .str-chat__textarea textarea,
+.inline-message-input-row .str-chat__textarea textarea:focus,
+.inline-message-input-row .str-chat__textarea textarea:active {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+.inline-message-input-row .str-chat__textarea:focus-within textarea {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.inline-message-input-row .str-chat__message-textarea-container {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  min-width: 0 !important;
+}
+
+.inline-attachment-selector {
+  display: flex;
+  align-items: center;
+}
+
+.composer-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.inline-message-input-row .poll-input-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0;
+  cursor: pointer;
+  transform: none !important;
+}
+
+.inline-message-input-row .poll-input-button svg,
+.inline-message-input-row .poll-input-button svg path,
+.inline-message-input-row .poll-input-button svg circle,
+.inline-message-input-row .poll-input-button svg rect {
+  color: currentColor !important;
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+
+.inline-message-input-row .poll-input-button:hover,
+.inline-message-input-row .poll-input-button:active {
+  background: transparent !important;
+  box-shadow: none !important;
+  opacity: 0.75;
+  transform: none !important;
+}
+
+.inline-message-input-row .poll-input-button:focus-visible {
+  outline: 2px solid rgba(226, 26, 26, 0.35);
+  outline-offset: 2px;
+}
+
+.inline-attachment-input {
+  display: none;
+}
+
+.inline-attachment-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.inline-attachment-preview {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  max-height: 60px;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 6px 6px;
+  scrollbar-width: none;
+}
+
+.inline-attachment-preview::-webkit-scrollbar {
+  height: 0;
+}
+
+.inline-attachment-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+  max-width: 220px;
+  flex: 0 0 auto;
+}
+
+.inline-attachment-chip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.inline-attachment-chip-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inline-attachment-preview .inline-attachment-chip-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  min-height: 18px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  padding: 0;
+  box-shadow: none;
+  transform: none;
+}
+
+.inline-attachment-preview .inline-attachment-chip-remove:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.95);
+  box-shadow: none;
+  transform: none;
+}
+
+.inline-attachment-preview .inline-attachment-chip-remove:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

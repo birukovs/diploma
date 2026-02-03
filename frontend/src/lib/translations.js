@@ -13,6 +13,31 @@ const russianTranslations = {
   "Last seen": "Был(а)",
   "at": "в",
   "{{ timestamp }}": "{{ timestamp }}",
+  "Reply to {{user}}": "Ответ {{user}}",
+  "Cancel reply": "Отменить ответ",
+  "Editing message": "Редактирование сообщения",
+
+  // Poll creation
+  "Create a poll": "Создать опрос",
+  "Question": "Вопрос",
+  "Ask a question...": "Задать вопрос…",
+  "Options": "Варианты",
+  "Option": "Вариант",
+  "Add option": "Добавить вариант",
+  "Allow multiple answers": "Несколько ответов",
+  "Maximum votes allowed": "Максимум ответов (2–10)",
+  "Anonymous voting": "Анонимный опрос",
+  "Allow users to suggest options": "Разрешить предложение вариантов",
+  "Allow comments": "Разрешить комментарии",
+  "Cancel": "Отмена",
+  "Create poll": "Создать",
+
+  // Poll display
+  "Poll": "Опрос",
+  "Anonymous": "Анонимный",
+  "Vote": "Голосовать",
+  "Voted": "Проголосовали",
+  "votes": "голосов",
 };
 
 export const i18nInstance = new Streami18n({

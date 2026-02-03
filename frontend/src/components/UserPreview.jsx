@@ -43,6 +43,8 @@ const UserPreview = ({ user, client, activeChannel, onSelectUser }) => {
     channel.markRead().catch(err => console.error("markRead failed:", err));
   };
 
+  const statusColor = user.online ? "#06cf6c" : "#9ea4ae";
+
   return (
     <button
       onClick={handleClick}
@@ -67,9 +69,9 @@ const UserPreview = ({ user, client, activeChannel, onSelectUser }) => {
           )}
 
           <CircleIcon
-            className={`w-3 h-3 absolute -bottom-0.5 -right-0.5 ${
-              user.online ? "text-green-500 fill-green-500" : "text-gray-400 fill-gray-400"
-            }`}
+            className="user-status-dot w-3 h-3 absolute -bottom-0.5 -right-0.5"
+            style={{ "--status-color": statusColor }}
+            data-online={user.online ? "true" : "false"}
           />
         </div>
 

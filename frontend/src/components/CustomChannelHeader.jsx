@@ -94,7 +94,7 @@ const CustomChannelHeader = () => {
           className="flex items-center gap-2 bg-transparent hover:bg-transparent py-1 px-2 rounded"
           onClick={() => setShowMembers(true)}
         >
-          <UsersIcon className="size-5 text-[#e21a1a]" />
+          <UsersIcon className="size-5 text-white/70 hover:text-primary" />
           <span className="text-sm text-white">{memberCount}</span>
         </button>
 
@@ -103,7 +103,7 @@ const CustomChannelHeader = () => {
           onClick={handleVideoCall}
           title="Start Video Call"
         >
-          <VideoIcon className="size-5 text-[#e21a1a]" />
+          <VideoIcon className="size-5 text-white/70 hover:text-primary" />
         </button>
 
         {channel.data?.private && (
@@ -119,7 +119,7 @@ const CustomChannelHeader = () => {
           className="p-1 rounded hover:bg-transparent hover:border-transparent"
           onClick={handleShowPinned}
         >
-          <PinIcon className="size-5 text-[#e21a1a]" />
+          <PinIcon className="size-5 text-white/70 hover:text-primary" />
         </button>
       </div>
       {showMembers && (

@@ -11,6 +11,7 @@ import {
   UsersIcon,
   XIcon,
 } from "lucide-react";
+import { isSystemUser } from "../lib/userUtils";
 
 const transliterate = (text) => {
   const map = {
@@ -47,7 +48,9 @@ const CreateChannelModal = ({ onClose }) => {
           { name: 1 },
           { limit: 100 }
         );
-        setUsers(response.users || []);
+        // Filter out system users (recording-*, egress-*, etc.)
+        const filteredUsers = (response.users || []).filter(user => !isSystemUser(user));
+        setUsers(filteredUsers);
       } catch (error) {
         console.log("Ошибка при получении пользователей:");
         Sentry.captureException(error, {
@@ -252,7 +255,7 @@ const CreateChannelModal = ({ onClose }) => {
                 </span>
               </div>
 
-              <div className="members-list">
+              <div className="members-list" data-ui="system-user-filtered-users-list">
                 {loadingUsers ? (
                   <p>Загрузка пользователей...</p>
                 ) : users.length === 0 ? (

@@ -1,5 +1,6 @@
 import { XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { isSystemUser } from "../lib/userUtils";
 
 
 function MembersModal({ channel, members, currentUserId, currentUser, client, onClose }) {
@@ -65,8 +66,10 @@ function MembersModal({ channel, members, currentUserId, currentUser, client, on
           }
         }
 
-        console.log("Final member list count:", membersList.length);
-        setAllMembers(membersList);
+        // Filter out system users (recording-*, egress-*, etc.)
+        const filteredMembers = membersList.filter(m => !isSystemUser(m.user));
+        console.log("Final member list count:", filteredMembers.length);
+        setAllMembers(filteredMembers);
       } catch (error) {
         console.error("Error fetching members:", error);
         setAllMembers(members);
@@ -90,7 +93,7 @@ function MembersModal({ channel, members, currentUserId, currentUser, client, on
         </div>
 
         {/* MEMBERS LIST */}
-        <div className="px-6 py-4 max-h-96 overflow-y-auto">
+        <div className="px-6 py-4 max-h-96 overflow-y-auto" data-ui="system-user-filtered">
           {loading ? (
             <p className="text-gray-400">Загрузка участников...</p>
           ) : allMembers.length === 0 ? (

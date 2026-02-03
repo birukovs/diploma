@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useChatContext } from "stream-chat-react";
 import { XIcon } from "lucide-react";
+import { isSystemUser } from "../lib/userUtils";
 
 const InviteModal = ({ channel, onClose }) => {
   const { client } = useChatContext();
@@ -19,7 +20,9 @@ const InviteModal = ({ channel, onClose }) => {
       try {
         const members = Object.keys(channel.state.members);
         const res = await client.queryUsers({ id: { $nin: members } }, { name: 1 }, { limit: 30 });
-        setUsers(res.users);
+        // Filter out system users (recording-*, egress-*, etc.)
+        const filteredUsers = res.users.filter(user => !isSystemUser(user));
+        setUsers(filteredUsers);
       } catch (error) {
         console.log("Error fetching users", error);
         setError("Не удалось загрузить пользователей");
@@ -60,7 +63,7 @@ const InviteModal = ({ channel, onClose }) => {
         </div>
 
         {/* CONTENT */}
-        <div className="create-channel-modal__form">
+        <div className="create-channel-modal__form" data-ui="system-user-filtered-invite">
           {isLoadingUsers && <p>Загрузка пользователей...</p>}
           {error && <p className="form-error">{error}</p>}
           {users.length === 0 && !isLoadingUsers && <p>Пользователи не найдены</p>}
