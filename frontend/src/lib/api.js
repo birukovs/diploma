@@ -1,10 +1,17 @@
-export async function getStreamToken(){
-    const response = await fetch(`${import.meta.env.MODE === "development" ? "http://localhost:5001/api" : "https://diploma-backend-six.vercel.app/api"}/chat/token`, {
-        method: 'GET',
-        credentials: 'include',
-    });
-    if (!response.ok) {
-        throw new Error('Failed to fetch token');
-    }
-    return response.json();
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+export async function getStreamToken(getToken) {
+  const clerkToken = await (typeof getToken === "function" ? getToken() : null);
+
+  const response = await fetch(`${API_BASE_URL}/chat/token`, {
+    method: "GET",
+    credentials: "include",
+    headers: clerkToken ? { Authorization: `Bearer ${clerkToken}` } : {},
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch token");
+  }
+
+  return response.json();
 }

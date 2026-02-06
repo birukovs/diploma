@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import { useUser } from "@clerk/clerk-react";
+import { useAuth, useUser } from "@clerk/clerk-react";
 import toast from "react-hot-toast";
 
 import { getStreamToken } from "../lib/api";
@@ -28,6 +28,7 @@ const STREAM_API_KEY = import.meta.env.VITE_STREAM_API_KEY;
 const CallPage = () => {
   const { id: callId } = useParams();
   const { user, isLoaded } = useUser();
+  const { getToken } = useAuth();
 
   const [client, setClient] = useState(null);
   const [call, setCall] = useState(null);
@@ -35,7 +36,7 @@ const CallPage = () => {
 
   const { data: tokenData } = useQuery({
     queryKey: ["streamToken"],
-    queryFn: getStreamToken,
+    queryFn: () => getStreamToken(getToken),
     enabled: !!user,
   });
 
