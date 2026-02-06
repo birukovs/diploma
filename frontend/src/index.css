@@ -1,9 +1,15 @@
 @import "tailwindcss";
 
-body {
-  background: transparent;
+html,
+body,
+#root {
+  height: 100%;
+  min-height: 100%;
+  min-height: 100svh;
+  background-color: #0f1116;
 }
 
-#root {
-  background: transparent;
+body {
+  margin: 0;
+  overscroll-behavior-y: none;
 }
