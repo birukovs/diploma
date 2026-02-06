@@ -287,6 +287,7 @@ background:
 
   .auth-left {
     padding: 2rem 1.5rem;
+    width: 100%;
   }
 
   .auth-hero {
@@ -294,8 +295,7 @@ background:
   }
 
   .auth-right {
-    min-height: 40vh;
-    padding: 1rem;
+    display: none;
   }
 
   .auth-image-container {

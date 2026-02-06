@@ -1264,6 +1264,57 @@ button:hover .str-chat__avatar .str-chat__avatar-status {
   }
 }
 
+@media (max-width: 768px) {
+  .chat-container {
+    flex-direction: column;
+  }
+
+  .str-chat__channel-list {
+    width: 100%;
+    height: 100%;
+    border-right: none;
+    border-bottom: 1px solid rgba(226, 26, 26, 0.22);
+  }
+
+  .chat-main {
+    width: 100%;
+    flex: 1;
+    border-radius: 0 0 1rem 1rem;
+  }
+
+  .chat-container.mobile-chat-open .str-chat__channel-list {
+    display: none;
+  }
+
+  .chat-container.mobile-chat-open .chat-main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chat-container:not(.mobile-chat-open) .chat-main {
+    display: none;
+  }
+
+  .channel-back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.85);
+  }
+}
+
+@media (min-width: 769px) {
+  .channel-back-btn {
+    display: none;
+  }
+}
+
 
 
 
@@ -2913,6 +2964,70 @@ div.str-chat__modal-header * {
   border-color: rgba(226, 26, 26, 0.5) !important;
   color: rgba(255, 255, 255, 1) !important;
   box-shadow: 0 6px 16px rgba(226, 26, 26, 0.28) !important;
+}
+
+/* Модалка просмотра изображений — на весь экран и поверх всего */
+.str-chat__modal:has(.str-chat__image-modal),
+.str-chat__modal-wrapper:has(.str-chat__image-modal),
+.str-chat [role="dialog"]:has(.str-chat__image-modal),
+.str-chat__modal:has(.str-chat__gallery-modal),
+.str-chat__modal-wrapper:has(.str-chat__gallery-modal),
+.str-chat [role="dialog"]:has(.str-chat__gallery-modal) {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: rgba(12, 14, 18, 0.98) !important;
+  z-index: 3000 !important;
+}
+
+.str-chat__modal:has(.str-chat__image-modal) .str-chat__modal__inner,
+.str-chat__modal-wrapper:has(.str-chat__image-modal) .str-chat__modal__inner,
+.str-chat [role="dialog"]:has(.str-chat__image-modal) .str-chat__modal__inner,
+.str-chat__modal:has(.str-chat__gallery-modal) .str-chat__modal__inner,
+.str-chat__modal-wrapper:has(.str-chat__gallery-modal) .str-chat__modal__inner,
+.str-chat [role="dialog"]:has(.str-chat__gallery-modal) .str-chat__modal__inner,
+.str-chat__modal:has(.str-chat__image-modal) .str-chat-react__modal__inner,
+.str-chat__modal-wrapper:has(.str-chat__image-modal) .str-chat-react__modal__inner,
+.str-chat [role="dialog"]:has(.str-chat__image-modal) .str-chat-react__modal__inner,
+.str-chat__modal:has(.str-chat__gallery-modal) .str-chat-react__modal__inner,
+.str-chat__modal-wrapper:has(.str-chat__gallery-modal) .str-chat-react__modal__inner,
+.str-chat [role="dialog"]:has(.str-chat__gallery-modal) .str-chat-react__modal__inner,
+.str-chat__modal:has(.str-chat__image-modal) .str-chat__modal-inner,
+.str-chat__modal-wrapper:has(.str-chat__image-modal) .str-chat__modal-inner,
+.str-chat [role="dialog"]:has(.str-chat__image-modal) .str-chat__modal-inner,
+.str-chat__modal:has(.str-chat__gallery-modal) .str-chat__modal-inner,
+.str-chat__modal-wrapper:has(.str-chat__gallery-modal) .str-chat__modal-inner,
+.str-chat [role="dialog"]:has(.str-chat__gallery-modal) .str-chat__modal-inner,
+.str-chat__modal:has(.str-chat__image-modal) [class*="modal__inner"],
+.str-chat__modal-wrapper:has(.str-chat__image-modal) [class*="modal__inner"],
+.str-chat [role="dialog"]:has(.str-chat__image-modal) [class*="modal__inner"],
+.str-chat__modal:has(.str-chat__gallery-modal) [class*="modal__inner"],
+.str-chat__modal-wrapper:has(.str-chat__gallery-modal) [class*="modal__inner"],
+.str-chat [role="dialog"]:has(.str-chat__gallery-modal) [class*="modal__inner"] {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+}
+
+.str-chat__image-modal,
+.str-chat__gallery-modal {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 /* Стиль пузыря сообщений-опросов в чате */

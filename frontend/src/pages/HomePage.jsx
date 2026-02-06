@@ -53,6 +53,11 @@ const HomePage = () => {
     setSearchParams({ channel: channel.id });
   }, [setSearchParams]);
 
+  const handleBackToList = useCallback(() => {
+    setSelectedChannel(null);
+    setSearchParams({});
+  }, [setSearchParams]);
+
   const channelRenderFilterFn = useCallback(
     (channels) => {
       const query = globalSearch.trim().toLowerCase();
@@ -103,7 +108,7 @@ const HomePage = () => {
   return (
     <div className="chat-wrapper">
       <Chat client={chatClient} i18nInstance={i18nInstance}>
-        <div className="chat-container">
+        <div className={`chat-container${activeChannel ? " mobile-chat-open" : ""}`}>
           <div className="str-chat__channel-list">
             <div className="team-channel-list">
               <div className="team-channel-list__header gap-4">
@@ -197,7 +202,7 @@ const HomePage = () => {
               >
                 <InlineComposerProvider>
                   <Window>
-                    <CustomChannelHeader />
+                    <CustomChannelHeader onBack={handleBackToList} />
                     <InlineMessageList
                       messageActions={["react", "reply", "edit", "pin", "delete"]}
                     />

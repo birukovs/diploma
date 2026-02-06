@@ -1,2405 +1,5041 @@
 /* =========================================
-   CLERK OVERRIDES - PREVENT NARROW STRIPS & VERTICAL TEXT
-   This file MUST be imported LAST after all other styles
+   ПЕРЕОПРЕДЕЛЕНИЯ CLERK — запрет узких полос и вертикального текста
+   Этот файл должен быть импортирован ПОСЛЕДНИМ после всех стилей
    ========================================= */
 
+
+
 /* ===========================================
-   1. GLOBAL TEXT RESET - NO VERTICAL TEXT EVER
+   1. ГЛОБАЛЬНЫЙ СБРОС ТЕКСТА — НИКАКОГО ВЕРТИКАЛЬНОГО ТЕКСТА
    =========================================== */
+
 .cl-rootBox,
+
 .cl-rootBox *,
+
 .cl-userButtonPopoverCard,
+
 .cl-userButtonPopoverCard *,
+
 .cl-modal,
+
 .cl-modal *,
+
 .cl-userProfile-root,
+
 .cl-userProfile-root * {
+
   writing-mode: horizontal-tb !important;
+
   text-orientation: mixed !important;
+
   word-break: normal !important;
+
   overflow-wrap: normal !important;
+
   hyphens: none !important;
+
 }
 
+
+
 /* ===========================================
-   2. ALL BUTTONS - NEVER SHRINK TO STRIPS
+   2. ВСЕ КНОПКИ — НЕ СЖИМАТЬ ДО ПОЛОСОК
    =========================================== */
+
 .cl-rootBox button,
+
 .cl-rootBox [role="button"],
+
 .cl-rootBox a[role="button"],
+
 .cl-button,
+
 .cl-formButtonPrimary,
+
 .cl-formButtonReset,
+
 .cl-iconButton,
+
 .cl-menuButton,
+
 .cl-profileSectionPrimaryButton,
+
 .cl-socialButtonsBlockButton,
+
 .cl-socialButtonsIconButton,
+
 .cl-userButtonPopoverActionButton,
+
 .cl-alternativeMethodsBlockButton,
+
 .cl-identityPreviewEditButton,
+
 .cl-accordionTriggerButton,
+
 .cl-navbarButton,
+
 .cl-avatarImageActionsUpload,
+
 .cl-modalCloseButton,
+
 .cl-headerCloseButton {
+
   flex: 0 0 auto !important;
+
   min-width: max-content !important;
+
   width: auto !important;
+
   white-space: nowrap !important;
+
   overflow: visible !important;
+
   text-overflow: clip !important;
+
 }
 
+
+
 /* ===========================================
-   3. ICON-ONLY BUTTONS - FIXED 36x36
+   3. КНОПКИ ТОЛЬКО С ИКОНКОЙ — ФИКС 36x36
    =========================================== */
+
 .cl-menuButton,
+
 .cl-profileSectionPrimaryButton,
+
 .cl-iconButton,
+
 .cl-modalCloseButton,
+
 .cl-headerCloseButton {
+
   width: 36px !important;
+
   height: 36px !important;
+
   min-width: 36px !important;
+
   max-width: 36px !important;
+
   padding: 0 !important;
+
   display: inline-flex !important;
+
   align-items: center !important;
+
   justify-content: center !important;
+
   flex: 0 0 36px !important;
+
   border-radius: 8px !important;
+
   background: rgba(255, 255, 255, 0.06) !important;
+
 }
+
+
 
 .cl-menuButton:hover,
+
 .cl-profileSectionPrimaryButton:hover,
+
 .cl-iconButton:hover {
+
   background: rgba(255, 255, 255, 0.12) !important;
+
 }
+
+
 
 .cl-menuButton svg,
+
 .cl-profileSectionPrimaryButton svg,
+
 .cl-iconButton svg {
+
   width: 16px !important;
+
   height: 16px !important;
+
   flex: 0 0 16px !important;
+
 }
 
+
+
 /* ===========================================
-   4. TEXT BUTTONS - MIN WIDTH + PADDING
+   4. ТЕКСТОВЫЕ КНОПКИ — МИН. ШИРИНА + ОТСТУПЫ
    =========================================== */
+
 .cl-formButtonPrimary,
+
 .cl-formButtonReset,
+
 .cl-button {
+
   min-width: 120px !important;
+
   height: 44px !important;
+
   min-height: 44px !important;
+
   padding: 12px 20px !important;
+
   display: inline-flex !important;
+
   align-items: center !important;
+
   justify-content: center !important;
+
   gap: 8px !important;
+
   border-radius: 10px !important;
+
 }
+
+
 
 /* Основная кнопка */
+
 .cl-formButtonPrimary {
+
   background: linear-gradient(135deg, #e03131 0%, #c92a2a 100%) !important;
+
   color: #fff !important;
+
   font-weight: 600 !important;
+
   border: none !important;
+
 }
+
+
 
 /* Вторичная кнопка */
+
 .cl-formButtonReset {
+
   background: rgba(255, 255, 255, 0.06) !important;
+
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
+
   color: rgba(255, 255, 255, 0.9) !important;
+
 }
 
+
+
 /* ===========================================
-   5. OAUTH BUTTONS - FULL ROW, NO FLOATING PARTS
+   5. КНОПКИ АУТЕНТИФИКАЦИИ — НА ВСЮ ШИРИНУ, БЕЗ ПЛАВАЮЩИХ ЧАСТЕЙ
    =========================================== */
+
 .cl-socialButtonsBlockButton {
+
   width: 100% !important;
+
   min-width: 100% !important;
+
   max-width: 100% !important;
+
   height: 48px !important;
+
   min-height: 48px !important;
+
   display: flex !important;
+
   flex-direction: row !important;
+
   align-items: center !important;
+
   justify-content: center !important;
+
   gap: 12px !important;
+
   padding: 12px 20px !important;
+
   background: rgba(255, 255, 255, 0.05) !important;
+
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
+
   border-radius: 12px !important;
+
   flex: 1 1 100% !important;
+
 }
+
+
 
 .cl-socialButtonsBlockButton:hover {
+
   background: rgba(255, 255, 255, 0.1) !important;
+
 }
 
-/* Иконка OAuth */
+
+
+/* Иконка аутентификации */
+
 .cl-socialButtonsBlockButtonIcon,
+
 .cl-socialButtonsProviderIcon {
+
   width: 20px !important;
+
   height: 20px !important;
+
   min-width: 20px !important;
+
   flex: 0 0 20px !important;
+
   position: static !important;
+
   transform: none !important;
+
 }
 
-/* Текст OAuth */
+
+
+/* Текст аутентификации */
+
 .cl-socialButtonsBlockButtonText {
+
   flex: 0 0 auto !important;
+
   white-space: nowrap !important;
+
 }
 
-/* Контейнер OAuth */
+
+
+/* Контейнер аутентификации */
+
 .cl-socialButtonsBlock,
+
 .cl-socialButtons {
+
   display: flex !important;
+
   flex-direction: column !important;
+
   gap: 10px !important;
+
   width: 100% !important;
+
 }
+
+
 
 /* ===========================================
-   6. USERBUTTON POPOVER - PROPER WIDTHS
+   6. ВСПЛЫВАШКА КНОПКИ ПОЛЬЗОВАТЕЛЯ — КОРРЕКТНАЯ ШИРИНА
    =========================================== */
+
 .cl-userButtonPopoverCard {
+
   width: 320px !important;
+
   min-width: 320px !important;
+
   max-width: 320px !important;
+
 }
+
+
 
 .cl-userButtonPopoverMain,
+
 .cl-userButtonPopoverActions {
+
   width: 100% !important;
+
   padding: 8px !important;
+
 }
+
+
 
 .cl-userButtonPopoverActionButton {
+
   width: 100% !important;
+
   min-width: 100% !important;
+
   height: 44px !important;
+
   min-height: 44px !important;
+
   display: flex !important;
+
   flex-direction: row !important;
+
   align-items: center !important;
+
   justify-content: flex-start !important;
+
   gap: 12px !important;
+
   padding: 10px 14px !important;
+
   border-radius: 8px !important;
+
   background: transparent !important;
+
 }
+
+
 
 .cl-userButtonPopoverActionButton:hover {
+
   background: rgba(255, 255, 255, 0.06) !important;
+
 }
+
+
 
 .cl-userButtonPopoverActionButtonIcon {
+
   width: 20px !important;
+
   height: 20px !important;
+
   min-width: 20px !important;
+
   flex: 0 0 20px !important;
+
 }
+
+
 
 .cl-userButtonPopoverActionButtonText {
+
   flex: 1 1 auto !important;
+
   text-align: left !important;
+
   white-space: nowrap !important;
+
   overflow: hidden !important;
+
   text-overflow: ellipsis !important;
+
 }
+
+
 
 /* ===========================================
-   7. USER PROFILE - SECTION ROWS FIX
+   7. ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ — ФИКС СТРОК СЕКЦИЙ
    =========================================== */
+
 .cl-userProfile-root {
+
   width: min(920px, calc(100vw - 32px)) !important;
+
   min-width: 700px !important;
+
 }
+
+
 
 /* Строка элемента секции профиля — ГЛАВНЫЙ ФИКС */
+
 .cl-profileSectionItem,
+
 .cl-profileSectionItemList__item {
+
   display: grid !important;
+
   grid-template-columns: 160px minmax(0, 1fr) auto !important;
+
   align-items: center !important;
+
   column-gap: 16px !important;
+
   row-gap: 8px !important;
+
   width: 100% !important;
+
   min-height: 56px !important;
+
   padding: 12px 16px !important;
+
   background: rgba(255, 255, 255, 0.03) !important;
+
   border-radius: 12px !important;
+
   margin-bottom: 0 !important;
+
 }
+
+
 
 /* Левая часть — текст может сокращаться */
+
 .cl-profileSectionItem__identifier,
+
 .cl-profileSectionItem__label,
+
 .cl-profileSectionItemList__item > div:first-child {
+
   flex: 1 1 auto !important;
+
   min-width: 0 !important;
+
   overflow: hidden !important;
+
   text-overflow: ellipsis !important;
+
   white-space: nowrap !important;
+
 }
+
 /* Колонки грида для лейбла/идентификатора */
+
 .cl-profileSectionItem__label {
+
   grid-column: 1 !important;
+
   flex: 0 0 160px !important;
+
   max-width: 160px !important;
+
   white-space: normal !important;
+
   line-height: 1.3 !important;
+
 }
+
+
 
 .cl-profileSectionItem__identifier {
+
   grid-column: 2 !important;
+
   min-width: 0 !important;
+
 }
 
+
+
 .cl-profileSectionItem__action,
+
 .cl-profileSectionItemList__item > div:last-child,
+
 .cl-profileSectionItem > div:last-child,
+
 .cl-profileSectionItem > button {
+
   grid-column: 3 !important;
+
   justify-self: end !important;
+
 }
+
+
+
 
 
 /* Правая часть — кнопки НИКОГДА не сжимаются */
+
 .cl-profileSectionItem__action,
+
 .cl-profileSectionItemList__item > div:last-child,
+
 .cl-profileSectionItem > button,
+
 .cl-profileSectionItem > div:last-child {
+
   flex: 0 0 auto !important;
+
   display: flex !important;
+
   align-items: center !important;
+
   gap: 8px !important;
+
   min-width: max-content !important;
+
 }
+
+
 
 /* Контент секции профиля */
+
 .cl-profileSectionContent {
+
   width: 100% !important;
+
 }
+
+
 
 /* Строка заголовка секции профиля */
+
 .cl-profileSectionTitle {
+
   display: flex !important;
+
   align-items: center !important;
+
   justify-content: space-between !important;
+
   gap: 16px !important;
+
   margin-bottom: 12px !important;
+
 }
+
+
 
 .cl-profileSectionTitleText {
+
   flex: 1 1 auto !important;
+
 }
 
+
+
 /* ===========================================
-   8. INLINE ACTION BUTTONS IN PROFILE
+   8. ВСТРОЕННЫЕ КНОПКИ ДЕЙСТВИЙ В ПРОФИЛЕ
    =========================================== */
+
 /* "Обновить профиль" / "Изменить имя" и т.д. */
+
 .cl-profileSectionContent .cl-button,
+
 .cl-profileSectionContent .cl-formButtonPrimary,
+
 .cl-profileSectionItem .cl-button {
+
   min-width: 140px !important;
+
   width: auto !important;
+
   height: 36px !important;
+
   min-height: 36px !important;
+
   padding: 8px 16px !important;
+
   font-size: 13px !important;
+
   flex: 0 0 auto !important;
+
 }
 
+
+
 /* ===========================================
-   9. BADGE / TAG - NEVER SHRINK
+   9. БЕЙДЖ/ТЕГ — НЕ СЖИМАТЬ
    =========================================== */
+
 .cl-badge,
+
 .cl-tag,
+
 .cl-chip {
+
   display: inline-flex !important;
+
   align-items: center !important;
+
   flex: 0 0 auto !important;
+
   min-width: max-content !important;
+
   height: 24px !important;
+
   padding: 4px 10px !important;
+
   border-radius: 6px !important;
+
   font-size: 12px !important;
+
   font-weight: 600 !important;
+
   white-space: nowrap !important;
+
   background: rgba(255, 255, 255, 0.08) !important;
+
 }
 
+
+
 /* ===========================================
-   10. NAVBAR BUTTONS
+   10. КНОПКИ НАВИГАЦИИ
    =========================================== */
+
 .cl-navbarButton {
+
   width: 100% !important;
+
   min-width: 100% !important;
+
   height: 44px !important;
+
   display: flex !important;
+
   align-items: center !important;
+
   gap: 12px !important;
+
   padding: 10px 14px !important;
+
   border-radius: 10px !important;
+
   white-space: nowrap !important;
+
 }
+
+
 
 .cl-navbarButtonIcon {
+
   width: 20px !important;
+
   height: 20px !important;
+
   flex: 0 0 20px !important;
+
 }
 
+
+
 /* ===========================================
-   11. FORM INPUTS - FULL WIDTH
+   11. ПОЛЯ ФОРМЫ — НА ВСЮ ШИРИНУ
    =========================================== */
+
 .cl-formFieldInput {
+
   width: 100% !important;
+
   min-width: 100% !important;
+
   height: 48px !important;
+
   padding: 12px 16px !important;
+
 }
+
+
 
 .cl-formFieldLabel {
+
   white-space: nowrap !important;
+
 }
+
+
 
 /* ===========================================
-   12. MODAL / CARD CONTAINERS
+   12. КОНТЕЙНЕРЫ МОДАЛОК/КАРТОЧЕК
    =========================================== */
+
 .cl-modal {
+
   display: flex !important;
+
   align-items: center !important;
+
   justify-content: center !important;
+
 }
 
+
+
 .cl-signIn-root .cl-card,
+
 .cl-signUp-root .cl-card {
+
   width: min(440px, calc(100vw - 32px)) !important;
+
   min-width: 380px !important;
+
   padding: 32px !important;
+
 }
+
+
 
 .cl-card {
+
   overflow: visible !important;
+
 }
+
+
 
 .cl-cardBox {
+
   overflow: visible !important;
+
 }
 
+
+
 /* ===========================================
-   13. CLOSE BUTTON - FIXED POSITION
+   13. КНОПКА ЗАКРЫТИЯ — ФИКСИРОВАННАЯ ПОЗИЦИЯ
    =========================================== */
+
 .cl-modalCloseButton,
+
 .cl-headerCloseButton {
+
   position: absolute !important;
+
   top: 16px !important;
+
   right: 16px !important;
+
   z-index: 100 !important;
+
   background: rgba(255, 255, 255, 0.08) !important;
+
 }
+
+
 
 .cl-modalCloseButton:hover,
+
 .cl-headerCloseButton:hover {
+
   background: rgba(255, 255, 255, 0.15) !important;
+
 }
 
+
+
 /* ===========================================
-   14. CONNECTED ACCOUNTS ROW
+   14. СТРОКА ПОДКЛЮЧЕННЫХ АККАУНТОВ
    =========================================== */
+
 .cl-connectedAccountListItem {
+
   display: flex !important;
+
   align-items: center !important;
+
   justify-content: space-between !important;
+
   gap: 16px !important;
+
   padding: 12px !important;
+
 }
+
+
 
 .cl-connectedAccountListItemIdentifier {
+
   flex: 1 1 auto !important;
+
   min-width: 0 !important;
+
   overflow: hidden !important;
+
   text-overflow: ellipsis !important;
+
 }
 
+
+
 /* ===========================================
-   15. IDENTITY PREVIEW
+   15. ПРЕДПРОСМОТР ИДЕНТИФИКАТОРА
    =========================================== */
+
 .cl-identityPreview {
+
   display: flex !important;
+
   align-items: center !important;
+
   gap: 12px !important;
+
 }
+
+
 
 .cl-identityPreviewEditButton {
+
   min-width: 100px !important;
+
   height: 36px !important;
+
   padding: 8px 14px !important;
+
   flex: 0 0 auto !important;
+
 }
 
+
+
 /* ===========================================
-   16. USER PREVIEW IN POPOVER
+   16. ПРЕДПРОСМОТР ПОЛЬЗОВАТЕЛЯ В POPOVER
    =========================================== */
+
 .cl-userPreview {
+
   display: flex !important;
+
   align-items: center !important;
+
   gap: 12px !important;
+
   padding: 14px !important;
+
   width: 100% !important;
+
 }
+
+
 
 .cl-userPreviewTextContainer {
+
   flex: 1 1 auto !important;
+
   min-width: 0 !important;
+
   overflow: hidden !important;
+
 }
+
+
 
 .cl-userPreviewMainIdentifier,
+
 .cl-userPreviewSecondaryIdentifier {
+
   display: block !important;
+
   white-space: nowrap !important;
+
   overflow: hidden !important;
+
   text-overflow: ellipsis !important;
+
 }
 
+
+
 /* ===========================================
-   17. ALTERNATIVE METHODS BUTTON
+   17. КНОПКА АЛЬТЕРНАТИВНЫХ МЕТОДОВ
    =========================================== */
+
 .cl-alternativeMethodsBlockButton {
+
   width: 100% !important;
+
   min-width: 100% !important;
+
   height: 48px !important;
+
   padding: 12px 20px !important;
+
   display: flex !important;
+
   align-items: center !important;
+
   justify-content: center !important;
+
   gap: 10px !important;
+
 }
 
+
+
 /* ===========================================
-   18. ACCORDION
+   18. АККОРДЕОН
    =========================================== */
+
 .cl-accordionTriggerButton {
+
   width: 100% !important;
+
   height: 48px !important;
+
   display: flex !important;
+
   align-items: center !important;
+
   justify-content: space-between !important;
+
   padding: 12px 16px !important;
+
 }
+
+
 
 .cl-accordionContent {
+
   padding: 12px 16px !important;
+
 }
 
+
+
 /* ===========================================
-   19. MENU DROPDOWN
+   19. ВЫПАДАЮЩЕЕ МЕНЮ
    =========================================== */
+
 .cl-menuList {
+
   min-width: 200px !important;
+
   padding: 8px !important;
+
   background: #1a1f28 !important;
+
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
+
   border-radius: 12px !important;
+
 }
+
+
 
 .cl-menuItem {
+
   width: 100% !important;
+
   min-height: 40px !important;
+
   padding: 10px 14px !important;
+
   display: flex !important;
+
   align-items: center !important;
+
   gap: 10px !important;
+
   border-radius: 8px !important;
+
   white-space: nowrap !important;
+
 }
+
+
 
 .cl-menuItem:hover {
+
   background: rgba(255, 255, 255, 0.06) !important;
+
 }
 
+
+
 /* ===========================================
-   20. ACTIVE DEVICES
+   20. АКТИВНЫЕ УСТРОЙСТВА
    =========================================== */
+
 .cl-activeDevice {
+
   display: flex !important;
+
   align-items: center !important;
+
   gap: 16px !important;
+
   padding: 14px !important;
+
 }
+
+
 
 .cl-activeDeviceIcon {
+
   width: 36px !important;
+
   height: 36px !important;
+
   flex: 0 0 36px !important;
+
 }
 
+
+
 /* ===========================================
-   21. FOOTER
+   21. ФУТЕР
    =========================================== */
+
 .cl-footer,
+
 .cl-footerAction {
+
   display: flex !important;
+
   align-items: center !important;
+
   justify-content: center !important;
+
   gap: 8px !important;
+
   flex-wrap: wrap !important;
+
 }
+
+
 
 .cl-footerActionLink {
+
   white-space: nowrap !important;
+
   color: #e03131 !important;
+
 }
 
+
+
 /* ===========================================
-   22. SVG/ICONS - NEVER ABSOLUTE
+   22. ВЕКТОРНЫЕ ИКОНКИ — НИКОГДА НЕ ABSOLUTE
    =========================================== */
+
 .cl-rootBox svg,
+
 .cl-userButtonPopoverCard svg,
+
 .cl-modal svg {
+
   position: static !important;
+
   transform: none !important;
+
   inset: auto !important;
+
 }
 
+
+
 /* ===========================================
-   23. PSEUDO ELEMENTS - KILL FLOATING SQUARES
+   23. ПСЕВДОЭЛЕМЕНТЫ — УБРАТЬ ПЛАВАЮЩИЕ КВАДРАТЫ
    =========================================== */
+
 .cl-button::before,
+
 .cl-button::after,
+
 .cl-formButtonPrimary::before,
+
 .cl-formButtonPrimary::after,
+
 .cl-socialButtonsBlockButton::before,
+
 .cl-socialButtonsBlockButton::after,
+
 .cl-userButtonPopoverActionButton::before,
+
 .cl-userButtonPopoverActionButton::after,
+
 .cl-menuButton::before,
+
 .cl-menuButton::after,
+
 .cl-profileSectionPrimaryButton::before,
+
 .cl-profileSectionPrimaryButton::after {
+
   content: none !important;
+
   display: none !important;
+
 }
 
+
+
 /* ===========================================
-   24. CLERK SANDBOX - ISOLATE FROM GLOBAL STYLES
+   24. CLERK SANDBOX — ИЗОЛЯЦИЯ ОТ ГЛОБАЛЬНЫХ СТИЛЕЙ
    =========================================== */
+
 .clerk-sandbox,
+
 .clerk-sandbox [class^="cl-"],
+
 .clerk-sandbox [class*=" cl-"] {
+
   transform: none !important;
+
   filter: none !important;
+
   backdrop-filter: none !important;
+
   font-family: "Manrope", system-ui, sans-serif !important;
+
 }
+
+
 
 /* Нейтрализуем глобальные стили [role="dialog"], протекающие в Clerk */
+
 .clerk-sandbox[role="dialog"],
+
 .clerk-sandbox .cl-modal[role="dialog"],
+
 .clerk-sandbox .cl-userProfile-root[role="dialog"] {
+
   display: block !important;
+
   flex-direction: row !important;
+
   justify-content: flex-start !important;
+
   align-items: stretch !important;
+
   padding: 0 !important;
+
   min-height: 0 !important;
+
   height: auto !important;
+
 }
+
+
 
 /* Восстанавливаем центрирование модалок Clerk */
+
 .clerk-sandbox .cl-modal {
+
   display: flex !important;
+
   align-items: center !important;
+
   justify-content: center !important;
+
   padding: 24px !important;
+
 }
+
+
 
 /* Снимаем ограничения размеров для контейнеров раскладки */
+
 .clerk-sandbox .cl-userProfile-root,
+
 .clerk-sandbox .cl-card,
+
 .clerk-sandbox .cl-cardBox,
+
 .clerk-sandbox .cl-profileSection,
+
 .clerk-sandbox .cl-profileSectionContent,
+
 .clerk-sandbox .cl-profileSectionItem,
+
 .clerk-sandbox .cl-profileSectionItemList,
+
 .clerk-sandbox .cl-page,
+
 .clerk-sandbox .cl-pageScrollBox,
+
 .clerk-sandbox .cl-scrollBox {
+
   max-width: 100% !important;
+
   min-width: 0 !important;
+
   height: auto !important;
+
   min-height: 0 !important;
+
 }
+
+
 
 /* Предотвращаем обрезку внутри карточек/секций Clerk */
+
 .clerk-sandbox .cl-card,
+
 .clerk-sandbox .cl-cardBox,
+
 .clerk-sandbox .cl-profileSection,
+
 .clerk-sandbox .cl-profileSectionContent,
+
 .clerk-sandbox .cl-profileSectionItemList {
+
   overflow: visible !important;
+
 }
+
+
 
 /* Секции UserProfile: укладка друг под другом вместо наложения */
+
 .clerk-sandbox .cl-profileSectionContent,
+
 .clerk-sandbox .cl-profileSectionContent__profile,
+
 .clerk-sandbox .cl-profileSectionContent__emailAddresses,
+
 .clerk-sandbox .cl-profileSectionContent__connectedAccounts,
+
 .clerk-sandbox .cl-profileSectionContent__activeDevices,
+
 .clerk-sandbox .cl-profileSectionContent__username,
+
 .clerk-sandbox .cl-profileSectionItemList {
+
   display: flex !important;
+
   flex-direction: column !important;
+
   gap: 16px !important;
+
 }
+
+
 
 .clerk-sandbox .cl-profileSection,
+
 .clerk-sandbox .cl-profileSectionItem,
+
 .clerk-sandbox .cl-profileSectionItemList {
+
   position: relative !important;
+
 }
+
+
 
 /* Кнопки действий справа в строках */
+
 .clerk-sandbox .cl-profileSectionItem__action,
+
 .clerk-sandbox .cl-profileSectionItem > div:last-child,
+
 .clerk-sandbox .cl-profileSectionItem > button,
+
 .clerk-sandbox .cl-profileSectionPrimaryButton,
+
 .clerk-sandbox .cl-menuButton,
+
 .clerk-sandbox .cl-iconButton,
+
 .clerk-sandbox .cl-button {
+
   display: inline-flex !important;
+
   flex: 0 0 auto !important;
+
   min-width: 36px !important;
+
   white-space: nowrap !important;
+
   overflow: visible !important;
+
 }
+
+
 
 /* Строки заголовка/действий: кнопки в потоке */
+
 .clerk-sandbox .cl-profileSectionTitle,
+
 .clerk-sandbox .cl-profileSectionTitleText {
+
   position: static !important;
+
 }
+
+
 
 .clerk-sandbox .cl-profileSectionTitle {
+
   display: flex !important;
+
   align-items: center !important;
+
   justify-content: space-between !important;
+
   gap: 12px !important;
+
 }
+
+
 
 .clerk-sandbox .cl-profileSectionTitleText {
+
   flex: 1 1 auto !important;
+
   min-width: 0 !important;
+
 }
+
+
 
 .clerk-sandbox .cl-profileSectionTitle button,
+
 .clerk-sandbox .cl-profileSectionTitle [role="button"],
+
 .clerk-sandbox .cl-profileSectionPrimaryButton,
+
 .clerk-sandbox .cl-menuButton {
+
   position: static !important;
+
   inset: auto !important;
+
   transform: none !important;
+
   margin-left: auto !important;
+
 }
+
+
 
 /* Действия элементов секции: никогда absolute */
+
 .clerk-sandbox .cl-profileSectionItem__action,
+
 .clerk-sandbox .cl-profileSectionItem > div:last-child,
+
 .clerk-sandbox .cl-profileSectionItem > button,
+
 .clerk-sandbox .cl-profileSectionItem .cl-menuButton,
+
 .clerk-sandbox .cl-profileSectionItem .cl-profileSectionPrimaryButton {
+
   position: static !important;
+
   inset: auto !important;
+
   transform: none !important;
+
 }
+
+
 
 /* Нейтрализуем правило Stream Chat для кнопки закрытия модалки, протекающее в Clerk */
+
 .clerk-sandbox [role="dialog"] > div:first-child button:last-child,
+
 .clerk-sandbox [role="dialog"] button[aria-label*="Close"],
+
 .clerk-sandbox [role="dialog"] button[aria-label*="close"] {
+
   width: auto !important;
+
   height: auto !important;
+
   min-width: 36px !important;
+
   min-height: 36px !important;
+
   padding: 0 !important;
+
   border: inherit !important;
+
   background: inherit !important;
+
   box-shadow: none !important;
+
   position: static !important;
+
   transform: none !important;
+
 }
+
+
 
 /* Переопределяем размеры кнопок диалогов Stream Chat, протекающие в Clerk */
+
 [role="dialog"] .clerk-sandbox .cl-button,
+
 [role="dialog"] .clerk-sandbox .cl-profileSectionPrimaryButton,
+
 [role="dialog"] .clerk-sandbox .cl-menuButton,
+
 [role="dialog"] .clerk-sandbox .cl-profileSectionTitle .cl-button,
+
 [role="dialog"] .clerk-sandbox .cl-profileSectionItem .cl-button {
+
   width: auto !important;
+
   min-width: max-content !important;
+
   height: auto !important;
+
   min-height: 36px !important;
+
   padding: 8px 16px !important;
+
   position: static !important;
+
   inset: auto !important;
+
   transform: none !important;
+
 }
+
+
 
 /* 25. ВОССТАНОВЛЕНИЕ ССЫЛОК ФУТЕРА SIGNIN */
+
 .clerk-sandbox .cl-signIn-root .cl-footer,
+
 .clerk-sandbox .cl-signUp-root .cl-footer {
+
   display: flex !important;
+
   flex-direction: column !important;
+
   gap: 8px !important;
+
   visibility: visible !important;
+
   opacity: 1 !important;
+
   height: auto !important;
+
   overflow: visible !important;
+
 }
+
+
 
 .clerk-sandbox .cl-signIn-root .cl-footerAction,
+
 .clerk-sandbox .cl-signUp-root .cl-footerAction {
+
   display: flex !important;
+
   align-items: center !important;
+
   justify-content: center !important;
+
   gap: 8px !important;
+
 }
+
+
 
 .clerk-sandbox .cl-signIn-root .cl-footerPages,
+
 .clerk-sandbox .cl-signUp-root .cl-footerPages,
+
 .clerk-sandbox .cl-signIn-root [class*="footerPages"],
+
 .clerk-sandbox .cl-signUp-root [class*="footerPages"] {
+
   display: flex !important;
+
   visibility: visible !important;
+
   opacity: 1 !important;
+
   height: auto !important;
+
 }
 
+
+
 .clerk-sandbox .cl-signIn-root .cl-footerPagesLink,
+
 .clerk-sandbox .cl-signUp-root .cl-footerPagesLink,
+
 .clerk-sandbox .cl-signIn-root [data-localization-key*="footerPageLink"],
+
 .clerk-sandbox .cl-signUp-root [data-localization-key*="footerPageLink"] {
+
   display: inline-flex !important;
+
   visibility: visible !important;
+
   opacity: 1 !important;
+
   height: auto !important;
+
 }
+
+
 
 /* 26. ВЫРАВНИВАНИЕ ДЕЙСТВИЙ ПРОФИЛЯ */
+
 .clerk-sandbox .cl-profileSectionItem__action,
+
 .clerk-sandbox .cl-profileSectionItem > div:last-child,
+
 .clerk-sandbox .cl-profileSectionItem > button {
+
   margin-left: auto !important;
+
 }
+
 /* 27. СБРОС ВЫСОТЫ ПРОФИЛЯ */
+
 .clerk-sandbox.cl-userProfile-root,
+
 .clerk-sandbox .cl-userProfile-root {
+
   height: auto !important;
+
   max-height: none !important;
+
   min-height: 0 !important;
+
   overflow: visible !important;
+
 }
+
+
 
 .clerk-sandbox.cl-userProfile-root .cl-card,
+
 .clerk-sandbox .cl-userProfile-root .cl-card {
+
   height: auto !important;
+
   max-height: none !important;
+
   min-height: 0 !important;
+
   overflow: visible !important;
+
 }
+
+
 
 .clerk-sandbox.cl-userProfile-root .cl-cardBox,
+
 .clerk-sandbox .cl-userProfile-root .cl-cardBox {
+
   height: auto !important;
+
 }
+
+
 
 /* 28. ВЫРАВНИВАНИЕ СТРОК ПРОФИЛЯ */
+
 .clerk-sandbox .cl-profileSectionItem,
+
 .clerk-sandbox .cl-profileSectionItemList__item {
+
   align-items: center !important;
+
   grid-template-columns: minmax(160px, 220px) minmax(0, 1fr) auto !important;
+
 }
+
+
 
 .clerk-sandbox .cl-profileSectionItem__label {
+
   max-width: 220px !important;
+
 }
+
+
 
 /* 29. SIGNIN ФУТЕР ПРИНУДИТЕЛЬНО ВИДИМ */
+
 .clerk-sandbox .cl-signIn-root .cl-footer,
+
 .clerk-sandbox .cl-signUp-root .cl-footer,
+
 .clerk-sandbox .cl-signIn-root .cl-footerPages,
+
 .clerk-sandbox .cl-signUp-root .cl-footerPages,
-.clerk-sandbox .cl-signIn-root .cl-footerPagesLink,
-.clerk-sandbox .cl-signUp-root .cl-footerPagesLink,
-.clerk-sandbox .cl-signIn-root .cl-footerAction,
-.clerk-sandbox .cl-signUp-root .cl-footerAction,
-.clerk-sandbox .cl-signIn-root .cl-footerActionLink,
-.clerk-sandbox .cl-signUp-root .cl-footerActionLink {
-  display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  height: auto !important;
-  overflow: visible !important;
-}
 
 .clerk-sandbox .cl-signIn-root .cl-footerPagesLink,
+
 .clerk-sandbox .cl-signUp-root .cl-footerPagesLink,
+
+.clerk-sandbox .cl-signIn-root .cl-footerAction,
+
+.clerk-sandbox .cl-signUp-root .cl-footerAction,
+
 .clerk-sandbox .cl-signIn-root .cl-footerActionLink,
+
 .clerk-sandbox .cl-signUp-root .cl-footerActionLink {
-  display: inline-flex !important;
+
+  display: flex !important;
+
+  visibility: visible !important;
+
+  opacity: 1 !important;
+
+  height: auto !important;
+
+  overflow: visible !important;
+
 }
+
+
+
+.clerk-sandbox .cl-signIn-root .cl-footerPagesLink,
+
+.clerk-sandbox .cl-signUp-root .cl-footerPagesLink,
+
+.clerk-sandbox .cl-signIn-root .cl-footerActionLink,
+
+.clerk-sandbox .cl-signUp-root .cl-footerActionLink {
+
+  display: inline-flex !important;
+
+}
+
+
 
 /* 30. СКРЫТЬ БРЕНДИНГ ТОЛЬКО В USERPROFILE */
+
 .clerk-sandbox .cl-userProfile-root [class*="secured"],
+
 .clerk-sandbox .cl-userProfile-root [class*="developmentMode"],
+
 .clerk-sandbox .cl-userProfile-root [class*="powered"] {
+
   display: none !important;
+
   visibility: hidden !important;
+
   opacity: 0 !important;
+
 }
+
+
 
 /* 31. РАСКЛАДКА CLERK SKIN */
+
 .clerk-skin.cl-modal,
+
 .clerk-skin .cl-modal {
+
   display: flex !important;
+
   align-items: center !important;
+
   justify-content: center !important;
+
 }
+
+
 
 .clerk-skin .cl-modalContent {
+
   width: min(520px, 92vw) !important;
+
   max-width: 520px !important;
+
   max-height: 80vh !important;
+
   height: auto !important;
+
   overflow: hidden !important;
+
 }
+
+
 
 /* Размер модалки по типу контента */
+
 .clerk-skin .cl-modalContent:has(.cl-userProfile-root) {
+
   width: min(840px, 92vw) !important;
+
   max-width: 840px !important;
+
   max-height: 80vh !important;
+
 }
+
+
 
 .clerk-skin .cl-modalContent:has(.cl-signIn-root),
+
 .clerk-skin .cl-modalContent:has(.cl-signUp-root) {
+
   width: min(520px, 92vw) !important;
+
   max-width: 520px !important;
+
   max-height: 80vh !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-card {
+
   width: 100% !important;
+
   max-width: 100% !important;
+
   max-height: 80vh !important;
+
   height: auto !important;
+
   overflow: hidden !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root {
+
   width: min(840px, 92vw) !important;
+
   max-width: 840px !important;
+
   max-height: 80vh !important;
+
   height: auto !important;
+
   min-height: 0 !important;
+
   overflow: hidden !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-cardBox {
+
   display: grid !important;
+
   grid-template-columns: 260px 1fr !important;
+
   gap: 20px !important;
+
   height: auto !important;
+
   align-content: start !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-navbar {
+
   width: 260px !important;
+
   min-width: 260px !important;
+
   max-width: 260px !important;
+
 }
 
+
+
 .clerk-skin .cl-userProfile-root .cl-pageScrollBox,
+
 .clerk-skin .cl-userProfile-root .cl-scrollBox,
+
 .clerk-skin .cl-userProfile-root .cl-page {
+
   overflow-y: auto !important;
+
   max-height: calc(80vh - 32px) !important;
+
   padding-right: 4px !important;
+
   padding-bottom: 8px !important;
+
 }
+
+
 
 /* 32. КНОПКИ + ИКОНКИ */
+
 .clerk-skin .cl-iconButton,
+
 .clerk-skin .cl-menuButton,
+
 .clerk-skin .cl-profileSectionPrimaryButton {
+
   width: 34px !important;
+
   height: 34px !important;
+
   min-width: 34px !important;
+
   min-height: 34px !important;
+
   display: inline-flex !important;
+
   align-items: center !important;
+
   justify-content: center !important;
+
   line-height: 1 !important;
+
 }
+
+
 
 .clerk-skin .cl-modalCloseButton,
+
 .clerk-skin .cl-headerCloseButton {
+
   width: 36px !important;
+
   height: 36px !important;
+
   min-width: 36px !important;
+
   min-height: 36px !important;
+
   display: inline-flex !important;
+
   align-items: center !important;
+
   justify-content: center !important;
+
   line-height: 1 !important;
+
 }
+
+
 
 .clerk-skin .cl-iconButton svg,
+
 .clerk-skin .cl-menuButton svg,
+
 .clerk-skin .cl-profileSectionPrimaryButton svg,
+
 .clerk-skin .cl-modalCloseButton svg,
+
 .clerk-skin .cl-headerCloseButton svg {
+
   width: 18px !important;
+
   height: 18px !important;
+
   flex: 0 0 auto !important;
+
 }
+
+
 
 .clerk-skin .cl-button,
+
 .clerk-skin .cl-formButtonPrimary,
+
 .clerk-skin .cl-formButtonReset,
+
 .clerk-skin .cl-userButtonPopoverActionButton {
+
   white-space: nowrap !important;
+
   overflow: hidden !important;
+
   text-overflow: ellipsis !important;
+
   word-break: normal !important;
+
   overflow-wrap: normal !important;
+
 }
+
+
 
 /* 33. ТИПОГРАФИКА */
+
 .clerk-skin .cl-userProfile-root .cl-header,
+
 .clerk-skin .cl-userProfile-root .cl-headerTitle,
+
 .clerk-skin .cl-userProfile-root .cl-headerSubtitle {
+
   display: none !important;
+
 }
+
+
 
 .clerk-skin .cl-profileSectionItem__label,
+
 .clerk-skin .cl-formFieldLabel,
+
 .clerk-skin .cl-profileSectionTitleText {
+
   color: rgba(255, 255, 255, 0.6) !important;
+
   font-weight: 500 !important;
+
   font-size: 12px !important;
+
 }
+
+
 
 .clerk-skin .cl-profileSectionItem__identifier,
+
 .clerk-skin .cl-userPreviewMainIdentifier,
+
 .clerk-skin .cl-userPreviewSecondaryIdentifier {
+
   color: rgba(255, 255, 255, 0.95) !important;
+
   font-weight: 600 !important;
+
 }
+
+
 
 /* 34. GRID СТРОК ПРОФИЛЯ */
-.clerk-skin .cl-profileSectionItem,
-.clerk-skin .cl-profileSectionItemList__item {
-  align-items: flex-start !important;
-}
 
 .clerk-skin .cl-profileSectionItem,
+
 .clerk-skin .cl-profileSectionItemList__item {
-  display: grid !important;
-  grid-template-columns: minmax(160px, 220px) minmax(0, 1fr) auto !important;
-  column-gap: 16px !important;
-  row-gap: 8px !important;
+
   align-items: flex-start !important;
+
 }
+
+
+
+.clerk-skin .cl-profileSectionItem,
+
+.clerk-skin .cl-profileSectionItemList__item {
+
+  display: grid !important;
+
+  grid-template-columns: minmax(160px, 220px) minmax(0, 1fr) auto !important;
+
+  column-gap: 16px !important;
+
+  row-gap: 8px !important;
+
+  align-items: flex-start !important;
+
+}
+
+
 
 .clerk-skin .cl-profileSectionItem__label {
+
   max-width: 220px !important;
+
   white-space: normal !important;
+
   line-height: 1.3 !important;
+
   font-size: 12px !important;
+
   font-weight: 500 !important;
+
 }
+
+
 
 .clerk-skin .cl-profileSectionItem__identifier {
+
   max-width: 100% !important;
+
   min-width: 0 !important;
+
   overflow: hidden !important;
+
   text-overflow: ellipsis !important;
+
   white-space: nowrap !important;
+
 }
 
+
+
 .clerk-skin .cl-profileSectionItem__action,
+
 .clerk-skin .cl-profileSectionItem > div:last-child,
+
 .clerk-skin .cl-profileSectionItem > button {
+
   justify-self: end !important;
+
 }
+
+
 
 /* 35. КАРТОЧКИ + СТЕКЛО */
+
 .clerk-skin .cl-profileSection,
+
 .clerk-skin .cl-card,
+
 .clerk-skin .cl-userProfile-root .cl-card {
+
   backdrop-filter: blur(6px) !important;
+
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28) !important;
+
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
+
 }
+
+
 
 /* 36. ВОДЯНОЙ ЗНАК ФУТЕРА */
+
 /* 37. ПРИНУДИТЕЛЬНЫЙ ВОДЯНОЙ ЗНАК USERPROFILE */
+
 .clerk-skin .cl-userProfile-root [class*="secured"],
+
 .clerk-skin .cl-userProfile-root [class*="developmentMode"],
+
 .clerk-skin .cl-userProfile-root [class*="powered"] {
+
   display: block !important;
+
   visibility: visible !important;
+
   opacity: 0.35 !important;
+
   color: rgba(255, 255, 255, 0.6) !important;
+
   font-size: 12px !important;
+
 }
 
+
+
 .clerk-skin .cl-footer,
+
 .clerk-skin .cl-footerAction,
+
 .clerk-skin .cl-footerPages,
+
 .clerk-skin .cl-footerPagesLink {
+
   font-size: 12px !important;
+
   opacity: 0.35 !important;
+
   color: rgba(255, 255, 255, 0.6) !important;
+
 }
+
 /* 38. ССЫЛКИ ФУТЕРА SIGNIN (ТЕМА CLERK) */
+
 .clerk-skin .clerk-footer,
+
 .clerk-skin .clerk-footer-pages,
+
 .clerk-skin .clerk-footer-action {
+
   display: flex !important;
+
   visibility: visible !important;
+
   opacity: 1 !important;
+
   height: auto !important;
+
 }
+
+
 
 /* 39. ФИНАЛЬНЫЙ GRID ПРОФИЛЯ + ССЫЛКИ ФУТЕРА */
+
 .clerk-skin .cl-userProfile-root .cl-cardBox {
+
   height: auto !important;
+
   align-content: start !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-card {
+
   height: auto !important;
+
 }
 
+
+
 .clerk-skin .cl-userProfile-root .cl-pageScrollBox,
+
 .clerk-skin .cl-userProfile-root .cl-scrollBox,
+
 .clerk-skin .cl-userProfile-root .cl-page {
+
   height: auto !important;
+
   max-height: calc(90vh - 48px) !important;
+
   flex: 0 1 auto !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-pageTitle,
+
 .clerk-skin .cl-userProfile-root .cl-pageHeader,
+
 .clerk-skin .cl-userProfile-root .cl-pageHeaderTitle,
+
 .clerk-skin .cl-userProfile-root .cl-pageHeaderSubtitle,
+
 .clerk-skin .cl-userProfile-root .cl-pageSubtitle {
+
   display: none !important;
+
 }
+
+
 
 .clerk-skin .cl-profileSectionItem,
+
 .clerk-skin .cl-profileSectionItemList__item {
+
   display: grid !important;
+
   grid-template-columns: minmax(0, 1fr) auto !important;
+
   grid-template-areas:
+
     "label action"
+
     "value action";
+
   column-gap: 16px !important;
+
   row-gap: 6px !important;
+
   align-items: start !important;
+
 }
+
+
 
 .clerk-skin .cl-profileSectionItem__label {
+
   grid-area: label !important;
+
   max-width: 100% !important;
+
   min-width: 0 !important;
+
   white-space: normal !important;
+
   word-break: normal !important;
+
   overflow-wrap: normal !important;
+
 }
+
+
 
 .clerk-skin .cl-profileSectionItem__identifier {
+
   grid-area: value !important;
+
   max-width: 100% !important;
+
   min-width: 0 !important;
+
   overflow: hidden !important;
+
   text-overflow: ellipsis !important;
+
   white-space: nowrap !important;
+
   word-break: normal !important;
+
   overflow-wrap: normal !important;
+
 }
+
+
 
 .clerk-skin .cl-profileSectionItem__action,
+
 .clerk-skin .cl-profileSectionItem > div:last-child,
+
 .clerk-skin .cl-profileSectionItem > button,
+
 .clerk-skin .cl-profileSectionItemList__item > div:last-child {
+
   grid-area: action !important;
+
   justify-self: end !important;
+
   align-self: center !important;
+
 }
+
+
 
 .clerk-skin .cl-footer,
+
 .clerk-skin .cl-footerPages {
+
   opacity: 0.35 !important;
+
   font-size: 12px !important;
+
   color: rgba(255, 255, 255, 0.6) !important;
+
 }
+
+
 
 .clerk-skin .cl-footerAction,
-.clerk-skin .cl-footerActionLink {
-  opacity: 1 !important;
-  font-size: 13px !important;
-}
 
 .clerk-skin .cl-footerActionLink {
-  color: #e03131 !important;
+
+  opacity: 1 !important;
+
+  font-size: 13px !important;
+
 }
+
+
+
+.clerk-skin .cl-footerActionLink {
+
+  color: #e03131 !important;
+
+}
+
+
 
 .clerk-skin .cl-footerPagesLink,
+
 .clerk-skin .cl-footerActionLink {
+
   display: inline-flex !important;
+
   visibility: visible !important;
+
   height: auto !important;
+
 }
 
+
+
 .clerk-skin [class*="secured"],
+
 .clerk-skin [class*="developmentMode"],
+
 .clerk-skin [class*="powered"] {
+
   display: block !important;
+
   visibility: visible !important;
+
   opacity: 0.35 !important;
+
   color: rgba(255, 255, 255, 0.6) !important;
+
   font-size: 12px !important;
+
 }
+
+
 
 /* 40. SIGNIN/SIGNUP — ОДНА КОЛОНКА ПО ЦЕНТРУ */
+
 .clerk-skin .cl-signIn-root,
+
 .clerk-skin .cl-signUp-root {
+
   width: 100% !important;
+
   max-width: 520px !important;
+
   margin: 0 auto !important;
+
 }
+
+
 
 .clerk-skin .cl-signIn-root .cl-card,
+
 .clerk-skin .cl-signUp-root .cl-card {
+
   width: 100% !important;
+
   max-width: 100% !important;
+
   min-width: 0 !important;
+
   margin: 0 auto !important;
+
 }
+
+
 
 .clerk-skin .cl-signIn-root .cl-cardBox,
+
 .clerk-skin .cl-signUp-root .cl-cardBox {
+
   display: block !important;
+
   width: 100% !important;
+
   max-width: 100% !important;
+
   margin: 0 auto !important;
+
 }
 
+
+
 .clerk-skin .cl-signIn-root .cl-page,
+
 .clerk-skin .cl-signUp-root .cl-page {
+
   width: 100% !important;
+
   max-width: 100% !important;
+
   overflow-x: hidden !important;
+
 }
+
+
 
 /* 41. БЕЗ ГОРИЗОНТАЛЬНОГО СКРОЛЛА */
+
 .clerk-skin .cl-modalContent,
+
 .clerk-skin .cl-userProfile-root,
+
 .clerk-skin .cl-cardBox,
+
 .clerk-skin .cl-page,
+
 .clerk-skin .cl-pageScrollBox,
+
 .clerk-skin .cl-scrollBox {
+
   overflow-x: hidden !important;
+
 }
+
+
 
 /* 42. ПРИНУДИТЕЛЬНЫЕ OVERRIDE НА ТОТ ЖЕ ROOT-ЭЛЕМЕНТ */
+
 .clerk-skin.cl-userProfile-root {
+
   width: min(840px, 92vw) !important;
+
   max-width: 840px !important;
+
   height: auto !important;
+
   min-height: 0 !important;
+
   max-height: 80vh !important;
+
   overflow: hidden !important;
+
 }
+
+
 
 .clerk-skin.cl-userProfile-root .cl-card {
+
   height: auto !important;
+
   max-height: 80vh !important;
+
   overflow: hidden !important;
+
   scrollbar-gutter: auto !important;
+
 }
+
+
 
 .clerk-skin.cl-userProfile-root .cl-cardBox {
+
   height: auto !important;
+
   align-content: start !important;
+
 }
 
+
+
 .clerk-skin.cl-userProfile-root .cl-page,
+
 .clerk-skin.cl-userProfile-root .cl-pageScrollBox,
+
 .clerk-skin.cl-userProfile-root .cl-scrollBox {
+
   flex: 0 1 auto !important;
+
   max-height: none !important;
+
   overflow-y: visible !important;
+
 }
+
+
 
 .clerk-skin.cl-signIn-root,
+
 .clerk-skin.cl-signUp-root {
+
   width: 100% !important;
+
   max-width: 520px !important;
+
   margin: 0 auto !important;
+
 }
+
+
 
 /* 43. РАЗМЕР КОНТЕНТА МОДАЛКИ ПО ТИПУ (БЕЗ ПРАВОЙ ПУСТОЙ КОЛОНКИ) */
+
 .cl-modalContent {
+
   height: auto !important;
+
   min-height: 0 !important;
+
   overflow-x: hidden !important;
+
   overflow-y: hidden !important;
+
 }
+
+
 
 .cl-modalContent:has(.cl-userProfile-root) {
+
   width: min(840px, 92vw) !important;
+
   max-width: 840px !important;
+
   max-height: 80vh !important;
+
   overflow-y: auto !important;
+
 }
+
+
 
 .cl-modalContent:has(.cl-signIn-root),
+
 .cl-modalContent:has(.cl-signUp-root) {
+
   width: min(520px, 92vw) !important;
+
   max-width: 520px !important;
+
   max-height: 80vh !important;
+
 }
+
+
 
 /* 49. SIGNIN/SIGNUP УБРАТЬ ПРАВУЮ ПУСТУЮ КОЛОНКУ */
+
 .clerk-skin .cl-modalContent:has(.cl-signIn-root),
+
 .clerk-skin .cl-modalContent:has(.cl-signUp-root) {
+
   width: min(520px, 92vw) !important;
+
   max-width: 520px !important;
+
   max-height: 80vh !important;
+
 }
+
+
 
 .clerk-skin .cl-signIn-root,
+
 .clerk-skin .cl-signUp-root,
+
 .clerk-skin .cl-signIn-root .cl-card,
+
 .clerk-skin .cl-signUp-root .cl-card,
-.clerk-skin .cl-signIn-root .cl-cardBox,
-.clerk-skin .cl-signUp-root .cl-cardBox,
-.clerk-skin .cl-signIn-root .cl-page,
-.clerk-skin .cl-signUp-root .cl-page {
-  width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 auto !important;
-}
 
 .clerk-skin .cl-signIn-root .cl-cardBox,
-.clerk-skin .cl-signUp-root .cl-cardBox {
-  display: block !important;
-  grid-template-columns: 1fr !important;
-  background: transparent !important;
+
+.clerk-skin .cl-signUp-root .cl-cardBox,
+
+.clerk-skin .cl-signIn-root .cl-page,
+
+.clerk-skin .cl-signUp-root .cl-page {
+
+  width: 100% !important;
+
+  max-width: 100% !important;
+
+  margin: 0 auto !important;
+
 }
+
+
+
+.clerk-skin .cl-signIn-root .cl-cardBox,
+
+.clerk-skin .cl-signUp-root .cl-cardBox {
+
+  display: block !important;
+
+  grid-template-columns: 1fr !important;
+
+  background: transparent !important;
+
+}
+
+
 
 .clerk-skin .cl-signIn-root .cl-cardBox > *:not(.cl-card),
+
 .clerk-skin .cl-signUp-root .cl-cardBox > *:not(.cl-card) {
+
   display: none !important;
+
 }
+
+
 
 /* 50. SIGNIN/SIGNUP ЖЁСТКИЙ СБРОС ШИРИНЫ ROOT/CARD */
+
 .cl-signIn-root,
+
 .cl-signUp-root,
+
 .cl-signIn-root .cl-card,
+
 .cl-signUp-root .cl-card,
+
 .cl-signIn-root .cl-cardBox,
+
 .cl-signUp-root .cl-cardBox,
+
 .cl-signIn-root .cl-page,
+
 .cl-signUp-root .cl-page,
+
 .cl-signIn-root .cl-pageScrollBox,
+
 .cl-signUp-root .cl-pageScrollBox,
+
 .cl-signIn-root .cl-scrollBox,
+
 .cl-signUp-root .cl-scrollBox {
+
   width: auto !important;
+
   max-width: 520px !important;
+
   margin-left: auto !important;
+
   margin-right: auto !important;
+
 }
+
+
 
 .cl-signIn-root .cl-card,
+
 .cl-signUp-root .cl-card {
+
   width: 100% !important;
+
   max-width: 100% !important;
+
 }
 
+
+
 .cl-signIn-root .cl-cardBox,
+
 .cl-signUp-root .cl-cardBox,
+
 .cl-signIn-root .cl-page,
+
 .cl-signUp-root .cl-page {
+
   background: transparent !important;
+
   overflow: visible !important;
+
 }
+
+
 
 .cl-signIn-root [data-testid="sign-in"],
+
 .cl-signUp-root [data-testid="sign-up"] {
+
   width: 100% !important;
+
   max-width: 100% !important;
+
 }
+
+
 
 /* 44. ОЧИСТКА ВЫСОТЫ USERPROFILE (УБРАТЬ ПУСТОЕ МЕСТО) */
+
 .clerk-skin.cl-userProfile-root,
+
 .clerk-skin .cl-userProfile-root {
+
   height: auto !important;
+
   max-height: none !important;
+
   min-height: 0 !important;
+
 }
+
+
 
 .clerk-skin.cl-userProfile-root .cl-card,
+
 .clerk-skin .cl-userProfile-root .cl-card {
+
   height: auto !important;
+
   max-height: none !important;
+
   min-height: 0 !important;
+
   overflow: hidden !important;
+
 }
+
+
 
 .clerk-skin.cl-userProfile-root .cl-cardBox,
+
 .clerk-skin .cl-userProfile-root .cl-cardBox {
+
   height: auto !important;
+
   max-height: none !important;
+
   min-height: 0 !important;
+
   align-items: start !important;
+
 }
+
+
 
 .clerk-skin.cl-userProfile-root .cl-page,
+
 .clerk-skin .cl-userProfile-root .cl-page,
+
 .clerk-skin.cl-userProfile-root .cl-pageScrollBox,
+
 .clerk-skin .cl-userProfile-root .cl-pageScrollBox,
+
 .clerk-skin.cl-userProfile-root .cl-scrollBox,
+
 .clerk-skin .cl-userProfile-root .cl-scrollBox {
+
   height: auto !important;
+
   max-height: none !important;
+
   min-height: 0 !important;
+
   flex: 0 1 auto !important;
+
   overflow-y: visible !important;
+
   padding-bottom: 0 !important;
+
   scrollbar-gutter: auto !important;
+
 }
+
+
 
 .clerk-skin.cl-userProfile-root .cl-profileSection,
+
 .clerk-skin .cl-userProfile-root .cl-profileSection,
+
 .clerk-skin.cl-userProfile-root .cl-profileSectionContent,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent,
+
 .clerk-skin.cl-userProfile-root .cl-profileSectionItemList,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionItemList {
+
   width: 100% !important;
+
   max-width: 100% !important;
+
 }
+
+
 
 /* 45. КОНТЕНТ USERPROFILE НА ВСЮ ШИРИНУ */
+
 .cl-userProfile-root,
+
 .cl-userProfile-root .cl-card,
+
 .cl-userProfile-root .cl-cardBox,
+
 .cl-userProfile-root .cl-page,
+
 .cl-userProfile-root .cl-pageScrollBox,
+
 .cl-userProfile-root .cl-scrollBox,
+
 .cl-profilePage {
+
   width: 100% !important;
+
   max-width: 100% !important;
+
   margin: 0 !important;
+
 }
+
+
 
 .cl-userProfile-root .cl-card {
+
   height: auto !important;
+
   max-height: none !important;
+
   scrollbar-gutter: auto !important;
+
 }
 
+
+
 .cl-userProfile-root .cl-page,
+
 .cl-userProfile-root .cl-pageScrollBox,
+
 .cl-userProfile-root .cl-scrollBox {
+
   overflow: visible !important;
+
 }
+
+
 
 /* 46. ФИНАЛЬНЫЕ ФИКСЫ USERPROFILE (УБРАТЬ СИНИЕ ОБЛАСТИ) */
+
 .clerk-skin .cl-userProfile-root [class*="secured"],
+
 .clerk-skin .cl-userProfile-root [class*="developmentMode"],
+
 .clerk-skin .cl-userProfile-root [class*="powered"] {
+
   display: none !important;
+
   visibility: hidden !important;
+
   opacity: 0 !important;
+
   height: 0 !important;
+
   margin: 0 !important;
+
   padding: 0 !important;
+
 }
+
+
 
 .clerk-skin .cl-modalContent:has(.cl-userProfile-root) {
+
   display: block !important;
+
   padding: 0 !important;
+
   overflow-y: auto !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root,
+
 .clerk-skin .cl-userProfile-root .cl-card,
+
 .clerk-skin .cl-userProfile-root .cl-cardBox {
+
   height: auto !important;
+
   max-height: none !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-page,
+
 .clerk-skin .cl-userProfile-root .cl-pageScrollBox,
+
 .clerk-skin .cl-userProfile-root .cl-scrollBox {
+
   height: auto !important;
+
   max-height: none !important;
+
   overflow: visible !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-profileSectionItem,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionItemList__item {
+
   grid-template-columns: 200px minmax(0, 1fr) auto !important;
+
   grid-template-areas: "label value action" !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-profileSectionItem__label {
+
   grid-area: label !important;
+
   max-width: 200px !important;
+
   white-space: normal !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-profileSectionItem__identifier {
+
   grid-area: value !important;
+
   min-width: 0 !important;
+
   overflow: hidden !important;
+
   text-overflow: ellipsis !important;
+
   white-space: nowrap !important;
+
 }
 
+
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionItem__action,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionItem > div:last-child,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionItem > button,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionItemList__item > div:last-child {
+
   grid-area: action !important;
+
   justify-self: end !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__emailAddresses .cl-button,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__emailAddresses .cl-formButtonPrimary,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__emailAddresses .cl-formButtonReset {
+
   width: 100% !important;
+
   justify-content: center !important;
+
 }
+
+
 
 /* 47. ФУТЕР НАВБАРА ВНИЗ */
+
 .clerk-skin .cl-userProfile-root .cl-navbar {
+
   display: flex !important;
+
   flex-direction: column !important;
+
   height: 100% !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-cardBox {
+
   align-items: stretch !important;
+
 }
 
+
+
 .clerk-skin .cl-userProfile-root .cl-navbarButtons {
+
   display: flex !important;
+
   flex-direction: column !important;
+
   gap: 12px !important;
+
   margin-top: 12px !important;
+
 }
+
+
 
 /* 61. РАЗРЫВЫ МЕНЮ НАВБАРА */
+
 .clerk-skin .cl-userProfile-root .cl-navbar {
+
   gap: 16px !important;
+
   padding-top: 24px !important;
+
   padding-bottom: 24px !important;
+
 }
+
+
 
 /* 62. ПРИНУДИТЕЛЬНЫЕ ОТСТУПЫ НАВБАРА */
+
 .clerk-skin .cl-userProfile-root .cl-navbar,
+
 .clerk-skin .cl-userProfile-root [class*="navbar"] {
+
   padding-top: 24px !important;
+
   padding-bottom: 24px !important;
+
 }
 
+
+
 .clerk-skin .cl-userProfile-root .cl-navbarButtons,
+
 .clerk-skin .cl-userProfile-root [class*="navbarButtons"],
+
 .clerk-skin .cl-userProfile-root [class*="navbar-buttons"] {
+
   margin-top: 16px !important;
+
   gap: 12px !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-navbarButton,
+
 .clerk-skin .cl-userProfile-root [class*="navbarButton"] {
+
   margin-top: 0 !important;
+
   margin-bottom: 0 !important;
+
 }
+
+
 
 /* 63. ОТСТУПЫ НАВБАРА (ЖЁСТКИЙ OVERRIDE) */
+
 .cl-userProfile-root .cl-navbar,
+
 .clerk-skin .cl-userProfile-root .cl-navbar,
+
 .clerk-skin.cl-userProfile-root .cl-navbar {
+
   padding: 28px 16px !important;
+
 }
 
+
+
 .cl-userProfile-root .cl-navbarButtons,
+
 .clerk-skin .cl-userProfile-root .cl-navbarButtons,
+
 .clerk-skin.cl-userProfile-root .cl-navbarButtons {
+
   gap: 16px !important;
+
   margin-top: 16px !important;
+
 }
+
+
 
 .cl-userProfile-root .cl-navbarButton + .cl-navbarButton,
+
 .clerk-skin .cl-userProfile-root .cl-navbarButton + .cl-navbarButton,
+
 .clerk-skin.cl-userProfile-root .cl-navbarButton + .cl-navbarButton {
+
   margin-top: 10px !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-navbarButton {
+
   margin: 0 !important;
+
 }
+
+
 
 /* Перемещаем dev-бейдж вниз */
+
 .clerk-skin .cl-userProfile-root .cl-navbar > :last-child {
+
   margin-top: auto !important;
+
 }
+
+
 
 /* Показываем dev-бейдж, но делаем его малозаметным и снизу */
+
 .clerk-skin .cl-userProfile-root [class*="secured"],
+
 .clerk-skin .cl-userProfile-root [class*="developmentMode"],
+
 .clerk-skin .cl-userProfile-root [class*="powered"] {
+
   display: block !important;
+
   visibility: visible !important;
+
   opacity: 0.35 !important;
+
   color: rgba(255, 255, 255, 0.6) !important;
+
   font-size: 12px !important;
+
   text-align: left !important;
+
 }
+
+
 
 /* 48. USERPROFILE GRID + СКРОЛЛ (ФИНАЛ) */
+
 .clerk-skin .cl-userProfile-root {
+
   max-height: 80vh !important;
+
   overflow: hidden !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-cardBox {
+
   height: 100% !important;
+
   min-height: 0 !important;
+
   align-items: stretch !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-page,
+
 .clerk-skin .cl-userProfile-root .cl-pageScrollBox,
+
 .clerk-skin .cl-userProfile-root .cl-scrollBox {
+
   min-height: 0 !important;
+
   overflow-x: hidden !important;
+
   overflow-y: auto !important;
+
   max-height: 80vh !important;
+
 }
 
+
+
 .clerk-skin .cl-userProfile-root .cl-navbar {
+
   overflow: hidden !important;
+
 }
+
+
 
 /* Лейблы: без absolute/вертикального */
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionItem__label,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionTitleText {
+
   position: static !important;
+
   inset: auto !important;
+
   transform: none !important;
+
   writing-mode: horizontal-tb !important;
+
   text-orientation: mixed !important;
+
   white-space: normal !important;
+
   display: block !important;
+
 }
+
+
 
 /* Раскладка строки */
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionItem,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionItemList__item {
+
   display: grid !important;
+
   grid-template-columns: 180px minmax(0, 1fr) auto !important;
+
   column-gap: 12px !important;
+
   row-gap: 8px !important;
+
   align-items: center !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-profileSectionItem__label {
+
   max-width: 180px !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-profileSectionItem__identifier {
+
   min-width: 0 !important;
+
   overflow: hidden !important;
+
   text-overflow: ellipsis !important;
+
   white-space: nowrap !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-profileSectionItem__action,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionItem > div:last-child,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionItem > button,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionItemList__item > div:last-child {
+
   white-space: nowrap !important;
+
   flex-shrink: 0 !important;
+
   justify-self: end !important;
+
   display: inline-flex !important;
+
   align-items: center !important;
+
   gap: 8px !important;
+
 }
+
+
 
 /* Скрываем dev-бейдж в UserProfile */
+
 .clerk-skin .cl-userProfile-root [class*="secured"],
+
 .clerk-skin .cl-userProfile-root [class*="developmentMode"],
+
 .clerk-skin .cl-userProfile-root [class*="powered"] {
+
   display: none !important;
+
   visibility: hidden !important;
+
   opacity: 0 !important;
+
   pointer-events: none !important;
+
   height: 0 !important;
+
   margin: 0 !important;
+
   padding: 0 !important;
+
 }
+
+
 
 /* 53. DEV-БЕЙДЖ ФИНАЛЬНО СКРЫТ (ВНУТРЕННИЕ ОБЁРТКИ) */
+
 .clerk-skin .cl-userProfile-root [class*="secured"],
+
 .clerk-skin .cl-userProfile-root [class*="developmentMode"],
+
 .clerk-skin .cl-userProfile-root [class*="powered"],
+
 .clerk-skin .cl-userProfile-root [class*="internal-"][class*="ckw"],
+
 .clerk-skin .cl-userProfile-root [class*="internal-"] {
+
   display: none !important;
+
   visibility: hidden !important;
+
   opacity: 0 !important;
+
   pointer-events: none !important;
+
   height: 0 !important;
+
   margin: 0 !important;
+
   padding: 0 !important;
+
 }
+
+
 
 /* 54. DEV-БЕЙДЖ (ГЛОБАЛЬНОЕ СКРЫТИЕ ПО KEY) */
+
 .clerk-skin [data-localization-key*="developmentMode"],
+
 .clerk-skin [data-localization-key*="securedByClerk"],
+
 .clerk-skin [data-localization-key*="poweredByClerk"],
+
 .clerk-skin [class*="developmentMode"],
+
 .clerk-skin [class*="secured"],
+
 .clerk-skin [class*="powered"],
+
 .clerk-skin [aria-label*="Development mode"],
+
 .clerk-skin [aria-label*="Secured by Clerk"],
+
 .clerk-skin [title*="Development mode"],
+
 .clerk-skin [title*="Secured by Clerk"] {
+
   display: none !important;
+
   visibility: hidden !important;
+
   opacity: 0 !important;
+
   pointer-events: none !important;
+
   height: 0 !important;
+
   margin: 0 !important;
+
   padding: 0 !important;
+
 }
+
+
 
 .clerk-skin [class*="internal-"]:has([data-localization-key*="developmentMode"]),
+
 .clerk-skin [class*="internal-"]:has([data-localization-key*="securedByClerk"]),
+
 .clerk-skin [class*="internal-"]:has([data-localization-key*="poweredByClerk"]) {
+
   display: none !important;
+
 }
+
+
 
 /* 55. СПЕЦИФИЧЕСКИЙ КЛАСС DEV-БЕЙДЖА */
+
 .clerk-skin .cl-internal-cwkwjh {
+
   display: none !important;
+
   visibility: hidden !important;
+
   opacity: 0 !important;
+
   pointer-events: none !important;
+
   height: 0 !important;
+
   margin: 0 !important;
+
   padding: 0 !important;
+
 }
+
+
 
 /* 51. КОНТЕНТ USERPROFILE НА ВСЮ ШИРИНУ (УБРАТЬ ПРАВЫЙ ПУСТОЙ БЛОК) */
+
 .clerk-skin .cl-userProfile-root .cl-page,
+
 .clerk-skin .cl-userProfile-root .cl-pageScrollBox,
+
 .clerk-skin .cl-userProfile-root .cl-scrollBox,
+
 .clerk-skin .cl-userProfile-root .cl-profileSection,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionItemList,
+
 .clerk-skin .cl-userProfile-root .cl-profileSection__profile,
+
 .clerk-skin .cl-userProfile-root .cl-profileSection__username,
+
 .clerk-skin .cl-userProfile-root .cl-profileSection__emailAddresses,
+
 .clerk-skin .cl-userProfile-root .cl-profileSection__connectedAccounts,
+
 .clerk-skin .cl-userProfile-root .cl-profileSection__activeDevices,
+
 .clerk-skin .cl-userProfile-root .cl-profileSection__security {
+
   width: 100% !important;
+
   max-width: 100% !important;
+
   min-width: 0 !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-page {
+
   flex: 1 1 auto !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-footer,
+
 .clerk-skin .cl-userProfile-root .cl-footerPages,
+
 .clerk-skin .cl-userProfile-root .cl-footerAction {
+
   display: none !important;
+
 }
+
+
 
 /* 52. ФИКС ПРАВОГО ОТСТУПА USERPROFILE */
+
 .clerk-skin .cl-userProfile-root .cl-cardBox {
+
   grid-template-columns: 260px minmax(0, 1fr) !important;
+
   justify-items: stretch !important;
+
   align-items: stretch !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-page,
+
 .clerk-skin .cl-userProfile-root .cl-pageScrollBox,
+
 .clerk-skin .cl-userProfile-root .cl-scrollBox {
+
   width: 100% !important;
+
   max-width: none !important;
+
   margin: 0 !important;
+
 }
 
+
+
 .clerk-skin .cl-userProfile-root .cl-profileSection,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionItemList {
+
   width: 100% !important;
+
   max-width: none !important;
+
   margin: 0 !important;
+
 }
+
+
 
 /* 56. СЕКЦИЯ SECURITY — ОДНА КОЛОНКА (УБРАТЬ ПРАВЫЙ ПУСТОЙ БЛОК) */
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__security {
+
   display: flex !important;
+
   flex-direction: column !important;
+
   gap: 16px !important;
+
   width: 100% !important;
+
   max-width: 100% !important;
+
   min-width: 0 !important;
+
 }
 
+
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__security > * {
+
   width: 100% !important;
+
   max-width: 100% !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__security .cl-accordionContent,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__security .cl-profileSectionItemList,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__security .cl-profileSection {
+
   width: 100% !important;
+
   max-width: 100% !important;
+
 }
+
+
 
 /* 57. ФИКС GRID SECURITY */
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__security > * {
+
   display: block !important;
+
   width: 100% !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__security [class*="twoColumn"],
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__security [class*="TwoColumn"],
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__security [class*="column"],
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__security [class*="Column"] {
+
   display: block !important;
+
   grid-template-columns: 1fr !important;
+
   width: 100% !important;
+
   max-width: 100% !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__security [class*="twoColumn"] > *,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__security [class*="TwoColumn"] > *,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__security [class*="column"] > *,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__security [class*="Column"] > * {
+
   width: 100% !important;
+
   max-width: 100% !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__security [class*="sidePanel"],
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__security [class*="SidePanel"],
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__security [class*="rightColumn"],
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__security [class*="RightColumn"] {
+
   display: none !important;
+
 }
+
+
 
 /* 58. СКРЫТЬ СПЕЦИФИЧЕСКУЮ БОКОВУЮ ПАНЕЛЬ SECURITY */
+
 .clerk-skin .cl-userProfile-root .cl-internal-1habej8 {
+
   display: none !important;
+
   visibility: hidden !important;
+
   opacity: 0 !important;
+
   pointer-events: none !important;
+
   height: 0 !important;
+
   margin: 0 !important;
+
   padding: 0 !important;
+
 }
+
+
 
 /* 59. СКРЫТЬ БЛОК "SIGN OUT OF OTHER SESSIONS" */
+
 .clerk-skin .cl-userProfile-root #signOutOfOtherSessions-field {
+
   display: none !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-formField:has(#signOutOfOtherSessions-field),
+
 .clerk-skin .cl-userProfile-root [class*="formField"]:has(#signOutOfOtherSessions-field),
+
 .clerk-skin .cl-userProfile-root [class*="FormField"]:has(#signOutOfOtherSessions-field) {
+
   display: none !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root [data-localization-key*="signOutOfOtherSessions"],
+
 .clerk-skin .cl-userProfile-root [data-localization-key*="signOutOtherSessions"] {
+
   display: none !important;
+
 }
+
+
 
 /* 60. СКРЫТЬ SIGN OUT OTHER SESSIONS (ГЛОБАЛЬНО, БЕЗОПАСНО ПО ID) */
+
 #signOutOfOtherSessions-field {
+
   display: none !important;
+
   visibility: hidden !important;
+
   opacity: 0 !important;
+
   pointer-events: none !important;
+
   width: 0 !important;
+
   height: 0 !important;
+
   margin: 0 !important;
+
   padding: 0 !important;
+
 }
+
+
 
 label[for="signOutOfOtherSessions-field"] {
+
   display: none !important;
+
 }
+
+
 
 .cl-formField:has(#signOutOfOtherSessions-field),
+
 .cl-formFieldRow:has(#signOutOfOtherSessions-field),
+
 [class*="formField"]:has(#signOutOfOtherSessions-field),
+
 [class*="FormField"]:has(#signOutOfOtherSessions-field) {
+
   display: none !important;
+
   height: 0 !important;
+
   margin: 0 !important;
+
   padding: 0 !important;
+
 }
+
+
 
 /* 64. DEV-БЕЙДЖ ВНИЗ (НАВИГАЦИЯ USERPROFILE) */
+
 .clerk-skin .cl-userProfile-root .cl-navbar {
+
   display: flex !important;
+
   flex-direction: column !important;
+
   height: 100% !important;
+
 }
 
+
+
 .clerk-skin .cl-userProfile-root .cl-navbar [class*="secured"],
+
 .clerk-skin .cl-userProfile-root .cl-navbar [class*="developmentMode"],
+
 .clerk-skin .cl-userProfile-root .cl-navbar [class*="powered"],
+
 .clerk-skin .cl-userProfile-root .cl-navbar [class*="internal-"] {
+
   display: block !important;
+
   visibility: visible !important;
+
   opacity: 0.35 !important;
+
   pointer-events: none !important;
+
   height: auto !important;
+
   margin-top: auto !important;
+
   padding: 0 !important;
+
 }
+
+
 
 /* 65. DEV-БЕЙДЖ ABSOLUTE ВНИЗ */
+
 .clerk-skin .cl-userProfile-root .cl-navbar {
+
   position: relative !important;
+
   padding-bottom: 64px !important;
+
 }
 
+
+
 .clerk-skin .cl-userProfile-root .cl-navbar [class*="secured"],
+
 .clerk-skin .cl-userProfile-root .cl-navbar [class*="developmentMode"],
+
 .clerk-skin .cl-userProfile-root .cl-navbar [class*="powered"],
+
 .clerk-skin .cl-userProfile-root .cl-navbar [class*="internal-"] {
+
   display: block !important;
+
   visibility: visible !important;
+
   opacity: 0.35 !important;
+
   pointer-events: none !important;
+
   position: absolute !important;
+
   left: 16px !important;
+
   right: 16px !important;
+
   bottom: 16px !important;
+
   margin: 0 !important;
+
   padding: 0 !important;
+
 }
+
+
 
 /* 66. DEV-БЕЙДЖ FORCE (СПЕЦИФИЧЕСКИЕ ВНУТРЕННИЕ КЛАССЫ) */
+
 .clerk-skin .cl-userProfile-root .cl-internal-1ea6yrw {
+
   position: relative !important;
+
   padding-bottom: 64px !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-internal-cwkwjh {
+
   display: block !important;
+
   visibility: visible !important;
+
   opacity: 0.35 !important;
+
   pointer-events: none !important;
+
   position: absolute !important;
+
   left: 16px !important;
+
   right: 16px !important;
+
   bottom: 16px !important;
+
   margin: 0 !important;
+
   padding: 0 !important;
+
   height: auto !important;
+
 }
+
+
 
 /* 67. DEV-БЕЙДЖ ИСТИННЫЙ НИЗ (NAV) */
+
 .clerk-skin .cl-userProfile-root .cl-navbar {
+
   display: flex !important;
+
   flex-direction: column !important;
+
 }
 
+
+
 .clerk-skin .cl-userProfile-root .cl-navbarButtons {
+
   order: 1 !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-navbar > :has([data-localization-key*="secured"]),
+
 .clerk-skin .cl-userProfile-root .cl-navbar > :has([data-localization-key*="developmentMode"]),
+
 .clerk-skin .cl-userProfile-root .cl-navbar > :has([data-localization-key*="poweredByClerk"]) {
+
   order: 2 !important;
+
   margin-top: auto !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root [data-localization-key*="secured"],
+
 .clerk-skin .cl-userProfile-root [data-localization-key*="developmentMode"],
+
 .clerk-skin .cl-userProfile-root [data-localization-key*="poweredByClerk"] {
+
   display: block !important;
+
   opacity: 0.35 !important;
+
   pointer-events: none !important;
+
 }
+
+
 
 /* 68. DEV-БЕЙДЖ ABSOLUTE ВНИЗ (ЦЕЛЕВАЯ ОБЁРТКА) */
+
 .clerk-skin .cl-userProfile-root .cl-navbar {
+
   position: relative !important;
+
   padding-bottom: 72px !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-navbar :has([data-localization-key*="secured"]),
+
 .clerk-skin .cl-userProfile-root .cl-navbar :has([data-localization-key*="developmentMode"]),
+
 .clerk-skin .cl-userProfile-root .cl-navbar :has([data-localization-key*="poweredByClerk"]) {
+
   position: absolute !important;
+
   left: 16px !important;
+
   right: 16px !important;
+
   bottom: 16px !important;
+
   margin: 0 !important;
+
   padding: 0 !important;
+
 }
+
+
 
 /* 69. OVERRIDE ОБЁРТКИ DEV-БЕЙДЖА */
+
 .clerk-skin .cl-userProfile-root .cl-internal-p8oyqp {
+
   position: absolute !important;
+
   left: 12px !important;
+
   right: auto !important;
+
   bottom: 16px !important;
+
   width: calc(260px - 24px) !important;
+
   max-width: calc(260px - 24px) !important;
+
   margin: 0 !important;
+
   padding: 0 !important;
+
 }
+
+
 
 /* 70. DEV-БЕЙДЖ FORCE ВНИЗ (ВСЕ ВНУТРЕННИЕ) */
+
 .clerk-skin .cl-userProfile-root [class^="cl-internal-"] {
+
   position: absolute !important;
+
   left: 12px !important;
+
   right: auto !important;
+
   bottom: 16px !important;
+
   width: calc(260px - 24px) !important;
+
   max-width: calc(260px - 24px) !important;
+
   margin: 0 !important;
+
   padding: 0 !important;
+
 }
+
+
 
 /* 71. CARD BOX RELATIVE ДЛЯ DEV-БЕЙДЖА */
+
 .clerk-skin .cl-userProfile-root .cl-cardBox {
+
   position: relative !important;
+
 }
+
+
 
 /* 72. DEV-БЕЙДЖ ВНИЗ (ФИНАЛЬНЫЙ OVERRIDE) */
+
 .clerk-skin .cl-userProfile-root .cl-cardBox {
+
   height: 100% !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-navbar {
+
   height: 100% !important;
+
   display: flex !important;
+
   flex-direction: column !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-navbarButtons {
+
   flex: 1 1 auto !important;
+
 }
 
+
+
 .clerk-skin .cl-userProfile-root .cl-navbar > .cl-internal-p8oyqp,
+
 .clerk-skin .cl-userProfile-root .cl-navbar > [class^="cl-internal-"]:has([data-localization-key*="secured"]),
+
 .clerk-skin .cl-userProfile-root .cl-navbar > [class^="cl-internal-"]:has([data-localization-key*="developmentMode"]),
+
 .clerk-skin .cl-userProfile-root .cl-navbar > [class^="cl-internal-"]:has([data-localization-key*="poweredByClerk"]) {
+
   margin-top: auto !important;
+
   position: static !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-navbar [class*="secured"],
+
 .clerk-skin .cl-userProfile-root .cl-navbar [class*="developmentMode"],
+
 .clerk-skin .cl-userProfile-root .cl-navbar [class*="powered"] {
+
   display: block !important;
+
   visibility: visible !important;
+
   opacity: 0.35 !important;
+
   pointer-events: none !important;
+
   position: static !important;
+
   height: auto !important;
+
   margin: 0 !important;
+
   padding: 0 !important;
+
 }
+
+
 
 /* 75. НАВБАР НА ВСЮ ВЫСОТУ + БЕЙДЖ ВНИЗУ (ФИНАЛ) */
+
 .cl-userProfile-root,
+
 .clerk-skin .cl-userProfile-root,
+
 .clerk-skin.cl-userProfile-root {
+
   height: 80vh !important;
+
   max-height: 80vh !important;
+
 }
 
+
+
 .cl-userProfile-root .cl-card,
+
 .clerk-skin .cl-userProfile-root .cl-card,
+
 .clerk-skin.cl-userProfile-root .cl-card {
+
   height: 100% !important;
+
 }
+
+
 
 .cl-userProfile-root .cl-cardBox,
+
 .clerk-skin .cl-userProfile-root .cl-cardBox,
+
 .clerk-skin.cl-userProfile-root .cl-cardBox {
+
   height: 100% !important;
+
   align-items: stretch !important;
+
 }
+
+
 
 .cl-userProfile-root .cl-navbar,
+
 .clerk-skin .cl-userProfile-root .cl-navbar,
+
 .clerk-skin.cl-userProfile-root .cl-navbar {
+
   height: 100% !important;
+
   display: flex !important;
+
   flex-direction: column !important;
+
   position: relative !important;
+
 }
+
+
 
 .cl-userProfile-root .cl-navbarButtons,
+
 .clerk-skin .cl-userProfile-root .cl-navbarButtons,
+
 .clerk-skin.cl-userProfile-root .cl-navbarButtons {
+
   flex: 0 0 auto !important;
+
 }
+
+
 
 .cl-userProfile-root .cl-navbar .cl-internal-p8oyqp,
+
 .cl-userProfile-root .cl-navbar .cl-internal-cwkwjh,
+
 .clerk-skin .cl-userProfile-root .cl-navbar .cl-internal-p8oyqp,
+
 .clerk-skin .cl-userProfile-root .cl-navbar .cl-internal-cwkwjh {
+
   margin-top: auto !important;
+
   position: static !important;
+
 }
+
+
 
 .cl-userProfile-root .cl-navbar [data-localization-key*="secured"],
+
 .cl-userProfile-root .cl-navbar [data-localization-key*="developmentMode"],
+
 .cl-userProfile-root .cl-navbar [data-localization-key*="poweredByClerk"] {
+
   display: block !important;
+
   opacity: 0.35 !important;
+
   pointer-events: none !important;
+
   margin-top: auto !important;
+
 }
+
+
 
 /* 76. СКРЫТЬ СКРОЛЛБАР USERPROFILE */
+
 .cl-userProfile-root .cl-scrollBox,
+
 .cl-userProfile-root .cl-pageScrollBox,
+
 .cl-userProfile-root .cl-page,
+
 .cl-userProfile-root .cl-card,
+
 .cl-userProfile-root .cl-cardBox {
+
   overflow-y: hidden !important;
+
   scrollbar-width: none !important;
+
 }
+
+
 
 .cl-userProfile-root .cl-scrollBox::-webkit-scrollbar,
+
 .cl-userProfile-root .cl-pageScrollBox::-webkit-scrollbar,
+
 .cl-userProfile-root .cl-page::-webkit-scrollbar,
+
 .cl-userProfile-root .cl-card::-webkit-scrollbar,
+
 .cl-userProfile-root .cl-cardBox::-webkit-scrollbar {
+
   width: 0 !important;
+
   height: 0 !important;
+
 }
+
+
 
 /* 77. ПРИНУДИТЕЛЬНО БЕЗ СКРОЛЛБАРА (MODAL + ROOT) */
+
 .clerk-skin .cl-modalContent:has(.cl-userProfile-root),
+
 .clerk-skin .cl-userProfile-root,
+
 .clerk-skin .cl-userProfile-root .cl-card,
+
 .clerk-skin .cl-userProfile-root .cl-cardBox,
+
 .clerk-skin .cl-userProfile-root .cl-page,
+
 .clerk-skin .cl-userProfile-root .cl-pageScrollBox,
+
 .clerk-skin .cl-userProfile-root .cl-scrollBox {
+
   overflow-y: hidden !important;
+
   scrollbar-width: none !important;
+
 }
 
+
+
 .clerk-skin .cl-modalContent:has(.cl-userProfile-root)::-webkit-scrollbar,
+
 .clerk-skin .cl-userProfile-root::-webkit-scrollbar,
+
 .clerk-skin .cl-userProfile-root .cl-card::-webkit-scrollbar,
+
 .clerk-skin .cl-userProfile-root .cl-cardBox::-webkit-scrollbar,
+
 .clerk-skin .cl-userProfile-root .cl-page::-webkit-scrollbar,
+
 .clerk-skin .cl-userProfile-root .cl-pageScrollBox::-webkit-scrollbar,
+
 .clerk-skin .cl-userProfile-root .cl-scrollBox::-webkit-scrollbar {
+
   width: 0 !important;
+
   height: 0 !important;
+
 }
+
+
 
 /* 78. УБРАТЬ ИКОНКИ ПЛЮС В КНОПКАХ ADD/CONNECT */
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__emailAddresses .cl-button svg,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__emailAddresses .cl-formButtonPrimary svg,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__connectedAccounts .cl-button svg,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__connectedAccounts .cl-formButtonPrimary svg {
+
   display: none !important;
+
   width: 0 !important;
+
   height: 0 !important;
+
   margin: 0 !important;
+
   padding: 0 !important;
+
 }
+
+
 
 /* 73. DEV-БЕЙДЖ (КОНКРЕТНАЯ ОБЁРТКА) ВНИЗ */
+
 .clerk-skin .cl-userProfile-root .cl-navbar {
+
   display: flex !important;
+
   flex-direction: column !important;
+
   height: 100% !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-navbar .cl-internal-p8oyqp,
+
 .clerk-skin .cl-userProfile-root .cl-navbar .cl-internal-cwkwjh {
+
   position: static !important;
+
   left: auto !important;
+
   right: auto !important;
+
   bottom: auto !important;
+
   width: auto !important;
+
   max-width: none !important;
+
   margin-top: auto !important;
+
   padding: 0 !important;
+
 }
+
+
 
 /* 74. DEV-БЕЙДЖ ВНИЗ (ЖЁСТКИЙ ФИНАЛ) */
+
 .clerk-skin .cl-userProfile-root .cl-navbar {
+
   display: flex !important;
+
   flex-direction: column !important;
+
   align-self: stretch !important;
+
   height: 100% !important;
+
   min-height: 0 !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-navbarButtons {
+
   flex: 0 0 auto !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-navbar > .cl-internal-p8oyqp,
+
 .clerk-skin .cl-userProfile-root .cl-navbar > .cl-internal-cwkwjh,
+
 .clerk-skin .cl-userProfile-root .cl-navbar > [class^="cl-internal-"]:has([data-localization-key*="secured"]),
+
 .clerk-skin .cl-userProfile-root .cl-navbar > [class^="cl-internal-"]:has([data-localization-key*="developmentMode"]),
+
 .clerk-skin .cl-userProfile-root .cl-navbar > [class^="cl-internal-"]:has([data-localization-key*="poweredByClerk"]) {
+
   margin-top: auto !important;
+
   display: block !important;
+
   visibility: visible !important;
+
   opacity: 0.35 !important;
+
   pointer-events: none !important;
+
   position: static !important;
+
 }
+
+
 
 /* 99. ЖЁСТКИЕ OVERRIDE (USERPROFILE) */
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root {
+
   height: 80vh !important;
+
   max-height: 80vh !important;
+
   overflow: hidden !important;
+
 }
+
+
 
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-card,
-.cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-cardBox {
-  height: 100% !important;
-  max-height: 100% !important;
-}
 
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-cardBox {
-  display: grid !important;
-  grid-template-columns: 260px minmax(0, 1fr) !important;
-  align-items: stretch !important;
+
+  height: 100% !important;
+
+  max-height: 100% !important;
+
 }
+
+
+
+.cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-cardBox {
+
+  display: grid !important;
+
+  grid-template-columns: 260px minmax(0, 1fr) !important;
+
+  align-items: stretch !important;
+
+}
+
+
 
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-navbar {
+
   height: 100% !important;
+
   display: flex !important;
+
   flex-direction: column !important;
+
   padding: 28px 16px !important;
+
 }
+
+
 
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-navbarButtons {
+
   flex: 1 1 auto !important;
+
 }
+
+
 
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-navbar .cl-internal-p8oyqp,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-navbar .cl-internal-cwkwjh,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-navbar [data-localization-key*="secured"],
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-navbar [data-localization-key*="developmentMode"],
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-navbar [data-localization-key*="poweredByClerk"] {
+
   margin-top: auto !important;
+
   position: static !important;
+
   opacity: 0.35 !important;
+
   pointer-events: none !important;
+
 }
+
+
 
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-page,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-pageScrollBox,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-scrollBox {
+
   overflow-y: hidden !important;
+
   overflow-x: hidden !important;
+
   scrollbar-width: none !important;
+
 }
 
+
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-page::-webkit-scrollbar,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-pageScrollBox::-webkit-scrollbar,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-scrollBox::-webkit-scrollbar {
+
   width: 0 !important;
+
   height: 0 !important;
+
 }
+
+
 
 /* 101. ВОССТАНОВИТЬ SVG ИКОНОК */
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root svg.cl-internal-1w5r5w4 {
+
   display: inline-flex !important;
+
 }
 
+
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root
+
   .cl-profileSectionContent__emailAddresses .cl-button svg,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root
+
   .cl-profileSectionContent__emailAddresses .cl-formButtonPrimary svg,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root
+
   .cl-profileSectionContent__connectedAccounts .cl-button svg,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root
+
   .cl-profileSectionContent__connectedAccounts .cl-formButtonPrimary svg {
+
   display: inline-flex !important;
+
 }
+
+
 
 /* 102. ОТСТУПЫ СЕКЦИЙ */
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent {
+
   display: flex !important;
+
   flex-direction: column !important;
+
   gap: 16px !important;
+
 }
 
+
+
 .clerk-skin .cl-userProfile-root .cl-profileSection {
+
   margin: 0 !important;
+
 }
+
+
 
 /* 104. ОТСТУПЫ КОНТЕНТА ПРОФИЛЯ */
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__profile,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__emailAddresses,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__connectedAccounts,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__activeDevices,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__security,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionItemList {
+
   display: flex !important;
+
   flex-direction: column !important;
+
   gap: 18px !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-profileSection {
+
   margin-bottom: 18px !important;
+
 }
+
+
 
 /* 105. ВНУТРЕННИЕ ОТСТУПЫ СТРАНИЦЫ */
+
 .clerk-skin .cl-userProfile-root .cl-page,
+
 .clerk-skin .cl-userProfile-root .cl-pageScrollBox {
+
   padding: 16px 16px 24px !important;
+
   box-sizing: border-box !important;
+
 }
+
+
 
 /* 106. OVERRIDE РАСКЛАДКИ СТРАНИЦЫ (ЖЁСТКИЙ) */
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-page,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-pageScrollBox,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-scrollBox {
+
   padding: 16px 16px 24px !important;
+
   margin: 0 !important;
+
   width: 100% !important;
+
   max-width: 100% !important;
+
   box-sizing: border-box !important;
+
 }
+
+
 
 /* 107. ОТСТУПЫ И ШИРИНА СЕКЦИИ ПРОФИЛЯ */
+
 .clerk-skin .cl-userProfile-root .cl-profileSection,
+
 .clerk-skin .cl-userProfile-root .cl-profileSection__profile,
+
 .clerk-skin .cl-userProfile-root .cl-profileSection__emailAddresses,
+
 .clerk-skin .cl-userProfile-root .cl-profileSection__connectedAccounts,
+
 .clerk-skin .cl-userProfile-root .cl-profileSection__activeDevices,
+
 .clerk-skin .cl-userProfile-root .cl-profileSection__security {
+
   width: 100% !important;
+
   max-width: 100% !important;
+
   padding: 0 !important;
+
   box-sizing: border-box !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-profileSectionTitle,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent {
+
   padding-left: 0 !important;
+
   padding-right: 0 !important;
+
 }
+
+
 
 /* 103. ИКОНКИ КОРЗИНЫ ДЛЯ КНОПОК МЕНЮ */
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__emailAddresses .cl-menuButton,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__connectedAccounts .cl-menuButton {
+
   position: relative !important;
+
   color: rgba(255, 255, 255, 0.75) !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__emailAddresses .cl-menuButton svg,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__connectedAccounts .cl-menuButton svg {
+
   display: none !important;
+
 }
+
+
 
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__emailAddresses .cl-menuButton::before,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__connectedAccounts .cl-menuButton::before {
+
   content: "" !important;
+
   width: 16px !important;
+
   height: 16px !important;
+
   display: inline-flex !important;
+
   background-color: currentColor !important;
+
   -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M9 3h6l1 2h4v2H4V5h4l1-2zm1 6h2v9h-2V9zm4 0h2v9h-2V9zM7 9h2v9H7V9z'/></svg>") !important;
+
   mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M9 3h6l1 2h4v2H4V5h4l1-2zm1 6h2v9h-2V9zm4 0h2v9h-2V9zM7 9h2v9H7V9z'/></svg>") !important;
+
   -webkit-mask-size: 16px 16px !important;
+
   mask-size: 16px 16px !important;
+
   -webkit-mask-repeat: no-repeat !important;
+
   mask-repeat: no-repeat !important;
+
   -webkit-mask-position: center !important;
+
   mask-position: center !important;
+
 }
+
+
 
 /* 100. ФИНАЛ: УБРАТЬ СКРОЛЛБАР + ВОССТАНОВИТЬ ИКОНКИ ДЕЙСТВИЙ */
+
 .clerk-skin .cl-modalContent:has(.cl-userProfile-root),
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-card,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-cardBox,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-page,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-pageScrollBox,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-scrollBox {
+
   height: auto !important;
+
   max-height: none !important;
+
   overflow: hidden !important;
+
   scrollbar-width: none !important;
+
 }
+
+
 
 .clerk-skin .cl-modalContent:has(.cl-userProfile-root)::-webkit-scrollbar,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root::-webkit-scrollbar,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-card::-webkit-scrollbar,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-cardBox::-webkit-scrollbar,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-page::-webkit-scrollbar,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-pageScrollBox::-webkit-scrollbar,
+
 .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-scrollBox::-webkit-scrollbar {
+
   width: 0 !important;
+
   height: 0 !important;
+
 }
 
+
+
 .clerk-skin .cl-userProfile-root .cl-menuButton svg,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionPrimaryButton svg,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__emailAddresses .cl-button svg,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__emailAddresses .cl-formButtonPrimary svg,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__connectedAccounts .cl-button svg,
+
 .clerk-skin .cl-userProfile-root .cl-profileSectionContent__connectedAccounts .cl-formButtonPrimary svg {
+
   display: inline-flex !important;
+
   width: 16px !important;
+
   height: 16px !important;
+
   margin: 0 !important;
+
 }
+
+
+
+/* МОБИЛЬНОЕ: принудительно одна колонка профиля + скролл */
+
+@media (max-width: 768px) {
+
+  .clerk-skin .cl-modalContent:has(.cl-userProfile-root) {
+
+    width: calc(100vw - 16px) !important;
+
+    max-width: calc(100vw - 16px) !important;
+
+    height: 95vh !important;
+
+    max-height: 95vh !important;
+
+    overflow: hidden !important;
+
+    position: relative !important;
+
+  }
+
+
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root,
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-card,
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-cardBox {
+
+    width: 100% !important;
+
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    height: 100% !important;
+
+    max-height: 100% !important;
+
+  }
+
+
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-cardBox {
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    min-height: 0 !important;
+
+  }
+
+
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root {
+
+    overflow: hidden !important;
+
+    position: relative !important;
+
+  }
+
+
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-navbar {
+
+    width: 100% !important;
+
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    flex: 0 0 auto !important;
+
+    border-right: none !important;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+
+    overflow-x: auto !important;
+
+    overflow-y: hidden !important;
+
+    position: static !important;
+
+  }
+
+
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-navbarButtons {
+
+    display: flex !important;
+
+    flex-direction: row !important;
+
+    flex-wrap: nowrap !important;
+
+    gap: 8px !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    padding: 0 4px 8px !important;
+
+  }
+
+
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-navbarButton {
+
+    flex: 0 0 auto !important;
+
+    width: auto !important;
+
+    min-width: max-content !important;
+
+    white-space: nowrap !important;
+
+    height: 36px !important;
+
+    padding: 6px 12px !important;
+
+    border-radius: 10px !important;
+
+    align-items: center !important;
+
+    margin: 0 !important;
+
+    line-height: 1.1 !important;
+
+  }
+
+
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-page {
+
+    width: 100% !important;
+
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    flex: 1 1 auto !important;
+
+    min-height: 0 !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+  }
+
+
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-pageScrollBox {
+
+    width: 100% !important;
+
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    flex: 1 1 auto !important;
+
+    min-height: 0 !important;
+
+    overflow-y: auto !important;
+
+    overflow-x: hidden !important;
+
+    -webkit-overflow-scrolling: touch !important;
+
+    padding-bottom: 64px !important;
+
+  }
+
+
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-scrollBox {
+
+    overflow: visible !important;
+
+  }
+
+
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root
+
+    [class^="cl-internal-"]:has([data-localization-key*="secured"]),
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root
+
+    [class^="cl-internal-"]:has([data-localization-key*="developmentMode"]),
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root
+
+    [class^="cl-internal-"]:has([data-localization-key*="poweredByClerk"]) {
+
+    position: absolute !important;
+
+    left: 16px !important;
+
+    right: 16px !important;
+
+    bottom: 12px !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    height: auto !important;
+
+    min-height: 0 !important;
+
+    background: transparent !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    gap: 2px !important;
+
+    opacity: 0.35 !important;
+
+    pointer-events: none !important;
+
+    z-index: 2 !important;
+
+  }
+
+
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root [data-localization-key*="secured"],
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root [data-localization-key*="developmentMode"],
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root [data-localization-key*="poweredByClerk"] {
+
+    position: static !important;
+
+    display: block !important;
+
+    white-space: nowrap !important;
+
+    line-height: 1.2 !important;
+
+    margin: 0 !important;
+
+  }
+
+
+
+  /* Убираем мобильный заголовок меню (зелёная область на скрине) */
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-navbarHeader,
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root [class*="navbarHeader"],
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root [class*="navbar-header"],
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root [class*="navHeader"],
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-navbarMobileMenu,
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root [class*="navbarMobileMenu"],
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root .cl-navbarMobileMenuRow,
+
+  .cl-rootBox.clerk-sandbox.clerk-skin.cl-userProfile-root [class*="navbarMobileMenuRow"] {
+
+    display: none !important;
+
+  }
+
+}
+
+
 

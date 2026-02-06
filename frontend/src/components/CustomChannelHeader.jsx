@@ -1,4 +1,4 @@
-import { MessageCircle, LockIcon, UsersIcon, PinIcon, VideoIcon } from "lucide-react";
+import { ChevronLeft, MessageCircle, LockIcon, UsersIcon, PinIcon, VideoIcon } from "lucide-react";
 import { useChannelStateContext, useChatContext } from "stream-chat-react";
 import { useState, useEffect } from "react";
 import { useUser } from "@clerk/clerk-react";
@@ -7,7 +7,7 @@ import PinnedMessagesModal from "./PinnedMessagesModal";
 import InviteModal from "./InviteModal";
 import { isSystemUser } from "../lib/userUtils";
 
-const CustomChannelHeader = () => {
+const CustomChannelHeader = ({ onBack }) => {
   const { channel } = useChannelStateContext();
   const { client } = useChatContext();
   const { user } = useUser();
@@ -103,8 +103,18 @@ const CustomChannelHeader = () => {
 
   return (
     <div className="h-14 border-b border-red-500/50 flex items-center px-4 justify-between bg-transparent">
-      <div className="flex items-center gap-3">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3 min-w-0">
+        {onBack && (
+          <button
+            type="button"
+            className="channel-back-btn"
+            onClick={onBack}
+            aria-label="Назад"
+          >
+            <ChevronLeft className="size-5" />
+          </button>
+        )}
+        <div className="flex items-center gap-2 min-w-0">
           {channel.data?.private ? (
             <LockIcon className="size-4 text-[#616061]" />
           ) : (
@@ -119,7 +129,7 @@ const CustomChannelHeader = () => {
             />
           )}
 
-          <span className="font-medium text-white">{channelLabel}</span>
+          <span className="font-medium text-white truncate">{channelLabel}</span>
         </div>
       </div>
 
