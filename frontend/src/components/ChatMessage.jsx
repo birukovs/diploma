@@ -1,6 +1,8 @@
 ﻿import { useLayoutEffect, useMemo, useRef } from "react";
 import {
   Attachment,
+  Avatar,
+  useChannelStateContext,
   useMessageContext,
   useTranslationContext,
 } from "stream-chat-react";
@@ -8,12 +10,13 @@ import { Smile } from "lucide-react";
 import InlineMessageOptions from "./InlineMessageOptions";
 import InlineQuotedMessage from "./InlineQuotedMessage";
 import PollMessageCard from "./PollMessageCard";
+import MessageMetaRow from "./MessageMetaRow";
 import { isSystemUser } from "../lib/userUtils";
 import "../styles/chat-message.css";
 
 const createURLRegex = () => /(https?:\/\/[^\s]+|www\.[^\s]+|localhost:\d+[^\s]*)/gi;
 
-// Reaction type to emoji mapping
+// Соответствие типа реакции эмодзи
 const REACTION_EMOJI = {
   love: "❤️",
   like: "👍",
@@ -24,67 +27,58 @@ const REACTION_EMOJI = {
 };
 
 const toEmoji = (type) => REACTION_EMOJI[type] ?? type;
+const AUTHOR_REPEAT_EVERY = 6;
 
-const formatMetaTime = (date, locale) => {
-  if (!date) return "";
-  const language = locale || "en";
-  try {
-    const dtf = new Intl.DateTimeFormat(
-      language === "ru" ? "ru-RU" : language,
-      {
-        weekday: "long",
-        hour: "2-digit",
-        minute: "2-digit",
-      }
-    );
-    const parts = dtf.formatToParts(date);
-    const weekday = parts.find((part) => part.type === "weekday")?.value;
-    const time = parts
-      .filter((part) => part.type === "hour" || part.type === "minute")
-      .map((part) => part.value)
-      .join(":");
-    if (weekday && time) {
-      return language === "ru" ? `${weekday} в ${time}` : `${weekday} ${time}`;
-    }
-    return dtf.format(date);
-  } catch {
-    return date.toLocaleString();
-  }
-};
+const isPollThreadMessage = (msg) =>
+  msg?.custom_type === "poll_suggestion" ||
+  msg?.custom_type === "poll_suggestion_shadow" ||
+  msg?.custom_type === "poll_comment" ||
+  msg?.poll_suggestion === true ||
+  msg?.poll_comment === true ||
+  msg?.extra_data?.poll_suggestion === true ||
+  msg?.extra_data?.poll_comment === true ||
+  msg?.extraData?.poll_suggestion === true ||
+  msg?.extraData?.poll_comment === true;
 
 const ChatMessage = (props) => {
   const { message, isMyMessage, handleReaction } = useMessageContext("ChatMessage");
+  const { channel } = useChannelStateContext("ChatMessage");
   const { userLanguage } = useTranslationContext("ChatMessage");
   const rowRef = useRef(null);
+
+  const isPollThreadMessageFlag = isPollThreadMessage(message);
 
   const isDeleted =
     message?.type === "deleted" || Boolean(message?.deleted_at);
 
-  // Get reactions for meta display with user lists - sorted by count DESC (most popular first/left)
+  // Реакции для мета-отображения со списками пользователей — сортировка по убыванию (популярные слева)
   const reactions = useMemo(() => {
-    if (!message?.reaction_groups) return [];
+    if (isPollThreadMessageFlag || !message?.reaction_groups) return [];
     const latestReactions = message.latest_reactions || [];
+    const isPollReaction = (type) => String(type || "").startsWith("poll:");
 
-    // Build entries with counts
-    const entries = Object.entries(message.reaction_groups);
+    // Формируем элементы с количеством
+    const entries = Object.entries(message.reaction_groups).filter(
+      ([type]) => !isPollReaction(type)
+    );
 
-    // Sort by count DESC, then alphabetically for stability
+    // Сортировка по убыванию, затем по алфавиту для стабильности
     entries.sort((a, b) => {
       const countA = a[1]?.count ?? 0;
       const countB = b[1]?.count ?? 0;
-      if (countB !== countA) return countB - countA; // DESC by count
-      return String(a[0]).localeCompare(String(b[0])); // ASC alphabetically
+      if (countB !== countA) return countB - countA; // Убывание по количеству
+      return String(a[0]).localeCompare(String(b[0])); // Возрастание по алфавиту
     });
 
     return entries
       .map(([type, data]) => {
         if (!data?.count) return null;
 
-        // Build user list for this reaction type, filtering out system users
+        // Список пользователей для типа реакции, исключая системных
         const users = latestReactions
           .filter(r => r.type === type && !isSystemUser(r.user))
           .map(r => r.user?.name || r.user?.id || r.user_id || "Unknown")
-          .filter((name, index, arr) => arr.indexOf(name) === index) // unique
+          .filter((name, index, arr) => arr.indexOf(name) === index) // уникальные
           .slice(0, 5);
 
         const extra = Math.max(0, data.count - users.length);
@@ -97,62 +91,10 @@ const ChatMessage = (props) => {
         };
       })
       .filter(Boolean);
-  }, [message]);
-
-  const { timeLabel, editedLabel } = useMemo(() => {
-    if (!message) return { timeLabel: "", editedLabel: "" };
-
-    const createdAtValue =
-      message.created_at ||
-      message.createdAt ||
-      message.local_created_at ||
-      message.updated_at;
-    const createdAt = createdAtValue ? new Date(createdAtValue) : null;
-    let label = formatMetaTime(createdAt, userLanguage);
-    if (!label && createdAtValue) {
-      label = String(createdAtValue);
-    }
-
-    const createdAtRaw =
-      message.created_at || message.createdAt || message.local_created_at;
-    const editedAtRaw =
-      message.edited_at ||
-      message.editedAt ||
-      message.text_updated_at ||
-      message.textUpdatedAt ||
-      null;
-    const updatedAtRaw =
-      message.updated_at ||
-      message.updatedAt ||
-      null;
-    const editedFlag =
-      message.edited === true ||
-      message.extraData?.edited ||
-      message.extra_data?.edited ||
-      false;
-    const createdAtTime = createdAtRaw ? new Date(createdAtRaw).getTime() : 0;
-    const editedAtTime = editedAtRaw ? new Date(editedAtRaw).getTime() : 0;
-    const updatedAtTime = updatedAtRaw ? new Date(updatedAtRaw).getTime() : 0;
-    const updatedAtEdited =
-      createdAtTime > 0 &&
-      updatedAtTime > 0 &&
-      updatedAtTime > createdAtTime + 1000;
-    const isEdited =
-      Boolean(editedFlag) ||
-      (Boolean(editedAtRaw) &&
-        createdAtTime > 0 &&
-        editedAtTime > createdAtTime) ||
-      (!editedFlag && !editedAtRaw && updatedAtEdited);
-
-    const edited = !isDeleted && isEdited
-      ? userLanguage === "ru"
-        ? "Отредактировано"
-        : "Edited"
-      : "";
-    return { timeLabel: label, editedLabel: edited };
-  }, [message, userLanguage, isDeleted]);
+  }, [message, isPollThreadMessageFlag]);
 
   useLayoutEffect(() => {
+    if (isPollThreadMessageFlag) return;
     const node = rowRef.current;
     if (!node || !message?.id) return;
     const li = node.closest("li");
@@ -163,11 +105,37 @@ const ChatMessage = (props) => {
         firstChild.classList.add("chat-row-host");
       }
     }
-  }, [message?.id]);
-
-  if (!message) return null;
+  }, [message?.id, isPollThreadMessageFlag]);
 
   const isMine = isMyMessage?.() ?? false;
+  const showAuthor = useMemo(() => {
+    if (isPollThreadMessageFlag) return false;
+    if (isMine) return false;
+    if (!message?.id) return true;
+    const messagesInState = Array.isArray(channel?.state?.messages)
+      ? channel.state.messages
+      : [];
+    const currentIndex = messagesInState.findIndex((msg) => msg?.id === message.id);
+    if (currentIndex <= 0) return true;
+    let consecutive = 0;
+    for (let i = currentIndex - 1; i >= 0; i -= 1) {
+      const prev = messagesInState[i];
+      if (!prev) continue;
+      if (prev.type === "system" || prev.type === "deleted" || prev.deleted_at) continue;
+      if (isPollThreadMessage(prev)) continue;
+      if (prev.user?.id !== message.user?.id) break;
+      consecutive += 1;
+    }
+    if (consecutive === 0) return true;
+    return consecutive % AUTHOR_REPEAT_EVERY === 0;
+  }, [isMine, channel?.state?.messages, message?.id, message?.user?.id, isPollThreadMessageFlag]);
+
+  if (!message || isPollThreadMessageFlag) return null;
+  const authorName =
+    message?.user?.name ||
+    message?.user?.username ||
+    message?.user?.id ||
+    "Unknown";
 
   const renderText = (text) => {
     if (!text) return null;
@@ -205,29 +173,29 @@ const ChatMessage = (props) => {
     return parts;
   };
 
-  // Attachments (images, files, etc.)
+  // Вложения (изображения, файлы и т.п.)
   const attachments = message?.attachments ?? [];
 
-  // Check for poll - either Stream SDK poll or fallback custom poll
+  // Проверяем опрос — либо Stream SDK, либо кастомный fallback
   const poll = message?.poll;
   const fallbackPoll = message?.poll_data;
   const isFallbackPoll = message?.custom_type === "poll" && Boolean(fallbackPoll);
 
-  // Validate poll data exists and is not empty
+  // Проверяем, что данные опроса есть и не пустые
   const hasPollData = Boolean(poll?.id) || (isFallbackPoll && fallbackPoll?.question && Array.isArray(fallbackPoll?.options));
   const hasPoll = !isDeleted && hasPollData;
 
-  // Filter out poll attachments (we render them separately)
+  // Убираем вложения-опросы (рендерим отдельно)
   const nonPollAttachments = attachments.filter(
     (attachment) => attachment.type !== "poll"
   );
 
-  // For fallback polls, don't show the text (it's just the emoji prefix)
-  // Also hide text for deleted poll messages
+  // Для fallback-опросов не показываем текст (это просто emoji-префикс)
+  // Также скрываем текст у удалённых сообщений-опросов
   const showText = !isFallbackPoll || isDeleted;
 
-  // For deleted messages (including polls), show deleted placeholder
-  // For poll messages that exist, hide empty text
+  // Для удалённых сообщений (включая опросы) показываем плейсхолдер удаления
+  // Для сообщений-опросов скрываем пустой текст
   const isPollMessage = isFallbackPoll || Boolean(poll);
   const bodyText = isDeleted
     ? userLanguage === "ru"
@@ -244,71 +212,43 @@ const ChatMessage = (props) => {
   ) : null;
 
   const contentSlot = (
-    <div className="chat-message-content">
+    <div
+      className={`chat-message-content${!isMine ? " from-other" : ""}${
+        showAuthor ? " with-author" : ""
+      }`}
+    >
+      {showAuthor && (
+        <div className="chat-author">
+          <Avatar
+            image={message?.user?.image}
+            name={authorName}
+            className="chat-author-avatar"
+          />
+          <span className="chat-author-name">{authorName}</span>
+        </div>
+      )}
       <div className="chat-bubble" data-chat-message="1">
         {!isDeleted && <InlineQuotedMessage />}
-        {/* Text content - hide for fallback polls (just emoji prefix) */}
+        {/* Текст — скрываем для fallback-опросов (только emoji-префикс) */}
         {bodyText && showText && <div className="chat-text">{renderText(bodyText)}</div>}
-        {/* Poll - Stream SDK or fallback (PollMessageCard handles both) */}
+        {/* Опрос — Stream SDK или fallback (PollMessageCard обрабатывает оба) */}
         {!isDeleted && hasPoll && <PollMessageCard poll={poll} />}
-        {/* Attachments (images, files) */}
+        {/* Вложения (изображения, файлы) */}
         {!isDeleted && nonPollAttachments.length > 0 && (
           <div className="chat-attachments" data-ui="attachments-v1">
             <Attachment attachments={nonPollAttachments} />
           </div>
         )}
       </div>
-      {(timeLabel || editedLabel || (!isDeleted && reactions.length > 0)) && (
-        <div className={`chat-meta ${isMine ? "mine" : "other"}`}>
-          {isMine && !isDeleted && reactions.length > 0 && (
-            <span className="chat-meta-reactions">
-              {reactions.map(({ type, count, users, extra }) => (
-                <span key={type} className="reaction-wrap">
-                  <button
-                    type="button"
-                    className="chat-meta-reaction"
-                    onClick={(event) => handleReaction?.(type, event)}
-                    aria-label={`React with ${type}`}
-                  >
-                    <span className="chat-meta-reaction-emoji">{toEmoji(type)}</span>
-                    {count > 1 && <span className="chat-meta-reaction-count">{count}</span>}
-                  </button>
-                  <div className="reaction-tooltip">
-                    {users.join(", ")}
-                    {extra > 0 && ` + ${extra} ${userLanguage === "ru" ? "ещё" : "more"}`}
-                  </div>
-                </span>
-              ))}
-            </span>
-          )}
-          <span className="chat-time">{timeLabel}</span>
-          {editedLabel && <span className="chat-edited"> • {editedLabel}</span>}
-          <span data-ui="edited-logic-v2" style={{ display: "none" }} />
-          {!isMine && !isDeleted && reactions.length > 0 && (
-            <span className="chat-meta-reactions">
-              {reactions.map(({ type, count, users, extra }) => (
-                <span key={type} className="reaction-wrap">
-                  <button
-                    type="button"
-                    className="chat-meta-reaction"
-                    onClick={(event) => handleReaction?.(type, event)}
-                    aria-label={`React with ${type}`}
-                  >
-                    <span className="chat-meta-reaction-emoji">{toEmoji(type)}</span>
-                    {count > 1 && <span className="chat-meta-reaction-count">{count}</span>}
-                  </button>
-                  <div className="reaction-tooltip">
-                    {users.join(", ")}
-                    {extra > 0 && ` + ${extra} ${userLanguage === "ru" ? "ещё" : "more"}`}
-                  </div>
-                </span>
-              ))}
-              <span data-ui="reaction-tooltip-v1" style={{ display: "none" }} />
-            </span>
-          )}
-          <span data-ui="reactions-order-v3" style={{ display: "none" }} />
-        </div>
-      )}
+      <MessageMetaRow
+        message={message}
+        isMine={isMine}
+        userLanguage={userLanguage}
+        isDeleted={isDeleted}
+        reactions={reactions}
+        handleReaction={handleReaction}
+        toEmoji={toEmoji}
+      />
     </div>
   );
 

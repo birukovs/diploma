@@ -20,12 +20,6 @@ const UserPreview = ({ user, client, activeChannel, onSelectUser }) => {
   }, [channelId, unreadCount]);
 
   useEffect(() => {
-    if (isActive && unreadCount > 0) {
-      channel.markRead().catch(err => console.error("markRead failed:", err));
-    }
-  }, [isActive, channel, unreadCount]);
-
-  useEffect(() => {
     const handleNewMessage = () => {
       if (!isActive) {
         setUnreadCount(prev => prev + 1);
@@ -40,7 +34,6 @@ const UserPreview = ({ user, client, activeChannel, onSelectUser }) => {
     setUnreadCount(0);
     localStorage.setItem(`unread_${channelId}`, "0");
     await onSelectUser(user);
-    channel.markRead().catch(err => console.error("markRead failed:", err));
   };
 
   const statusColor = user.online ? "#06cf6c" : "#9ea4ae";

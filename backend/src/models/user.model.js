@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Hash password before save when it's new or modified
+// Хешируем пароль перед сохранением, если он новый или изменён
 userSchema.pre("save", function (next) {
   if (!this.isModified("password") || !this.password) return next();
   try {
@@ -46,7 +46,7 @@ userSchema.pre("save", function (next) {
   }
 });
 
-// Instance method to compare password
+// Метод экземпляра для сравнения пароля
 userSchema.methods.comparePassword = function (candidatePassword) {
   if (!this.password) return false;
   return bcrypt.compareSync(candidatePassword, this.password);

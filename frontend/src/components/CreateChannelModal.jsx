@@ -48,7 +48,7 @@ const CreateChannelModal = ({ onClose }) => {
           { name: 1 },
           { limit: 100 }
         );
-        // Filter out system users (recording-*, egress-*, etc.)
+        // Убираем системных пользователей (recording-*, egress-*, и т.п.)
         const filteredUsers = (response.users || []).filter(user => !isSystemUser(user));
         setUsers(filteredUsers);
       } catch (error) {

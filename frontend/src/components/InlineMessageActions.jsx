@@ -13,17 +13,17 @@ import {
 import { useInlineComposer } from "./InlineComposerContext";
 import PopoverPortal from "./PopoverPortal";
 
-// Check if message is a poll (cannot be edited)
+// Проверяем, является ли сообщение опросом (нельзя редактировать)
 const isPollMessage = (message) => {
   if (!message) return false;
-  // Check for fallback poll
+  // Проверка fallback-опроса
   if (message.custom_type === "poll" && message.poll_data) return true;
-  // Check for Stream SDK poll
+  // Проверка опроса Stream SDK
   if (message.poll) return true;
   return false;
 };
 
-// Custom MessageActionsBox with Pin/Unpin and Reply support
+// Кастомный MessageActionsBox с поддержкой Pin/Unpin и Reply
 const CustomMessageActionsBox = ({
   getMessageActions,
   handleDelete,
@@ -200,7 +200,7 @@ const InlineMessageActions = (props) => {
     (event) => {
       event?.preventDefault?.();
       if (!message) return;
-      // Block editing for poll messages
+      // Запрещаем редактирование сообщений-опросов
       if (isPollMessage(message)) return;
       setEditingMessage(message);
       close();
@@ -215,7 +215,7 @@ const InlineMessageActions = (props) => {
       messageComposer.setQuotedMessage(message);
       close();
 
-      // Focus composer
+      // Фокус на композере
       const textarea = document.querySelector(".str-chat__textarea__textarea");
       if (textarea instanceof HTMLTextAreaElement) {
         textarea.focus();

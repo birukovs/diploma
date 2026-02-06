@@ -17,7 +17,7 @@ const russianTranslations = {
   "Cancel reply": "Отменить ответ",
   "Editing message": "Редактирование сообщения",
 
-  // Poll creation
+  // Создание опроса
   "Create a poll": "Создать опрос",
   "Question": "Вопрос",
   "Ask a question...": "Задать вопрос…",
@@ -32,7 +32,7 @@ const russianTranslations = {
   "Cancel": "Отмена",
   "Create poll": "Создать",
 
-  // Poll display
+  // Отображение опроса
   "Poll": "Опрос",
   "Anonymous": "Анонимный",
   "Vote": "Голосовать",

@@ -20,7 +20,7 @@ const InviteModal = ({ channel, onClose }) => {
       try {
         const members = Object.keys(channel.state.members);
         const res = await client.queryUsers({ id: { $nin: members } }, { name: 1 }, { limit: 30 });
-        // Filter out system users (recording-*, egress-*, etc.)
+        // Убираем системных пользователей (recording-*, egress-*, и т.п.)
         const filteredUsers = res.users.filter(user => !isSystemUser(user));
         setUsers(filteredUsers);
       } catch (error) {
@@ -54,7 +54,7 @@ const InviteModal = ({ channel, onClose }) => {
   return (
     <div className="create-channel-modal-overlay">
       <div className="create-channel-modal">
-        {/* HEADER */}
+        {/* ЗАГОЛОВОК */}
         <div className="create-channel-modal__header">
           <h2>Пригласить пользователей</h2>
           <button onClick={onClose} className="create-channel-modal__close">
@@ -62,7 +62,7 @@ const InviteModal = ({ channel, onClose }) => {
           </button>
         </div>
 
-        {/* CONTENT */}
+        {/* СОДЕРЖИМОЕ */}
         <div className="create-channel-modal__form" data-ui="system-user-filtered-invite">
           {isLoadingUsers && <p>Загрузка пользователей...</p>}
           {error && <p className="form-error">{error}</p>}
@@ -108,7 +108,7 @@ const InviteModal = ({ channel, onClose }) => {
               );
             })}
 
-          {/* ACTIONS */}
+          {/* ДЕЙСТВИЯ */}
           <div className="create-channel-modal__actions mt-4">
             <button className="btn btn-secondary" onClick={onClose} disabled={isInviting}>
               Отмена

@@ -86,7 +86,7 @@ const InlineReactionsList = () => {
     const container = listRef.current;
     if (!container) return;
 
-    // Find the message bubble (works with both .chat-bubble and .str-chat__message-bubble)
+    // Находим пузырь сообщения (работает и для .chat-bubble, и для .str-chat__message-bubble)
     const messageBubble = container.previousElementSibling;
     if (messageBubble?.classList.contains("chat-bubble") ||
         messageBubble?.classList.contains("str-chat__message-bubble")) {
@@ -96,7 +96,7 @@ const InlineReactionsList = () => {
       }
     }
 
-    // Ensure parent content wrapper has relative positioning
+    // Убеждаемся, что родительский контейнер имеет относительное позиционирование
     const contentWrapper = container.closest(".chat-message-content, .str-chat__message-inner");
     if (contentWrapper instanceof HTMLElement) {
       contentWrapper.style.position = "relative";
@@ -252,7 +252,6 @@ const InlineReactionsList = () => {
 };
 
 export default InlineReactionsList;
-
 
 
 

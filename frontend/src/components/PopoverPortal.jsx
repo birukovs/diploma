@@ -12,12 +12,14 @@ const PopoverPortal = ({
   zIndex = 3000,
   offset = 8,
   padding = 8,
-  placement = "top", // "top" | "left" | "right" | "top-start" | "top-end"
+  placement = "top", // значения: "top" | "left" | "right" | "top-start" | "top-end"
   deps = [],
 }) => {
   const internalRef = useRef(null);
   const resolvedRef = popoverRef || internalRef;
   const [position, setPosition] = useState({ top: 0, left: 0, ready: false });
+  const portalTarget =
+    typeof document === "undefined" ? null : document.body;
 
   useLayoutEffect(() => {
     if (!open) return;
@@ -29,61 +31,75 @@ const PopoverPortal = ({
 
       const anchorRect = anchor.getBoundingClientRect();
       const popoverRect = popover.getBoundingClientRect();
+      const containerRect = { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+      const anchorLeft = anchorRect.left - containerRect.left;
+      const anchorRight = anchorRect.right - containerRect.left;
+      const anchorTop = anchorRect.top - containerRect.top;
+      const anchorBottom = anchorRect.bottom - containerRect.top;
 
       let top = 0;
       let left = 0;
 
-      // Calculate position based on placement
+      // Вычисляем позицию по placement
       if (placement === "left" || placement === "left-start") {
-        // Position to the left of anchor
-        left = anchorRect.left - popoverRect.width - offset;
+        // Позиция слева от якоря
+        left = anchorLeft - popoverRect.width - offset;
         top = placement === "left-start"
-          ? anchorRect.top
-          : anchorRect.top + anchorRect.height / 2 - popoverRect.height / 2;
-        // If goes off left edge, flip to right
-        if (left < padding) {
-          left = anchorRect.right + offset;
+          ? anchorTop
+          : anchorTop + anchorRect.height / 2 - popoverRect.height / 2;
+        // Если выходит за левый край, переносим вправо
+        if (left + containerRect.left < padding) {
+          left = anchorRight + offset;
         }
       } else if (placement === "right" || placement === "right-start") {
-        // Position to the right of anchor
-        left = anchorRect.right + offset;
+        // Позиция справа от якоря
+        left = anchorRight + offset;
         top = placement === "right-start"
-          ? anchorRect.top
-          : anchorRect.top + anchorRect.height / 2 - popoverRect.height / 2;
-        // If goes off right edge, flip to left
-        if (left + popoverRect.width > window.innerWidth - padding) {
-          left = anchorRect.left - popoverRect.width - offset;
+          ? anchorTop
+          : anchorTop + anchorRect.height / 2 - popoverRect.height / 2;
+        // Если выходит за правый край, переносим влево
+        if (left + containerRect.left + popoverRect.width > window.innerWidth - padding) {
+          left = anchorLeft - popoverRect.width - offset;
         }
       } else if (placement === "top-start") {
-        top = anchorRect.top - popoverRect.height - offset;
-        left = anchorRect.left;
-        if (top < padding) {
-          top = anchorRect.bottom + offset;
+        top = anchorTop - popoverRect.height - offset;
+        left = anchorLeft;
+        if (top + containerRect.top < padding) {
+          top = anchorBottom + offset;
         }
       } else if (placement === "top-end") {
-        top = anchorRect.top - popoverRect.height - offset;
-        left = anchorRect.right - popoverRect.width;
-        if (top < padding) {
-          top = anchorRect.bottom + offset;
+        top = anchorTop - popoverRect.height - offset;
+        left = anchorRight - popoverRect.width;
+        if (top + containerRect.top < padding) {
+          top = anchorBottom + offset;
         }
       } else {
-        // Default: top center
-        top = anchorRect.top - popoverRect.height - offset;
-        left = anchorRect.left + anchorRect.width / 2 - popoverRect.width / 2;
-        if (top < padding) {
-          top = anchorRect.bottom + offset;
+        // По умолчанию: сверху по центру
+        top = anchorTop - popoverRect.height - offset;
+        left = anchorLeft + anchorRect.width / 2 - popoverRect.width / 2;
+        if (top + containerRect.top < padding) {
+          top = anchorBottom + offset;
         }
       }
 
-      // Clamp horizontal position to screen
-      const maxLeft = window.innerWidth - popoverRect.width - padding;
-      left = clamp(left, padding, Math.max(padding, maxLeft));
+      // Ограничиваем по горизонтали
+      const minLeft = padding - containerRect.left;
+      const maxLeft = window.innerWidth - popoverRect.width - padding - containerRect.left;
+      left = clamp(left, minLeft, Math.max(minLeft, maxLeft));
 
-      // Clamp vertical position to screen
-      const maxTop = window.innerHeight - popoverRect.height - padding;
-      top = clamp(top, padding, Math.max(padding, maxTop));
+      // Ограничиваем по вертикали
+      const minTop = padding - containerRect.top;
+      const maxTop = window.innerHeight - popoverRect.height - padding - containerRect.top;
+      top = clamp(top, minTop, Math.max(minTop, maxTop));
 
-      setPosition({ top, left, ready: true });
+      setPosition((prev) => {
+        const same =
+          prev.ready &&
+          Math.abs(prev.top - top) < 0.5 &&
+          Math.abs(prev.left - left) < 0.5;
+        if (same) return prev;
+        return { top, left, ready: true };
+      });
     };
 
     updatePosition();
@@ -99,6 +115,8 @@ const PopoverPortal = ({
 
   if (!open || typeof document === "undefined") return null;
 
+  const target = portalTarget || document.body;
+
   return createPortal(
     <div
       ref={resolvedRef}
@@ -113,7 +131,7 @@ const PopoverPortal = ({
     >
       {children}
     </div>,
-    document.body
+    target
   );
 };
 

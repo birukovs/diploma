@@ -34,12 +34,14 @@ const AuthPage = () => {
             </div>
           </div>
 
-          <SignInButton mode="modal">
-            <button className="cta-button">
-              Войти в Мессенджер
-              <span className="button-arrow">→</span>
-            </button>
-          </SignInButton>
+          <div className="clerk-sandbox">
+            <SignInButton mode="modal">
+              <button className="cta-button">
+                Войти в Мессенджер
+                <span className="button-arrow">→</span>
+              </button>
+            </SignInButton>
+          </div>
         </div>
       </div>
       <div className="auth-right">

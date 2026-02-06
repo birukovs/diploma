@@ -1,189 +1,1955 @@
-.clerk-card {
-  background: var(--rzd-bg-1);
-  border: 1px solid var(--border-weak);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+/* ========================================
+   CLERK THEME - MESSENGER DARK MODE
+   ======================================== */
+
+/* =========================
+   1. ROOT & CARD CONTAINERS
+   ========================= */
+
+.clerk-root {
+  font-family: "Manrope", system-ui, sans-serif;
 }
 
+.clerk-card,
+.clerk-card-box {
+  background: #141820 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 16px !important;
+  box-shadow:
+    0 24px 48px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset !important;
+}
+
+.clerk-modal-backdrop {
+  background: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.clerk-modal-content {
+  background: #141820 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.5) !important;
+  max-width: 900px !important;
+}
+
+/* =========================
+   2. HEADERS
+   ========================= */
+
 .clerk-header-title {
-  color: var(--rzd-white);
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 1.25rem !important;
+  letter-spacing: -0.01em !important;
 }
 
 .clerk-header-subtitle {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-size: 0.875rem !important;
 }
 
+/* =========================
+   3. FORM ELEMENTS
+   ========================= */
+
 .clerk-form-label {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
 }
 
 .clerk-form-input {
-  background: var(--rzd-bg-2);
-  color: var(--rzd-white);
-  border: 1px solid var(--border-weak);
+  background: #11151b !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important;
+  padding: 12px 14px !important;
+  font-size: 0.9375rem !important;
+  transition: all 0.2s ease !important;
+}
+
+.clerk-form-input::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.clerk-form-input:hover {
+  border-color: rgba(255, 255, 255, 0.12) !important;
 }
 
 .clerk-form-input:focus {
-  outline: none;
-  border-color: var(--rzd-red);
-  box-shadow: 0 0 0 2px rgba(226, 26, 26, 0.25);
+  outline: none !important;
+  border-color: #e03131 !important;
+  box-shadow: 0 0 0 3px rgba(224, 49, 49, 0.15) !important;
 }
 
-.clerk-primary-button {
-  background: var(--rzd-red);
-  color: var(--rzd-white);
-  border: none;
-  box-shadow: 0 10px 25px rgba(226, 26, 26, 0.25);
+.clerk-otp-input {
+  background: #11151b !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 10px !important;
+  color: #ffffff !important;
 }
 
-.clerk-primary-button:hover {
-  background: var(--rzd-red-dark);
+.clerk-otp-input:focus {
+  border-color: #e03131 !important;
+  box-shadow: 0 0 0 3px rgba(224, 49, 49, 0.15) !important;
 }
 
-.clerk-link {
-  color: var(--rzd-red);
+.clerk-show-password {
+  color: rgba(255, 255, 255, 0.5) !important;
 }
+
+.clerk-show-password:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.clerk-tag-input {
+  background: #11151b !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important;
+}
+
+/* =========================
+   4. BUTTONS
+   ========================= */
+
+.clerk-btn-primary {
+  background: #e03131 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 12px 20px !important;
+  font-weight: 600 !important;
+  font-size: 0.9375rem !important;
+  box-shadow: 0 4px 12px rgba(224, 49, 49, 0.25) !important;
+  transition: all 0.2s ease !important;
+}
+
+.clerk-btn-primary:hover {
+  background: #ff3b3b !important;
+  box-shadow: 0 6px 20px rgba(224, 49, 49, 0.35) !important;
+  transform: translateY(-1px) !important;
+}
+
+.clerk-btn-primary:active {
+  transform: translateY(0) !important;
+}
+
+.clerk-btn-secondary {
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 12px !important;
+  padding: 12px 20px !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+}
+
+.clerk-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+/* =========================
+   5. SOCIAL / OAUTH BUTTONS
+   ========================= */
+
+.clerk-social-btn {
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 12px !important;
+  padding: 12px 16px !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+  gap: 10px !important;
+}
+
+.clerk-social-btn:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.clerk-social-btn-icon {
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 12px !important;
+  width: 44px !important;
+  height: 44px !important;
+  padding: 10px !important;
+  transition: all 0.2s ease !important;
+}
+
+.clerk-social-btn-icon:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.clerk-social-icon,
+.clerk-provider-icon {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.clerk-alt-method-btn {
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  padding: 12px 16px !important;
+  transition: all 0.2s ease !important;
+}
+
+.clerk-alt-method-btn:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* =========================
+   6. DIVIDERS
+   ========================= */
 
 .clerk-divider-line {
-  background: var(--border-mid);
+  background: rgba(255, 255, 255, 0.1) !important;
+  height: 1px !important;
 }
 
 .clerk-divider-text {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.5) !important;
+  font-size: 0.8125rem !important;
+  background: #141820 !important;
+  padding: 0 12px !important;
 }
 
-.clerk-social-button {
-  background: var(--rzd-bg-2);
-  color: rgba(255, 255, 255, 0.92);
-  border: 1px solid var(--border-weak);
+/* =========================
+   7. LINKS
+   ========================= */
+
+.clerk-link {
+  color: #e03131 !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease !important;
 }
 
-.clerk-social-button:hover {
-  border-color: var(--rzd-red);
+.clerk-link:hover {
+  color: #ff3b3b !important;
 }
 
-/* Clerk default buttons (UserProfile / UserButton) */
-.cl-button,
-.cl-button__primary {
-  background: var(--rzd-red) !important;
-  color: var(--rzd-white) !important;
-  border: 1px solid var(--rzd-red) !important;
-  border-radius: 10px;
-  padding: 8px 14px;
-  min-height: 36px;
-  font-weight: 600;
+.clerk-resend-link {
+  color: rgba(255, 255, 255, 0.6) !important;
 }
 
-.cl-button:hover,
-.cl-button__primary:hover {
-  background: var(--rzd-red-dark) !important;
-  border-color: var(--rzd-red-dark) !important;
+.clerk-resend-link:hover {
+  color: #e03131 !important;
 }
 
-.cl-button__secondary,
-.cl-button__neutral {
-  background: var(--rzd-bg-2) !important;
-  color: rgba(255, 255, 255, 0.92) !important;
-  border: 1px solid var(--border-mid) !important;
-  border-radius: 10px;
-  padding: 8px 14px;
-  min-height: 36px;
-  font-weight: 600;
+/* =========================
+   8. FOOTER - WATERMARK (KEEP LINKS)
+   ========================= */
+
+.clerk-footer,
+.clerk-footer-pages,
+.clerk-footer-action {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
 }
 
-.cl-button__secondary:hover,
-.cl-button__neutral:hover {
-  border-color: var(--rzd-red) !important;
-  color: rgba(255, 255, 255, 0.98) !important;
+.clerk-footer,
+.clerk-footer-pages {
+  opacity: 0.35 !important;
+  font-size: 12px !important;
+  color: rgba(255, 255, 255, 0.6) !important;
 }
 
-.cl-iconButton {
-  background: var(--rzd-bg-2) !important;
-  border: 1px solid var(--border-weak) !important;
-  border-radius: 10px;
-  width: 32px;
-  height: 32px;
+.clerk-footer-action {
+  background: transparent !important;
+  padding-top: 12px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  margin-top: 12px !important;
+}
+
+.clerk-footer-action a,
+.clerk-footer-action-link {
+  color: #e03131 !important;
+}
+
+.clerk-footer-pages-link,
+.clerk-footer-action-link {
+  display: inline-flex !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+}
+
+/* =========================
+   9. IDENTITY PREVIEW
+   ========================= */
+
+.clerk-identity-preview {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important;
+  padding: 12px 14px !important;
+}
+
+.clerk-identity-text {
   color: rgba(255, 255, 255, 0.9) !important;
 }
 
-.cl-iconButton:hover {
-  border-color: var(--rzd-red) !important;
+.clerk-identity-edit {
+  color: #e03131 !important;
 }
 
-/* Remove blue focus outlines / rings from Clerk containers */
-.cl-modal,
+.clerk-identity-edit:hover {
+  color: #ff3b3b !important;
+}
+
+/* =========================
+   10. USER BUTTON & DROPDOWN
+   ========================= */
+
+.clerk-user-btn-box {
+  background: transparent !important;
+}
+
+.clerk-user-btn-trigger {
+  background: transparent !important;
+  border: none !important;
+  padding: 4px !important;
+  border-radius: 50% !important;
+  transition: all 0.2s ease !important;
+}
+
+.clerk-user-btn-trigger:hover {
+  opacity: 0.85 !important;
+}
+
+.clerk-avatar-box {
+  border: 2px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 50% !important;
+  box-shadow: none !important;
+  transition: border-color 0.2s ease !important;
+}
+
+.clerk-avatar-box:hover {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.clerk-popover-card {
+  background: #171c23 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important;
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset !important;
+  overflow: hidden !important;
+  min-width: 240px !important;
+}
+
+.clerk-popover-main {
+  padding: 8px !important;
+}
+
+.clerk-popover-actions {
+  padding: 4px 8px 8px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.clerk-popover-action-btn {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 10px 12px !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  transition: all 0.15s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+}
+
+.clerk-popover-action-btn:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.clerk-popover-action-text {
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+}
+
+.clerk-popover-action-icon {
+  width: 18px !important;
+  height: 18px !important;
+  opacity: 0.7 !important;
+}
+
+.clerk-popover-footer {
+  display: none !important;
+}
+
+/* =========================
+   11. USER PREVIEW (in dropdown)
+   ========================= */
+
+.clerk-user-preview {
+  padding: 12px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.clerk-user-name {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 0.9375rem !important;
+}
+
+.clerk-user-email {
+  color: rgba(255, 255, 255, 0.5) !important;
+  font-size: 0.8125rem !important;
+}
+
+.clerk-user-avatar {
+  border: 2px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 50% !important;
+}
+
+/* =========================
+   12. USER PROFILE MODAL
+   ========================= */
+
+.clerk-profile-page {
+  background: #141820 !important;
+  color: #ffffff !important;
+}
+
+.clerk-navbar {
+  background: #11151b !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.06) !important;
+  padding: 16px 8px !important;
+}
+
+.clerk-nav-btn {
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+  font-weight: 500 !important;
+  transition: all 0.15s ease !important;
+  margin: 2px 0 !important;
+}
+
+.clerk-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.clerk-nav-btn[data-active="true"],
+.clerk-nav-btn.cl-active {
+  background: rgba(224, 49, 49, 0.12) !important;
+  color: #ffffff !important;
+}
+
+.clerk-nav-icon {
+  width: 18px !important;
+  height: 18px !important;
+  opacity: 0.7 !important;
+}
+
+.clerk-page-scroll,
+.clerk-scroll-box {
+  background: #141820 !important;
+}
+
+.clerk-page {
+  padding: 24px 32px !important;
+}
+
+/* =========================
+   13. PROFILE SECTIONS
+   ========================= */
+
+.clerk-profile-section {
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 12px !important;
+  margin-bottom: 16px !important;
+  overflow: hidden !important;
+}
+
+.clerk-section-title {
+  padding: 16px 20px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.clerk-section-title-text {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-weight: 600 !important;
+  font-size: 0.9375rem !important;
+}
+
+.clerk-section-content {
+  padding: 16px 20px !important;
+}
+
+.clerk-section-btn {
+  background: transparent !important;
+  color: #e03131 !important;
+  border: 1px solid rgba(224, 49, 49, 0.3) !important;
+  border-radius: 10px !important;
+  padding: 8px 16px !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  transition: all 0.2s ease !important;
+}
+
+.clerk-section-btn:hover {
+  background: rgba(224, 49, 49, 0.1) !important;
+  border-color: rgba(224, 49, 49, 0.5) !important;
+}
+
+/* =========================
+   14. ACCORDION / COLLAPSIBLE
+   ========================= */
+
+.clerk-accordion-trigger {
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  padding: 14px 20px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.clerk-accordion-trigger:hover {
+  background: rgba(255, 255, 255, 0.03) !important;
+}
+
+.clerk-accordion-content {
+  background: rgba(0, 0, 0, 0.15) !important;
+  padding: 16px 20px !important;
+}
+
+/* =========================
+   15. BADGES
+   ========================= */
+
+.clerk-badge {
+  background: rgba(224, 49, 49, 0.15) !important;
+  color: #e03131 !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 4px 8px !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+}
+
+/* =========================
+   16. ACTIVE DEVICE
+   ========================= */
+
+.clerk-active-device {
+  background: rgba(46, 204, 113, 0.1) !important;
+  border: 1px solid rgba(46, 204, 113, 0.2) !important;
+  border-radius: 10px !important;
+  padding: 12px 16px !important;
+}
+
+.clerk-device-icon {
+  color: #2ecc71 !important;
+}
+
+/* =========================
+   17. MENUS
+   ========================= */
+
+.clerk-menu-btn {
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  padding: 6px 10px !important;
+  transition: all 0.15s ease !important;
+}
+
+.clerk-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.clerk-menu-list {
+  background: #171c23 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35) !important;
+  padding: 6px !important;
+  overflow: hidden !important;
+}
+
+.clerk-menu-item {
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  border-radius: 6px !important;
+  padding: 10px 14px !important;
+  transition: all 0.15s ease !important;
+}
+
+.clerk-menu-item:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* =========================
+   18. FILE UPLOAD
+   ========================= */
+
+.clerk-avatar-upload {
+  background: rgba(224, 49, 49, 0.1) !important;
+  color: #e03131 !important;
+  border: 1px dashed rgba(224, 49, 49, 0.4) !important;
+  border-radius: 12px !important;
+}
+
+.clerk-avatar-upload:hover {
+  background: rgba(224, 49, 49, 0.15) !important;
+  border-color: rgba(224, 49, 49, 0.6) !important;
+}
+
+.clerk-file-drop {
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 2px dashed rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  transition: all 0.2s ease !important;
+}
+
+.clerk-file-drop:hover {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.clerk-file-icon {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.clerk-file-hint {
+  color: rgba(255, 255, 255, 0.5) !important;
+  font-size: 0.8125rem !important;
+}
+
+/* =========================
+   19. CUSTOM SCROLLBAR
+   ========================= */
+
+.clerk-scroll-box::-webkit-scrollbar,
+.clerk-page-scroll::-webkit-scrollbar,
+.cl-scrollBox::-webkit-scrollbar,
+.cl-pageScrollBox::-webkit-scrollbar {
+  width: 6px !important;
+}
+
+.clerk-scroll-box::-webkit-scrollbar-track,
+.clerk-page-scroll::-webkit-scrollbar-track,
+.cl-scrollBox::-webkit-scrollbar-track,
+.cl-pageScrollBox::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.clerk-scroll-box::-webkit-scrollbar-thumb,
+.clerk-page-scroll::-webkit-scrollbar-thumb,
+.cl-scrollBox::-webkit-scrollbar-thumb,
+.cl-pageScrollBox::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-radius: 3px !important;
+}
+
+.clerk-scroll-box::-webkit-scrollbar-thumb:hover,
+.clerk-page-scroll::-webkit-scrollbar-thumb:hover,
+.cl-scrollBox::-webkit-scrollbar-thumb:hover,
+.cl-pageScrollBox::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* =========================================
+   20. DIRECT CLERK CLASS OVERRIDES
+   ========================================= */
+
+/* Корневые контейнеры */
+.cl-rootBox,
+.cl-signIn-root,
+.cl-signUp-root,
+.cl-userProfile-root {
+  background: transparent !important;
+}
+
+/* Карточки */
 .cl-card,
-.cl-userProfile,
-.cl-userProfilePage,
-.cl-userProfile__root,
-.cl-userButtonPopoverCard,
-.cl-userProfilePage__root {
-  outline: none !important;
-  box-shadow: none !important;
-  border-color: var(--border-weak) !important;
+.cl-cardBox {
+  background: #141820 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4) !important;
 }
 
-.cl-modal *:focus,
-.cl-card *:focus,
-.cl-userProfile *:focus,
-.cl-userProfilePage *:focus,
-.cl-userButtonPopoverCard *:focus {
-  outline: none !important;
+/* Модалка */
+.cl-modalBackdrop {
+  background: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.cl-modalContent {
+  background: #141820 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Кнопка закрытия */
+.cl-modalCloseButton {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  width: 32px !important;
+  height: 32px !important;
+  transition: all 0.15s ease !important;
+}
+
+.cl-modalCloseButton:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+/* Поля формы */
+.cl-formFieldInput,
+.cl-input {
+  background: #11151b !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important;
+  color: #ffffff !important;
+}
+
+.cl-formFieldInput:focus,
+.cl-input:focus {
+  border-color: #e03131 !important;
+  box-shadow: 0 0 0 3px rgba(224, 49, 49, 0.15) !important;
+}
+
+.cl-formFieldLabel {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Кнопки */
+.cl-formButtonPrimary,
+.cl-button__primary {
+  background: #e03131 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(224, 49, 49, 0.25) !important;
+}
+
+.cl-formButtonPrimary:hover,
+.cl-button__primary:hover {
+  background: #ff3b3b !important;
+}
+
+.cl-button,
+.cl-formButtonReset {
+  border-radius: 12px !important;
+}
+
+/* Социальные кнопки */
+.cl-socialButtonsBlockButton,
+.cl-socialButtonsIconButton {
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 12px !important;
+}
+
+.cl-socialButtonsBlockButton:hover,
+.cl-socialButtonsIconButton:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Кнопка пользователя */
+.cl-userButtonTrigger {
+  background: transparent !important;
+  border: none !important;
   box-shadow: none !important;
 }
 
-/* Remove red background on user/avatar buttons */
-.cl-userButtonTrigger,
 .cl-userButtonAvatarBox,
 .cl-avatarBox {
-  background: var(--rzd-bg-2) !important;
-  border: 1px solid var(--border-weak) !important;
+  border: 2px solid rgba(255, 255, 255, 0.1) !important;
   box-shadow: none !important;
 }
 
-.cl-userButtonTrigger:hover,
 .cl-userButtonAvatarBox:hover,
 .cl-avatarBox:hover {
-  border-color: var(--border-mid) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
 }
 
-/* Aggressive overrides for Clerk modal containers (remove blue frame) */
-.cl-rootBox,
-.cl-modalBackdrop,
-.cl-modalContent,
+/* Поповер */
+.cl-userButtonPopoverCard {
+  background: #171c23 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4) !important;
+}
+
+.cl-userButtonPopoverActionButton {
+  border-radius: 8px !important;
+}
+
+.cl-userButtonPopoverActionButton:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.cl-userButtonPopoverFooter {
+  display: none !important;
+}
+
+/* Профиль пользователя */
 .cl-userProfile-root,
-.cl-userProfile-rootBox,
-.cl-userProfilePage,
-.cl-userProfileCard,
-.cl-cardBox {
+.cl-profilePage {
+  background: #141820 !important;
+}
+
+.cl-navbar {
+  background: #11151b !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.cl-navbarButton {
+  border-radius: 10px !important;
+}
+
+.cl-navbarButton:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.cl-navbarButton[data-active="true"] {
+  background: rgba(224, 49, 49, 0.12) !important;
+}
+
+.cl-pageScrollBox,
+.cl-scrollBox {
+  background: #141820 !important;
+}
+
+.cl-profileSection__profile,
+.cl-profileSection__security,
+.cl-profileSection {
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 12px !important;
+}
+
+.cl-profileSectionTitle {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.cl-accordionTriggerButton {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.cl-accordionTriggerButton:hover {
+  background: rgba(255, 255, 255, 0.03) !important;
+}
+
+.cl-accordionContent {
+  background: rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Иконки-кнопки */
+.cl-iconButton {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.cl-iconButton:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Разделители */
+.cl-dividerLine {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.cl-dividerText {
+  color: rgba(255, 255, 255, 0.5) !important;
+  background: #141820 !important;
+}
+
+/* Ссылки */
+.cl-footerActionLink,
+.cl-link {
+  color: #e03131 !important;
+}
+
+.cl-footerActionLink:hover,
+.cl-link:hover {
+  color: #ff3b3b !important;
+}
+
+/* Заголовок */
+.cl-headerTitle {
+  color: #ffffff !important;
+}
+
+.cl-headerSubtitle {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Бейджи */
+.cl-badge {
+  background: rgba(224, 49, 49, 0.15) !important;
+  color: #e03131 !important;
+}
+
+/* Активное устройство */
+.cl-activeDevice {
+  background: rgba(46, 204, 113, 0.1) !important;
+  border: 1px solid rgba(46, 204, 113, 0.2) !important;
+  border-radius: 10px !important;
+}
+
+/* Меню */
+.cl-menuList {
+  background: #171c23 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35) !important;
+}
+
+.cl-menuItem:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Алерт */
+.cl-alert {
+  background: rgba(224, 49, 49, 0.1) !important;
+  border: 1px solid rgba(224, 49, 49, 0.2) !important;
+  border-radius: 10px !important;
+  color: #ffffff !important;
+}
+
+.cl-alertText {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Превью идентификатора */
+.cl-identityPreview {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important;
+}
+
+.cl-identityPreviewEditButton {
+  color: #e03131 !important;
+}
+
+.cl-identityPreviewEditButton:hover {
+  color: #ff3b3b !important;
+}
+
+/* Подсказки и ошибки полей формы */
+.cl-formFieldHintText {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.cl-formFieldErrorText {
+  color: #e03131 !important;
+}
+
+/* Верификация */
+.cl-otpCodeFieldInput {
+  background: #11151b !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+}
+
+.cl-otpCodeFieldInput:focus {
+  border-color: #e03131 !important;
+}
+
+/* Селект */
+.cl-selectButton {
+  background: #11151b !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important;
+  color: #ffffff !important;
+}
+
+.cl-selectButton:hover {
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.cl-selectOptionsContainer {
+  background: #171c23 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35) !important;
+}
+
+.cl-selectOption:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Внутренний utility-override */
+.clerk-internal {
+  display: none !important;
+}
+
+/* =========================================
+   21. GLOBAL FOCUS & SELECTION OVERRIDES
+   ========================================= */
+
+/* Убираем все синие фокус-обводки */
+.cl-rootBox *:focus {
   outline: none !important;
-  box-shadow: none !important;
-  border: none !important;
+}
+
+.cl-rootBox *:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(224, 49, 49, 0.3) !important;
+}
+
+/* Цвет выделения */
+.cl-rootBox ::selection {
+  background: rgba(224, 49, 49, 0.3) !important;
+  color: #ffffff !important;
+}
+
+/* =========================================
+   22. LAYOUT FIXES - PREVENT CROPPED TEXT & BROKEN GRID
+   ========================================= */
+
+/* --- Базовые контейнеры: стабильные ширины, без конфликтующих ограничений --- */
+.cl-rootBox,
+.cl-modal,
+.cl-card,
+.cl-userProfile-root,
+.cl-userButtonPopoverCard {
+  font-family: "Manrope", system-ui, sans-serif !important;
 }
 
 .cl-modalBackdrop {
-  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(8px) !important;
 }
 
-.cl-modalContent,
-.cl-userProfile-root,
-.cl-userProfilePage,
-.cl-userProfileCard,
+.cl-modal {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 24px !important;
+}
+
+/* Карточка входа: стабильная ширина */
+.cl-signIn-root .cl-card,
+.cl-signUp-root .cl-card {
+  width: min(480px, calc(100vw - 32px)) !important;
+  max-width: 480px !important;
+  min-width: 320px !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+}
+
 .cl-cardBox {
-  background: var(--rzd-bg-1) !important;
+  width: 100% !important;
 }
 
-/* Prevent global hover rules from forcing red inside Clerk */
-.cl-rootBox button:hover svg,
-.cl-rootBox button:hover path,
-.cl-rootBox button:hover rect,
-.cl-rootBox button:hover circle,
-.cl-rootBox button:hover line,
-.cl-rootBox button:hover polyline {
-  color: inherit !important;
-  fill: currentColor !important;
-  stroke: currentColor !important;
+/* Исправляем обрезку текста — НЕТ word-break, чтобы не было вертикального текста */
+.cl-headerTitle,
+.cl-headerSubtitle,
+.cl-formFieldLabel,
+.cl-socialButtonsBlockButtonText,
+.cl-userPreviewMainIdentifier,
+.cl-userPreviewSecondaryIdentifier,
+.cl-userButtonPopoverActionButtonText {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
 }
 
-.cl-rootBox button:hover {
-  background: inherit !important;
+/* Сброс min-width у кнопок */
+.cl-rootBox button,
+.cl-rootBox a {
+  min-width: 0 !important;
+}
+
+/* Инпут на всю ширину */
+.cl-formFieldInput {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Убираем странные внутренние скроллбары */
+.cl-card {
+  scrollbar-gutter: stable both-edges;
+}
+
+/* =========================================
+   23. USER PROFILE - STABLE 2-COLUMN LAYOUT
+   ========================================= */
+
+.cl-userProfile-root {
+  width: min(920px, calc(100vw - 32px)) !important;
+  max-width: 920px !important;
+  min-width: 600px !important;
+  height: min(720px, calc(100vh - 64px)) !important;
+  max-height: 720px !important;
+}
+
+.cl-userProfile-root .cl-card {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  overflow: hidden !important;
+  border-radius: 18px !important;
+}
+
+/* Критично: стабильная flex-верстка */
+.cl-userProfile-root .cl-cardBox {
+  display: flex !important;
+  flex-direction: row !important;
+  height: 100% !important;
+  width: 100% !important;
+}
+
+/* Левая навигация — фиксированная ширина, без сжатия */
+.cl-navbar {
+  width: 260px !important;
+  min-width: 260px !important;
+  max-width: 260px !important;
+  flex: 0 0 260px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: 20px 12px !important;
+}
+
+.cl-navbarButton {
+  width: 100% !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* Правый контент — со скроллом */
+.cl-page,
+.cl-pageScrollBox {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: 24px !important;
+  flex: 1 !important;
+}
+
+/* Не даём контенту растягиваться наружу */
+.cl-profileSection,
+.cl-profileSectionContent {
+  max-width: 100% !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+}
+
+/* Позиционирование кнопки закрытия */
+.cl-modalCloseButton {
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  z-index: 10 !important;
+}
+
+/* =========================================
+   24. USER BUTTON DROPDOWN - STABLE WIDTH
+   ========================================= */
+
+.cl-userButtonPopoverCard {
+  width: 300px !important;
+  min-width: 300px !important;
+  max-width: 300px !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+}
+
+.cl-userButtonPopoverMain {
+  padding: 8px !important;
+}
+
+.cl-userButtonPopoverActions {
+  padding: 8px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.cl-userButtonPopoverActionButton {
+  width: 100% !important;
+  justify-content: flex-start !important;
+  gap: 10px !important;
+  padding: 10px 12px !important;
+  white-space: nowrap !important;
+}
+
+.cl-userPreview {
+  padding: 12px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+/* =========================================
+   25. SIGNIN - OAUTH BUTTONS ALIGNMENT
+   ========================================= */
+
+.cl-socialButtonsBlockButton {
+  width: 100% !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  padding: 12px 16px !important;
+}
+
+.cl-socialButtonsBlockButtonIcon,
+.cl-socialButtonsProviderIcon {
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  flex: 0 0 20px !important;
+}
+
+.cl-socialButtonsBlockButtonText {
+  flex: 0 0 auto !important;
+}
+
+/* Ряд социальных кнопок */
+.cl-socialButtons {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  width: 100% !important;
+}
+
+/* Социальные кнопки только с иконкой */
+.cl-socialButtonsIconButton {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  padding: 10px !important;
+  flex: 0 0 44px !important;
+}
+
+/* =========================================
+   26. FORM LAYOUT STABILITY
+   ========================================= */
+
+.cl-form {
+  width: 100% !important;
+}
+
+.cl-formFieldRow {
+  width: 100% !important;
+}
+
+.cl-formField {
+  width: 100% !important;
+}
+
+.cl-formButtonPrimary {
+  width: 100% !important;
+  height: 44px !important;
+  min-height: 44px !important;
+}
+
+/* Центрирование заголовка */
+.cl-header {
+  text-align: center !important;
+}
+
+.cl-headerTitle {
+  text-align: center !important;
+}
+
+.cl-headerSubtitle {
+  text-align: center !important;
+}
+
+/* =========================================
+   27. PREVENT HORIZONTAL OVERFLOW
+   ========================================= */
+
+.cl-rootBox,
+.cl-card,
+.cl-cardBox,
+.cl-main,
+.cl-pageScrollBox,
+.cl-scrollBox {
+  overflow-x: hidden !important;
+}
+
+/* Не даём тексту вызывать горизонтальный скролл */
+.cl-profileSection__emailAddresses,
+.cl-profileSection__connectedAccounts,
+.cl-profileSection__activeDevices,
+.cl-profileSection__username,
+.cl-accordionContent {
+  overflow-x: hidden !important;
+}
+
+/* Подключённые аккаунты — предотвращаем переполнение */
+.cl-connectedAccountListItem,
+.cl-connectedAccountListItemIdentifier {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  max-width: 100% !important;
+}
+
+/* Email-адреса — предотвращаем переполнение */
+.cl-profileSectionContent__emailAddresses {
+  overflow: hidden !important;
+}
+
+/* Раскладка элементов секции профиля */
+.cl-profileSectionItem {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  max-width: 100% !important;
+}
+
+.cl-profileSectionItem__identifier {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  flex: 1 !important;
+  min-width: 50px !important;
+}
+
+/* Позиционирование бейджа */
+.cl-badge {
+  flex-shrink: 0 !important;
+}
+
+/* Кнопка меню (три точки) */
+.cl-menuButton {
+  flex-shrink: 0 !important;
+}
+
+/* =========================================
+   28. RESPONSIVE ADJUSTMENTS
+   ========================================= */
+
+@media (max-width: 768px) {
+  .clerk-modal-content,
+  .cl-modalContent {
+    border-radius: 16px 16px 0 0 !important;
+    max-height: 90vh !important;
+  }
+
+  .clerk-card,
+  .clerk-card-box,
+  .cl-card,
+  .cl-cardBox {
+    border-radius: 16px !important;
+    margin: 8px !important;
+  }
+
+  .clerk-page,
+  .cl-page {
+    padding: 16px !important;
+  }
+
+  .clerk-navbar,
+  .cl-navbar {
+    padding: 12px 6px !important;
+  }
+
+  /* Профиль пользователя: адаптив — одна колонка на мобильных */
+  .cl-userProfile-root {
+    width: calc(100vw - 16px) !important;
+    min-width: unset !important;
+    height: calc(100vh - 32px) !important;
+  }
+
+  .cl-userProfile-root .cl-cardBox {
+    flex-direction: column !important;
+  }
+
+  .cl-navbar {
+    width: 100% !important;
+    min-width: unset !important;
+    max-width: none !important;
+    flex: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    padding: 12px !important;
+    overflow-x: auto !important;
+  }
+
+  .cl-navbarButtons {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 4px !important;
+  }
+
+  .cl-navbarButton {
+    white-space: nowrap !important;
+    padding: 8px 12px !important;
+  }
+
+  /* Карточка входа: адаптив */
+  .cl-signIn-root .cl-card,
+  .cl-signUp-root .cl-card {
+    width: calc(100vw - 16px) !important;
+    min-width: unset !important;
+  }
+
+  /* Дропдаун: адаптив */
+  .cl-userButtonPopoverCard {
+    width: min(300px, calc(100vw - 32px)) !important;
+    min-width: unset !important;
+  }
+}
+
+/* =========================================
+   29. CRITICAL TEXT RESET - PREVENT VERTICAL TEXT
+   ========================================= */
+
+/* Жёсткий сброс: горизонтальный текст во ВСЕХ элементах Clerk */
+.cl-rootBox,
+.cl-rootBox *,
+.cl-userButtonPopoverCard,
+.cl-userButtonPopoverCard *,
+.cl-modal,
+.cl-modal * {
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+}
+
+/* Сброс word-break для всех текстовых элементов */
+.cl-rootBox p,
+.cl-rootBox span,
+.cl-rootBox div,
+.cl-rootBox label,
+.cl-rootBox a,
+.cl-rootBox button,
+.cl-rootBox h1,
+.cl-rootBox h2,
+.cl-rootBox h3,
+.cl-rootBox h4,
+.cl-rootBox h5,
+.cl-rootBox h6,
+.cl-rootBox li {
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  hyphens: none !important;
+}
+
+/* Обеспечиваем корректную ширину выпадашки UserButton */
+.cl-userButtonPopoverCard {
+  width: 280px !important;
+  min-width: 280px !important;
+}
+
+.cl-userButtonPopoverMain,
+.cl-userButtonPopoverActions {
+  width: 100% !important;
+}
+
+.cl-userPreview {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  width: 100% !important;
+  padding: 12px !important;
+}
+
+.cl-userPreviewMainIdentifier,
+.cl-userPreviewSecondaryIdentifier {
+  display: block !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* Профиль пользователя: фикс сетки, чтобы текст не схлопывался */
+.cl-userProfile-root .cl-cardBox {
+  display: flex !important;
+  flex-direction: row !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.cl-userProfile-root .cl-navbar {
+  width: 260px !important;
+  min-width: 260px !important;
+  max-width: 260px !important;
+  flex-shrink: 0 !important;
+}
+
+.cl-userProfile-root .cl-pageScrollBox {
+  flex: 1 !important;
+  min-width: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* SignIn: исправление OAuth-кнопок */
+.cl-socialButtonsBlockButton {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+}
+
+.cl-socialButtonsBlockButtonIcon {
+  position: static !important;
+  flex-shrink: 0 !important;
+}
+
+.cl-socialButtonsBlockButtonText {
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
+}
+
+/* Убираем двойной скролл — скролл только в области контента */
+.cl-modal {
+  overflow: hidden !important;
+}
+
+.cl-userProfile-root {
+  overflow: hidden !important;
+}
+
+.cl-userProfile-root .cl-card {
+  overflow: hidden !important;
+}
+
+/* =========================================
+   30. CLERK BUTTON FIX - PREVENT FLOATING SQUARES
+   Using .cl-rootBox which Clerk adds to all its components (works with portals)
+   ========================================= */
+
+/* 1) Основная правка: иконки Clerk НЕ абсолютные и НЕ плавающие квадраты */
+.cl-rootBox :where(svg, img),
+.cl-icon,
+.cl-socialButtonsBlockButtonIcon,
+.cl-providerIcon,
+.cl-socialButtonsProviderIcon {
+  position: static !important;
+  display: inline-block !important;
+  flex: 0 0 auto !important;
+  inset: auto !important;
+  transform: none !important;
+}
+
+/* 2) Все кнопки Clerk: flex-верстка, корректные размеры */
+.cl-button,
+.cl-formButtonPrimary,
+.cl-formButtonReset {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  padding: 12px 16px !important;
+  border-radius: 12px !important;
+  box-sizing: border-box !important;
+  min-height: 44px !important;
+}
+
+/* 3) Текст кнопок: без разрывов и посимвольного переноса, используем троеточие */
+.cl-button,
+.cl-formButtonPrimary,
+.cl-formButtonReset,
+.cl-userButtonPopoverActionButton,
+.cl-userButtonPopoverActionButtonText,
+.cl-socialButtonsBlockButtonText,
+.cl-alternativeMethodsBlockButtonText {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* 4) Убираем плавающие бейджи/квадраты — обычно ::before/::after */
+.cl-button::before,
+.cl-button::after,
+.cl-socialButtonsBlockButton::before,
+.cl-socialButtonsBlockButton::after,
+.cl-userButtonPopoverActionButton::before,
+.cl-userButtonPopoverActionButton::after,
+.cl-formButtonPrimary::before,
+.cl-formButtonPrimary::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* 5) Блок OAuth: одна колонка, без летающих иконок */
+.cl-socialButtonsBlock,
+.cl-socialButtons {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  width: 100% !important;
+}
+.cl-socialButtonsBlockButton {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  padding: 12px 16px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  min-height: 48px !important;
+}
+.cl-socialButtonsBlockButton:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+.cl-socialButtonsBlockButtonIcon,
+.cl-socialButtonsProviderIcon {
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  flex: 0 0 20px !important;
+}
+.cl-socialButtonsBlockButtonText {
+  flex: 0 0 auto !important;
+}
+
+/* 6) Кнопка закрытия (X) в модалке: фикс позиции и размера */
+.cl-modalCloseButton,
+.cl-headerCloseButton {
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+  padding: 0 !important;
+}
+.cl-modalCloseButton:hover,
+.cl-headerCloseButton:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* 7) Поповер UserButton: кнопки в колонке, без квадратов */
+.cl-userButtonPopoverActionButton {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 10px !important;
+  padding: 10px 12px !important;
+  background: transparent !important;
+  border-radius: 8px !important;
+}
+.cl-userButtonPopoverActionButton:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+.cl-userButtonPopoverActionButtonIcon {
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  flex: 0 0 18px !important;
+}
+.cl-userButtonPopoverActionButtonText {
+  flex: 1 !important;
+  text-align: left !important;
+}
+
+/* 8) Возвращаем фокус-обводку */
+.cl-rootBox button:focus-visible,
+.cl-rootBox [role="button"]:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.25) !important;
+  outline-offset: 2px !important;
+}
+
+/* 9) Стили основной кнопки */
+.cl-formButtonPrimary {
+  width: 100% !important;
+  background: linear-gradient(135deg, #e03131 0%, #c92a2a 100%) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  border: none !important;
+}
+.cl-formButtonPrimary:hover {
+  background: linear-gradient(135deg, #c92a2a 0%, #b02525 100%) !important;
+}
+
+/* 10) Кнопки меню (три точки) в UserProfile */
+.cl-menuButton {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-radius: 8px !important;
+  flex-shrink: 0 !important;
+}
+.cl-menuButton:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+.cl-menuButton svg {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* 11) Кнопка добавления (+) в секциях UserProfile */
+.cl-profileSectionPrimaryButton {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-radius: 8px !important;
+  flex-shrink: 0 !important;
+}
+.cl-profileSectionPrimaryButton:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+.cl-profileSectionPrimaryButton svg {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* 12) Список меню (дропдаун) */
+.cl-menuList {
+  background: #1a1f28 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 10px !important;
+  padding: 6px !important;
+  min-width: 180px !important;
+}
+.cl-menuItem {
+  padding: 10px 12px !important;
+  border-radius: 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+}
+.cl-menuItem:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* 13) Разметка секций UserProfile — без плавающих action-кнопок */
+.cl-profileSectionItem {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  width: 100% !important;
+  padding: 12px !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-radius: 10px !important;
+  margin-bottom: 8px !important;
+}
+.cl-profileSectionItemList {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+
+/* 14) Кнопки навбара */
+.cl-navbarButton {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 12px 14px !important;
+  border-radius: 10px !important;
+  width: 100% !important;
+  background: transparent !important;
+}
+.cl-navbarButton:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+.cl-navbarButton[data-active="true"] {
+  background: rgba(224, 49, 49, 0.12) !important;
+  color: #e03131 !important;
+}
+.cl-navbarButtonIcon {
+  width: 18px !important;
+  height: 18px !important;
+  flex: 0 0 18px !important;
+}
+
+/* 15) Кнопки-триггеры аккордеона */
+.cl-accordionTriggerButton {
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 12px !important;
+  background: transparent !important;
+  border-radius: 8px !important;
+}
+.cl-accordionTriggerButton:hover {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+/* 16) Бейдж — не плавающий */
+.cl-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 4px 8px !important;
+  border-radius: 6px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  flex-shrink: 0 !important;
+}
+
+/* 17) Кнопка альтернативных методов */
+.cl-alternativeMethodsBlockButton {
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  padding: 12px !important;
+  background: transparent !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 10px !important;
+  min-height: 44px !important;
+}
+.cl-alternativeMethodsBlockButton:hover {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+/* 18) Кнопка редактирования превью идентификатора */
+.cl-identityPreviewEditButton {
+  width: auto !important;
+  padding: 8px 12px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-radius: 8px !important;
+}
+.cl-identityPreviewEditButton:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 19) Ссылка действия в футере */
+.cl-footerActionLink {
+  color: #e03131 !important;
+  text-decoration: none !important;
+}
+.cl-footerActionLink:hover {
+  text-decoration: underline !important;
+}
+
+/* 20) Ссылка «Отправить код повторно» */
+.cl-formResendCodeLink {
+  color: rgba(255, 255, 255, 0.6) !important;
+  padding: 8px !important;
+}
+.cl-formResendCodeLink:hover {
+  color: #ffffff !important;
+}
+
+/* 21) Кнопка «Показать пароль» */
+.cl-formFieldInputShowPasswordButton {
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  padding: 0 !important;
+  position: absolute !important;
+  right: 8px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+/* 22) Кнопка загрузки аватара */
+.cl-avatarImageActionsUpload {
+  width: auto !important;
+  padding: 10px 16px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-radius: 10px !important;
+}
+.cl-avatarImageActionsUpload:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 23) Триггер UserButton */
+.cl-userButtonTrigger {
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+/* 24) Сброс кнопок формы (вторичные) */
+.cl-formButtonReset {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+.cl-formButtonReset:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 25) Кнопка подключённого аккаунта — фикс "Обновить профиль" */
+.cl-profileSectionContent__connectedAccounts .cl-button,
+.cl-profileSectionContent__profile .cl-button {
+  width: auto !important;
+  padding: 8px 14px !important;
+  min-height: 36px !important;
+  font-size: 13px !important;
+}
+
+/* 26) Превью идентификатора — фикс "Изменить имя пользователя" */
+.cl-profileSectionContent .cl-formButtonPrimary {
+  width: auto !important;
+  padding: 10px 16px !important;
+}
+
+/* 27) Секция активных устройств */
+.cl-activeDevice {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 12px !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-radius: 10px !important;
+}
+.cl-activeDeviceIcon {
+  width: 32px !important;
+  height: 32px !important;
+  flex: 0 0 32px !important;
+}
+
+/* 28) OTP-инпут */
+.cl-otpCodeFieldInput {
+  width: 48px !important;
+  height: 56px !important;
+  text-align: center !important;
+  font-size: 24px !important;
+  font-weight: 600 !important;
 }

@@ -1,5 +1,6 @@
 import { MessageCircle } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { isSystemUser } from "../lib/userUtils";
 
 const CustomChannelPreview = ({ channel, setActiveChannel, activeChannel }) => {
   const isActive = activeChannel && activeChannel.id === channel.id;
@@ -12,15 +13,19 @@ const CustomChannelPreview = ({ channel, setActiveChannel, activeChannel }) => {
   const isDM =
     channel.data.member_count === 2 && channel.data.id.includes("user_");
 
+  const isSystemChannel = useMemo(() => {
+    const name = String(channel.data?.name || "").toLowerCase();
+    const id = String(channel.data?.id || channel.id || "").toLowerCase();
+    if (name.includes("recording") || name.includes("egress")) return true;
+    if (id.includes("recording") || id.includes("egress")) return true;
+    const members = Object.values(channel.state.members || {}).map((m) => m.user);
+    if (members.length > 0 && members.every((m) => isSystemUser(m))) return true;
+    return false;
+  }, [channel]);
+
   useEffect(() => {
     localStorage.setItem(`unread_${channel.id}`, String(unreadCount));
   }, [channel.id, unreadCount]);
-
-  useEffect(() => {
-    if (isActive && unreadCount > 0) {
-      channel.markRead().catch(err => console.error("markRead failed:", err));
-    }
-  }, [isActive, channel, unreadCount]);
 
   useEffect(() => {
     const handleNewMessage = () => {
@@ -37,10 +42,9 @@ const CustomChannelPreview = ({ channel, setActiveChannel, activeChannel }) => {
     setUnreadCount(0);
     localStorage.setItem(`unread_${channel.id}`, "0");
     setActiveChannel(channel);
-    channel.markRead().catch(err => console.error("markRead failed:", err));
   };
 
-  if (isDM) return null;
+  if (isDM || isSystemChannel) return null;
 
   return (
     <button

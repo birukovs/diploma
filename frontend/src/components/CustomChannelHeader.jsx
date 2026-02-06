@@ -5,6 +5,7 @@ import { useUser } from "@clerk/clerk-react";
 import MembersModal from "./MembersModal";
 import PinnedMessagesModal from "./PinnedMessagesModal";
 import InviteModal from "./InviteModal";
+import { isSystemUser } from "../lib/userUtils";
 
 const CustomChannelHeader = () => {
   const { channel } = useChannelStateContext();
@@ -42,11 +43,48 @@ const CustomChannelHeader = () => {
   }, [channel, user]);
 
   const otherUser = Object.values(channel.state.members).find(
-    (member) => member.user.id !== user.id
+    (member) => member.user.id !== user.id && !isSystemUser(member.user)
   );
 
   const isDM =
-    channel.data?.member_count === 2 && channel.data?.id.includes("user_");
+    channel.data?.member_count === 2 &&
+    String(channel.data?.id || "").includes("user_");
+
+  const isSystemChannelName = (value) => {
+    if (!value) return false;
+    const lower = String(value).toLowerCase();
+    return lower.includes("recording") || lower.includes("egress");
+  };
+
+  const channelLabel = (() => {
+    const name = channel.data?.name?.trim();
+    if (name && !isSystemChannelName(name)) return name;
+
+    if (isDM) {
+      return (
+        otherUser?.user?.name ||
+        otherUser?.user?.id ||
+        "Новый чат"
+      );
+    }
+
+    const members = Object.values(channel.state.members || {})
+      .map((member) => member.user)
+      .filter((member) => member && !isSystemUser(member));
+    if (members.length === 1) {
+      return members[0].name || members[0].id;
+    }
+    if (members.length > 1) {
+      return members
+        .map((member) => member.name || member.id)
+        .filter(Boolean)
+        .join(", ");
+    }
+
+    const fallbackId = channel.id || channel.data?.id;
+    if (fallbackId && !isSystemChannelName(fallbackId)) return fallbackId;
+    return "Новый чат";
+  })();
 
   const handleShowPinned = async () => {
     const channelState = await channel.query();
@@ -81,11 +119,7 @@ const CustomChannelHeader = () => {
             />
           )}
 
-          <span className="font-medium text-white">
-            {isDM
-              ? otherUser?.user?.name || otherUser?.user?.id
-              : channel.data?.id}
-          </span>
+          <span className="font-medium text-white">{channelLabel}</span>
         </div>
       </div>
 

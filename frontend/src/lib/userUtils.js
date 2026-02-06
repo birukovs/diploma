@@ -1,9 +1,9 @@
 /**
- * Check if a user is a system/technical user that should be hidden from UI.
- * Examples: recording-egress-*, RECORDING-EGRESS-UUID, etc.
+ * Проверяет, является ли пользователь системным/техническим и должен ли скрываться в UI.
+ * Примеры: recording-egress-*, RECORDING-EGRESS-UUID и т.д.
  *
- * @param {Object} user - User object with id, name, role properties
- * @returns {boolean} - true if user should be hidden
+ * @param {Object} user - Объект пользователя с полями id, name, role
+ * @returns {boolean} - true, если пользователя нужно скрыть
  */
 export function isSystemUser(user) {
   if (!user) return false;
@@ -12,23 +12,23 @@ export function isSystemUser(user) {
   const userName = (user.name || "").toLowerCase();
   const userRole = (user.role || "").toLowerCase();
 
-  // Check user ID patterns
+  // Проверка шаблонов ID пользователя
   if (userId.startsWith("recording")) return true;
   if (userId.includes("egress")) return true;
 
-  // Check user name patterns
+  // Проверка шаблонов имени пользователя
   if (userName.includes("recording")) return true;
 
-  // Check role
+  // Проверка роли
   if (userRole === "system") return true;
 
   return false;
 }
 
 /**
- * Filter out system users from an array of users
- * @param {Array} users - Array of user objects
- * @returns {Array} - Filtered array without system users
+ * Фильтрует системных пользователей из массива пользователей
+ * @param {Array} users - Массив объектов пользователей
+ * @returns {Array} - Отфильтрованный массив без системных пользователей
  */
 export function filterSystemUsers(users) {
   if (!Array.isArray(users)) return [];
@@ -36,9 +36,9 @@ export function filterSystemUsers(users) {
 }
 
 /**
- * Filter out reactions from system users
- * @param {Array} reactions - Array of reaction objects with user property
- * @returns {Array} - Filtered array without system user reactions
+ * Фильтрует реакции от системных пользователей
+ * @param {Array} reactions - Массив объектов реакций с полем user
+ * @returns {Array} - Отфильтрованный массив без реакций системных пользователей
  */
 export function filterSystemUserReactions(reactions) {
   if (!Array.isArray(reactions)) return [];

@@ -13,7 +13,6 @@ const focusComposer = (isThreadReply) => {
 
 const InlineMessageList = (props) => {
   const messageComposer = useMessageComposer();
-
   const handleOpenThread = useCallback(
     (message, event) => {
       event?.preventDefault?.();

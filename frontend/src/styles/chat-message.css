@@ -110,6 +110,53 @@
   align-items: flex-end;
 }
 
+.chat-author {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+  line-height: 1.1;
+}
+
+.chat-author-avatar {
+  width: 24px !important;
+  height: 24px !important;
+  flex: 0 0 24px;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0 !important;
+}
+
+.chat-author .str-chat__avatar,
+.chat-author .str-chat__avatar * {
+  border-radius: 999px !important;
+}
+
+.chat-author-avatar img,
+.chat-author-avatar .str-chat__avatar-image,
+.chat-author-avatar .str-chat__avatar-fallback,
+.chat-author-avatar .str-chat__avatar svg {
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 999px;
+  object-fit: cover;
+  display: block;
+}
+
+.chat-author-name {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.chat-message-content.from-other .chat-bubble,
+.chat-message-content.from-other .chat-meta {
+  margin-left: 32px;
+}
+
 .chat-bubble {
   border-radius: 18px;
   padding: 10px 12px;
@@ -127,7 +174,7 @@
   pointer-events: auto;
 }
 
-/* Hide old overlay reactions - using new inline meta reactions instead */
+/* Скрываем старые оверлей-реакции — используем новые inline-реакции в мета */
 .inline-reactions-list {
   display: none !important;
 }
@@ -142,16 +189,13 @@
   color: rgba(255, 255, 255, 0.92);
 }
 
-/* Override bubble background for poll messages - isolate from bubble color */
+/* Переопределяем фон пузыря для сообщений-опросов — изолируем от цвета пузыря */
 .chat-bubble .poll-card {
-  background: #1e2128 !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   color: rgba(255, 255, 255, 0.95) !important;
 }
 
 .chat-row.my .chat-bubble .poll-card,
 .chat-row.other .chat-bubble .poll-card {
-  background: #1e2128 !important;
   color: rgba(255, 255, 255, 0.95) !important;
 }
 
@@ -170,7 +214,7 @@
   pointer-events: auto;
 }
 
-/* Meta with reactions inline */
+/* Мета с реакциями inline */
 .chat-meta {
   margin-top: 4px;
   display: flex;
@@ -190,6 +234,60 @@
 
 .chat-time {
   opacity: 0.7;
+}
+
+/* Индикаторы прочтения */
+.read-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  opacity: 0.7;
+}
+
+.read-indicator svg {
+  display: block;
+}
+
+.read-sent {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.read-delivered {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.read-read {
+  color: #4ade80;
+  opacity: 1;
+}
+
+.read-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.read-count {
+  font-size: 11px;
+  font-weight: 600;
+  color: #4ade80;
+}
+
+.read-names {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(74, 222, 128, 0.95);
+  margin-left: 4px;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* Метка «Отредактировано» */
+.chat-edited {
+  opacity: 0.6;
 }
 
 .chat-meta-reactions {
@@ -242,7 +340,7 @@
   font-weight: 500;
 }
 
-/* Tooltip for reactions */
+/* Тултип для реакций */
 .reaction-tooltip {
   position: absolute;
   bottom: calc(100% + 6px);
@@ -265,9 +363,9 @@
   opacity: 1;
 }
 
-/* OLD OVERLAY REACTIONS - DISABLED (now using inline meta reactions) */
+/* СТАРЫЕ ОВЕРЛЕЙ-РЕАКЦИИ — ОТКЛЮЧЕНЫ (теперь inline-реакции в мета) */
 
-/* Composer top divider killer - remove all possible dividers */
+/* Убираем верхний разделитель композера — удаляем все возможные разделители */
 .str-chat__message-input,
 .str-chat__message-input::before,
 .str-chat__message-input::after,
@@ -310,14 +408,14 @@
   mask-image: none !important;
 }
 
-/* Date separator line should blend into chat background */
+/* Линия разделителя дат должна сливаться с фоном чата */
 .str-chat__date-separator,
 .str-chat__date-separator-line {
   border-color: var(--rzd-bg-0) !important;
   background: var(--rzd-bg-0) !important;
 }
 
-/* Remove any gradient fade overlays at bottom of message list */
+/* Убираем градиентные фейды внизу списка сообщений */
 .str-chat__list > *:last-child::after,
 .str-chat__message-list > *:last-child::after,
 .str-chat [class*="scroll"]::after,
@@ -328,14 +426,14 @@
   visibility: hidden !important;
 }
 
-/* Extra aggressive - remove any separators/dividers in channel area */
+/* Агрессивно: убираем любые разделители в области канала */
 .str-chat__channel > *,
 .str-chat__main-panel > * {
   border-top: none !important;
   border-bottom: none !important;
 }
 
-/* Reaction picker popover styles (for adding reactions) */
+/* Стили поповера выбора реакций (добавление реакций) */
 .inline-reactions-popover {
   animation: fadeIn 0.15s ease;
 }
@@ -387,7 +485,7 @@
   justify-content: center;
 }
 
-/* ========== ATTACHMENTS STYLES ========== */
+/* ========== СТИЛИ ВЛОЖЕНИЙ ========== */
 .chat-attachments {
   margin-top: 8px;
   max-width: 100%;
@@ -426,8 +524,8 @@
   padding: 8px 12px;
 }
 
-/* ========== POLL STYLES ========== */
-/* Stream Chat poll component styles */
+/* ========== СТИЛИ ОПРОСОВ ========== */
+/* Стили компонента опросов Stream Chat */
 .str-chat__poll,
 [data-poll-root],
 .poll-root {
@@ -440,7 +538,7 @@
   display: none !important;
 }
 
-/* Legacy fallback poll styles */
+/* Стили legacy fallback-опроса */
 .chat-poll {
   margin-top: 8px;
   background: rgba(255, 255, 255, 0.06);

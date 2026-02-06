@@ -21,17 +21,21 @@ const InlineComposerInput = (props) => {
   const doUpdateMessageRequest = useCallback(
     async (message) => {
       if (!channel?.updateMessage || !message) return null;
-      const extraData = {
-        ...(message.extraData || message.extra_data || {}),
-        edited: true,
-      };
       const editedAt = new Date().toISOString();
+
+      // Сохраняем в localStorage как надежный fallback
+      try {
+        const editedMessages = JSON.parse(localStorage.getItem('edited_messages') || '{}');
+        editedMessages[message.id] = editedAt;
+        localStorage.setItem('edited_messages', JSON.stringify(editedMessages));
+      } catch {
+        // Игнорируем ошибки localStorage
+      }
+
       return channel.updateMessage({
         ...message,
-        edited: true,
-        edited_at: editedAt,
-        extraData,
-        extra_data: extraData,
+        text_edited: true,
+        text_edited_at: editedAt,
       });
     },
     [channel]

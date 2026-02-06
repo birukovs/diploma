@@ -5,7 +5,7 @@ import { useStreamChat } from "../hooks/useStreamChat";
 import PageLoader from "../components/PageLoader";
 import CreateChannelModal from "../components/CreateChannelModal";
 import { Chat, Channel, ChannelList, Window } from "stream-chat-react";
-import { MessageCircle, PlusIcon, UsersIcon } from "lucide-react";
+import { MessageCircle, PlusIcon, Search, UsersIcon } from "lucide-react";
 import CustomChannelPreview from "../components/CustomChannelPreview";
 import UserList from "../components/UserList";
 import CustomChannelHeader from "../components/CustomChannelHeader";
@@ -21,6 +21,7 @@ import { i18nInstance } from "../lib/translations";
 const HomePage = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [selectedChannel, setSelectedChannel] = useState(null);
+  const [globalSearch, setGlobalSearch] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { chatClient, error, isLoading } = useStreamChat();
@@ -52,6 +53,50 @@ const HomePage = () => {
     setSearchParams({ channel: channel.id });
   }, [setSearchParams]);
 
+  const channelRenderFilterFn = useCallback(
+    (channels) => {
+      const query = globalSearch.trim().toLowerCase();
+      if (!query) return channels;
+      return channels.filter((channel) => {
+        const name = String(channel.data?.name || "");
+        const id = String(channel.id || channel.data?.id || "");
+        const members = Object.values(channel.state?.members || {})
+          .map((member) => member.user?.name || member.user?.id)
+          .filter(Boolean);
+        const lowerName = name.toLowerCase();
+        const lowerId = id.toLowerCase();
+        const memberMatches = members.some((member) =>
+          String(member).toLowerCase().includes(query)
+        );
+        const channelMatches =
+          lowerName.includes(query) || lowerId.includes(query);
+
+        if (!memberMatches && !channelMatches) return false;
+
+        const isDM =
+          channel.data?.member_count === 2 &&
+          String(channel.data?.id || "").includes("user_");
+        const isPrivate =
+          channel.data?.private === true ||
+          channel.data?.visibility === "private" ||
+          isDM;
+
+        if (memberMatches && !channelMatches && !isPrivate) return false;
+        return true;
+      });
+    },
+    [globalSearch]
+  );
+
+  const ChannelEmptyState = useCallback(() => {
+    const hasQuery = globalSearch.trim().length > 0;
+    return (
+      <div className="team-channel-list__message">
+        {hasQuery ? "Ничего не найдено" : "У вас нет каналов в данный момент"}
+      </div>
+    );
+  }, [globalSearch]);
+
   if (error) return <p>Что-то пошло не так</p>;
   if (isLoading || !chatClient || !chatClient.user?.id) return <PageLoader />;
 
@@ -65,7 +110,7 @@ const HomePage = () => {
                 <div className="brand-container">
                   <span className="brand-name">Мессенджер</span>
                 </div>
-                <div className="user-button-wrapper">
+                <div className="user-button-wrapper clerk-sandbox">
                   <UserButton />
                 </div>
               </div>
@@ -78,6 +123,16 @@ const HomePage = () => {
                     <PlusIcon className="size-4" />
                     <span>Создать канал</span>
                   </button>
+                  <div className="global-search">
+                    <Search className="global-search-icon" aria-hidden="true" />
+                    <input
+                      type="text"
+                      className="global-search-input"
+                      placeholder="Search channels or users"
+                      value={globalSearch}
+                      onChange={(event) => setGlobalSearch(event.target.value)}
+                    />
+                  </div>
                 </div>
 
                 <ChannelList
@@ -89,6 +144,8 @@ const HomePage = () => {
                     ],
                   }}
                   options={{ state: true, watch: true }}
+                  channelRenderFilterFn={channelRenderFilterFn}
+                  EmptyStateIndicator={ChannelEmptyState}
                   onSelectChannel={handleSelectChannel}
                   Preview={({ channel }) => (
                     <CustomChannelPreview
@@ -117,7 +174,11 @@ const HomePage = () => {
                           <span>Личные сообщения</span>
                         </div>
                       </div>
-                      <UserList activeChannel={activeChannel} setActiveChannel={handleSelectChannel} />
+                      <UserList
+                        activeChannel={activeChannel}
+                        setActiveChannel={handleSelectChannel}
+                        searchQuery={globalSearch}
+                      />
                     </div>
                   )}
                 />
@@ -132,6 +193,7 @@ const HomePage = () => {
                 Message={ChatMessage}
                 MessageOptions={InlineMessageOptions}
                 QuotedMessage={InlineQuotedMessage}
+                markReadOnMount={false}
               >
                 <InlineComposerProvider>
                   <Window>
@@ -143,7 +205,7 @@ const HomePage = () => {
                   </Window>
                 </InlineComposerProvider>
 
-                {/* Thread view removed to keep replies inline */}
+                {/* Тред убран, чтобы ответы оставались inline */}
               </Channel>
             ) : (
               <div className="flex h-full items-center justify-center text-gray-500">

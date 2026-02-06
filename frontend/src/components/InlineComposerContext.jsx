@@ -1,4 +1,5 @@
 /* eslint react-refresh/only-export-components: off */
+// Отключаем правило react-refresh/only-export-components для этого файла
 import { createContext, useCallback, useContext, useMemo, useState } from "react";
 
 const InlineComposerContext = createContext(null);

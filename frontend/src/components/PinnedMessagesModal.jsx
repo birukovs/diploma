@@ -1,11 +1,11 @@
 import { XIcon } from "lucide-react";
 
 /**
- * Build a summary string for a pinned message.
- * Handles polls, images, files, videos, and text.
+ * Формирует краткое описание закреплённого сообщения.
+ * Обрабатывает опросы, изображения, файлы, видео и текст.
  */
 function buildPinnedSummary(message) {
-  // Check for poll
+  // Проверяем опрос
   const poll = message?.poll || message?.poll_data;
   const pollId = message?.poll_id || message?.pollId;
   if (poll || pollId) {
@@ -13,7 +13,7 @@ function buildPinnedSummary(message) {
     return question ? `📊 Опрос: ${question}` : "📊 Опрос";
   }
 
-  // Check attachments
+  // Проверяем вложения
   const attachments = message?.attachments ?? [];
   if (attachments.length > 0) {
     const first = attachments[0];
@@ -21,23 +21,23 @@ function buildPinnedSummary(message) {
     const type = first?.type || "";
     const filename = first?.title || first?.name || first?.fallback || "";
 
-    // Image
+    // Изображение
     if (type === "image" || mimeType.startsWith("image/")) {
       return filename ? `🖼️ Фото: ${filename}` : "🖼️ Фото";
     }
 
-    // Video
+    // Видео
     if (type === "video" || mimeType.startsWith("video/")) {
       return filename ? `🎬 Видео: ${filename}` : "🎬 Видео";
     }
 
-    // File/document
+    // Файл/документ
     if (type === "file" || mimeType) {
       return filename ? `📎 Файл: ${filename}` : "📎 Файл";
     }
   }
 
-  // Text message
+  // Текстовое сообщение
   if (message?.text) {
     const text = message.text.trim();
     if (text.length > 80) {
@@ -46,7 +46,7 @@ function buildPinnedSummary(message) {
     return text;
   }
 
-  // Fallback
+  // Запасной вариант
   return "📌 Сообщение";
 }
 
@@ -57,7 +57,7 @@ function PinnedMessagesModal({ pinnedMessages, onClose }) {
         className="rounded-xl shadow-2xl w-full max-w-lg mx-4 bg-[#0f1116] border border-[#e21a1a]"
         data-ui="pinned-list-v1"
       >
-        {/* HEADER */}
+        {/* ЗАГОЛОВОК */}
         <div className="flex items-center justify-between border-b border-[#e21a1a]/50 px-6 py-4">
           <h2 className="text-2xl font-semibold text-white">Закрепленные сообщения</h2>
           <button onClick={onClose} className="text-2xl text-gray-300 hover:text-white">
@@ -65,7 +65,7 @@ function PinnedMessagesModal({ pinnedMessages, onClose }) {
           </button>
         </div>
 
-        {/* MESSAGES LIST */}
+        {/* СПИСОК СООБЩЕНИЙ */}
         <div className="px-6 py-4 max-h-96 overflow-y-auto">
           {pinnedMessages.map((msg) => {
             const summary = buildPinnedSummary(msg);

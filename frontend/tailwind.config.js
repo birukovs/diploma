@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+/** @type {import('tailwindcss').Config} — тип конфигурации Tailwind */
 export default {
   content: [
     "./index.html",
@@ -7,10 +7,10 @@ export default {
   theme: {
     extend: {
       // ═══════════════════════════════════════
-      // COLORS - Привязка к Design Tokens
+      // ЦВЕТА — привязка к design tokens
       // ═══════════════════════════════════════
       colors: {
-        // Background layers
+        // Слои фона
         app: 'var(--bg-app)',
         surface: {
           DEFAULT: 'var(--bg-surface)',
@@ -23,7 +23,7 @@ export default {
         code: 'var(--bg-code)',
         subtle: 'var(--bg-subtle)',
 
-        // Text hierarchy
+        // Иерархия текста
         text: {
           primary: 'var(--text-primary)',
           secondary: 'var(--text-secondary)',
@@ -33,14 +33,14 @@ export default {
           placeholder: 'var(--text-placeholder)',
         },
 
-        // Brand color (Red)
+        // Фирменный цвет (красный)
         primary: {
           DEFAULT: 'var(--primary)',
           hover: 'var(--primary-hover)',
           active: 'var(--primary-active)',
           deep: 'var(--primary-deep)',
           shadow: 'var(--primary-shadow)',
-          // Transparent variations
+          // Прозрачные варианты
           subtle: 'var(--primary-subtle)',
           muted: 'var(--primary-muted)',
           light: 'var(--primary-light)',
@@ -49,7 +49,7 @@ export default {
           intense: 'var(--primary-intense)',
         },
 
-        // Semantic colors
+        // Семантические цвета
         success: {
           DEFAULT: 'var(--success)',
           muted: 'var(--success-muted)',
@@ -70,7 +70,7 @@ export default {
           muted: 'var(--info-muted)',
         },
 
-        // Glass effects
+        // Эффекты стекла
         glass: {
           subtle: 'var(--glass-subtle)',
           light: 'var(--glass-light)',
@@ -81,7 +81,7 @@ export default {
       },
 
       // ═══════════════════════════════════════
-      // BORDER COLORS
+      // ЦВЕТА ГРАНИЦ
       // ═══════════════════════════════════════
       borderColor: {
         DEFAULT: 'var(--border-default)',
@@ -97,7 +97,7 @@ export default {
       },
 
       // ═══════════════════════════════════════
-      // BOX SHADOWS
+      // ТЕНИ
       // ═══════════════════════════════════════
       boxShadow: {
         'sm': 'var(--shadow-sm)',
@@ -114,7 +114,7 @@ export default {
       },
 
       // ═══════════════════════════════════════
-      // BORDER RADIUS
+      // СКРУГЛЕНИЯ
       // ═══════════════════════════════════════
       borderRadius: {
         'sm': 'var(--radius-sm)',
@@ -127,7 +127,7 @@ export default {
       },
 
       // ═══════════════════════════════════════
-      // SPACING (используем стандартные + кастомные)
+      // ОТСТУПЫ (используем стандартные + кастомные)
       // ═══════════════════════════════════════
       spacing: {
         'xs': 'var(--spacing-xs)',
@@ -142,7 +142,7 @@ export default {
       },
 
       // ═══════════════════════════════════════
-      // TRANSITIONS
+      // ПЕРЕХОДЫ
       // ═══════════════════════════════════════
       transitionDuration: {
         'fast': '150ms',
@@ -156,7 +156,7 @@ export default {
       },
 
       // ═══════════════════════════════════════
-      // Z-INDEX
+      // Z-ИНДЕКС
       // ═══════════════════════════════════════
       zIndex: {
         'base': 'var(--z-base)',
@@ -171,7 +171,7 @@ export default {
       },
 
       // ═══════════════════════════════════════
-      // TYPOGRAPHY
+      // ТИПОГРАФИКА
       // ═══════════════════════════════════════
       fontFamily: {
         sans: 'var(--font-sans)',
@@ -195,7 +195,7 @@ export default {
       },
 
       // ═══════════════════════════════════════
-      // BACKDROP BLUR
+      // РАЗМЫТИЕ ФОНА
       // ═══════════════════════════════════════
       backdropBlur: {
         DEFAULT: '16px',
@@ -203,7 +203,7 @@ export default {
       },
 
       // ═══════════════════════════════════════
-      // RING (FOCUS OUTLINES)
+      // КОНТУРЫ ФОКУСА (RING)
       // ═══════════════════════════════════════
       ringColor: {
         DEFAULT: 'var(--ring-default)',

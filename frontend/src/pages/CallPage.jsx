@@ -98,7 +98,7 @@ const CallPage = () => {
 };
 
 /**
- * Custom call controls: screen share enabled, recording removed
+ * Кастомные элементы управления звонком: включён screen share, запись удалена
  */
 const CustomCallControls = () => {
   return (

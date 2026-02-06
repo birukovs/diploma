@@ -5,7 +5,7 @@ import "../styles/polls.css";
 const PollCreateModal = ({ onClose }) => {
   const { channel } = useChannelStateContext("PollCreateModal");
 
-  // Form state
+  // Состояние формы
   const [question, setQuestion] = useState("");
   const [options, setOptions] = useState(["", ""]);
   const [multipleAnswers, setMultipleAnswers] = useState(false);
@@ -15,10 +15,10 @@ const PollCreateModal = ({ onClose }) => {
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState(null);
 
-  // Validation
+  // Валидация
   const validOptions = options.filter((opt) => opt.trim() !== "");
   const canCreate = question.trim().length > 0 && validOptions.length >= 2;
-  // Option handlers
+  // Обработчики вариантов
   const handleAddOption = useCallback(() => {
     if (options.length < 10) {
       setOptions((prev) => [...prev, ""]);
@@ -37,7 +37,7 @@ const PollCreateModal = ({ onClose }) => {
     });
   }, []);
 
-  // Reset form
+  // Сброс формы
   const resetForm = useCallback(() => {
     setQuestion("");
     setOptions(["", ""]);
@@ -48,13 +48,13 @@ const PollCreateModal = ({ onClose }) => {
     setError(null);
   }, []);
 
-  // Close modal
+  // Закрытие модалки
   const handleClose = useCallback(() => {
     resetForm();
     onClose?.();
   }, [onClose, resetForm]);
 
-  // Create poll - sends as custom message with poll_data
+  // Создание опроса — отправка кастомного сообщения с poll_data
   const handleCreate = useCallback(
     async (e) => {
       e.preventDefault();
@@ -68,30 +68,34 @@ const PollCreateModal = ({ onClose }) => {
           throw new Error("Канал недоступен");
         }
 
-        // Generate unique poll ID
-        const pollId = `poll_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        // Генерируем уникальный ID опроса
+        const pollId = `p_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`;
 
-        // Build poll data
+        // Формируем данные опроса
         const pollData = {
           id: pollId,
           question: question.trim(),
-          options: validOptions.map((text, idx) => ({
-            id: `opt_${pollId}_${idx}`,
-            text: text.trim(),
-          })),
+          options: validOptions.map((text, idx) => {
+            const optionId = `o_${pollId}_${idx}`;
+            return {
+              id: optionId,
+              option_id: optionId,
+              text: text.trim(),
+            };
+          }),
           anonymous,
           multiple_answers: multipleAnswers,
           max_answers: multipleAnswers ? validOptions.length : 1,
           allow_suggestions: allowSuggestions,
           allow_comments: allowComments,
           votes: {}, // { optionId: count }
-          voters: {}, // { oderId: [userId, ...] }
+          voters: {}, // { optionId: [userId, ...] }
           created_at: new Date().toISOString(),
         };
 
-        // Send message with custom poll data
+        // Отправляем сообщение с данными опроса
         await channel.sendMessage({
-          text: "", // Empty text - poll card will render instead
+          text: "", // Пустой текст — вместо него рендерится карточка опроса
           custom_type: "poll",
           poll_data: pollData,
         });
@@ -120,7 +124,7 @@ const PollCreateModal = ({ onClose }) => {
     ]
   );
 
-  // Backdrop click closes modal
+  // Клик по фону закрывает модалку
   const handleBackdropClick = useCallback(
     (e) => {
       if (e.target === e.currentTarget) {
@@ -138,7 +142,7 @@ const PollCreateModal = ({ onClose }) => {
         </div>
 
         <div className="poll-create-body">
-          {/* Question */}
+          {/* Вопрос */}
           <div className="poll-create-group">
             <label className="poll-create-label">Вопрос</label>
             <input
@@ -151,7 +155,7 @@ const PollCreateModal = ({ onClose }) => {
             />
           </div>
 
-          {/* Options */}
+          {/* Варианты */}
           <div className="poll-create-group">
             <label className="poll-create-label">Варианты ответа</label>
             {options.map((option, index) => (
@@ -185,7 +189,7 @@ const PollCreateModal = ({ onClose }) => {
             )}
           </div>
 
-          {/* Settings */}
+          {/* Настройки */}
           <div className="poll-create-settings">
             <div className="poll-create-setting">
               <span className="poll-create-setting-label">Несколько ответов</span>

@@ -57,7 +57,7 @@ background:
 .auth-left::before {
   content: "";
   position: absolute;
-  right: -10%; /* glow originates near center-right of left block */
+  right: -10%; /* свечение исходит из центра-справа левого блока */
   top: 50%;
   transform: translateY(-50%);
   width: 60%;
@@ -82,7 +82,7 @@ background:
 .auth-right::before {
   content: "";
   position: absolute;
-  left: -10%; /* glow originates near center-left of right block */
+  left: -10%; /* свечение исходит из центра-слева правого блока */
   top: 50%;
   transform: translateY(-50%);
   width: 60%;
@@ -244,10 +244,10 @@ background:
 
 .auth-image-container {
   position: relative;
-  max-width: 620px; /* increased */
-  max-height: 760px; /* increased */
-  width: 110%; /* slightly overflow to the left */
-  margin-left: -6%; /* shift left */
+  max-width: 620px; /* увеличено */
+  max-height: 760px; /* увеличено */
+  width: 110%; /* чуть выходит влево */
+  margin-left: -6%; /* смещение влево */
   border-radius: 2rem;
   overflow: hidden;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.28), 0 15px 30px rgba(0, 0, 0, 0.18),
@@ -261,13 +261,13 @@ background:
   width: 110%;
   height: auto;
   object-fit: cover;
-  object-position: left center; /* move image content left */
+  object-position: left center; /* смещаем содержимое изображения влево */
   display: block;
-  transform: translateX(-6%); /* nudge image left */
+  transform: translateX(-6%); /* подталкиваем изображение влево */
   padding-left: 50px;
 }
 
-/* Ensure overlay sits above image */
+/* Оверлей поверх изображения */
 .image-overlay {
   position: absolute;
   top: 0;
@@ -279,7 +279,7 @@ background:
   z-index: 3;
 }
 
-/* Responsive Design */
+/* Адаптивная вёрстка */
 @media (max-width: 768px) {
   .auth-container {
     flex-direction: column;
@@ -352,7 +352,7 @@ background:
   pointer-events: none;
 }
 
-/* Floating Animation */
+/* Плавающая анимация */
 @keyframes float {
   0%,
   100% {

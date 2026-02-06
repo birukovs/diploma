@@ -1,4 +1,4 @@
-/* ========== POLL CREATION DIALOG ========== */
+/* ========== ДИАЛОГ СОЗДАНИЯ ОПРОСА ========== */
 .poll-create-dialog {
   position: fixed;
   top: 0;
@@ -137,7 +137,7 @@
   background: rgba(255, 255, 255, 0.03);
 }
 
-/* Poll settings with toggle switches */
+/* Настройки опроса с переключателями */
 .poll-create-settings {
   margin-top: 24px;
   display: flex;
@@ -169,7 +169,7 @@
   white-space: nowrap;
 }
 
-/* Toggle switch */
+/* Переключатель */
 .poll-create-toggle {
   position: relative;
   display: inline-block;
@@ -218,7 +218,7 @@
   transform: translateX(20px);
 }
 
-/* Footer */
+/* Подвал */
 .poll-create-footer {
   padding: 16px 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -261,11 +261,11 @@
   cursor: not-allowed;
 }
 
-/* ========== POLL MESSAGE CARD IN CHAT ========== */
+/* ========== КАРТОЧКА ОПРОСА В ЧАТЕ ========== */
 .poll-card {
   margin-top: 8px;
   background: #1e2128;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: none;
   border-radius: 16px;
   padding: 14px 16px;
   min-width: 260px;
@@ -276,7 +276,24 @@
   overflow: visible;
 }
 
-/* Ensure poll card is never empty/collapsed */
+.poll-card--mine {
+  background: linear-gradient(
+    180deg,
+    rgba(226, 26, 26, 0.28) 0%,
+    rgba(28, 16, 18, 0.92) 100%
+  );
+  border: none;
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(226, 26, 26, 0.18) inset;
+}
+
+.poll-card--theirs {
+  background: #1e2128;
+  border: none;
+}
+
+/* Следим, чтобы карточка опроса не была пустой/схлопнутой */
 .poll-card:empty {
   display: none;
 }
@@ -535,7 +552,7 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
-/* TG-style info badges at bottom */
+/* Инфо-бейджи в стиле TG внизу */
 .poll-card-info {
   margin-top: 12px;
   display: flex;
@@ -551,7 +568,7 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
-/* Total votes display */
+/* Отображение общего числа голосов */
 .poll-card-total {
   margin-top: 10px;
   font-size: 12px;
@@ -700,7 +717,11 @@
   margin-left: 6px;
 }
 
-/* Poll modal */
+.poll-card-option-pending {
+  text-transform: uppercase;
+}
+
+/* Модалка опроса */
 .poll-modal-overlay {
   position: fixed;
   inset: 0;
@@ -712,9 +733,20 @@
   z-index: 9999;
 }
 
+.poll-modal-overlay--local {
+  position: absolute;
+  inset: 0;
+  z-index: 9999;
+}
+
 .poll-modal-overlay--comments {
   background: transparent;
   z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
 }
 
 .poll-modal-overlay--comments .poll-modal {
@@ -801,9 +833,10 @@
   color: white;
 }
 
-/* Comments modal */
+/* Модалка комментариев */
 .poll-modal-comments {
   max-width: 640px;
+  margin: 0 auto;
 }
 
 .poll-comments-list {
@@ -872,7 +905,7 @@
   cursor: pointer;
 }
 
-/* Error message for poll create modal */
+/* Сообщение об ошибке в модалке создания опроса */
 .poll-create-error {
   margin-top: 12px;
   padding: 10px 12px;
@@ -883,8 +916,8 @@
   color: rgba(255, 255, 255, 0.85);
 }
 
-/* ========== HIDE DEFAULT STREAM POLL UI ========== */
-/* Hide default Stream poll UI when using custom */
+/* ========== СКРЫТЬ СТАНДАРТНЫЙ UI ОПРОСОВ STREAM ========== */
+/* Скрываем стандартный UI опросов Stream при кастомной реализации */
 .str-chat__poll,
 .str-chat__poll-card,
 [data-poll-root],
@@ -907,7 +940,7 @@ div[class*="str-chat__poll"],
   pointer-events: none !important;
 }
 
-/* ========== POLL BUTTON IN MESSAGE INPUT ========== */
+/* ========== КНОПКА ОПРОСА В ВВОДЕ СООБЩЕНИЯ ========== */
 .inline-message-input-row {
   display: flex;
   align-items: center;
@@ -945,7 +978,7 @@ div[class*="str-chat__poll"],
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* ========== POLL CREATE MODAL - NUMBER INPUT ========== */
+/* ========== МОДАЛКА СОЗДАНИЯ ОПРОСА — ЧИСЛОВОЙ INPUT ========== */
 .poll-create-setting-nested {
   padding-left: 24px;
   border-bottom: none;
@@ -970,7 +1003,7 @@ div[class*="str-chat__poll"],
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* Hide number input spinners */
+/* Скрываем стрелки у number input */
 .poll-create-number-input::-webkit-outer-spin-button,
 .poll-create-number-input::-webkit-inner-spin-button {
   -webkit-appearance: none;

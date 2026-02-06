@@ -66,7 +66,7 @@ function MembersModal({ channel, members, currentUserId, currentUser, client, on
           }
         }
 
-        // Filter out system users (recording-*, egress-*, etc.)
+        // Убираем системных пользователей (recording-*, egress-*, и т.п.)
         const filteredMembers = membersList.filter(m => !isSystemUser(m.user));
         console.log("Final member list count:", filteredMembers.length);
         setAllMembers(filteredMembers);
@@ -84,7 +84,7 @@ function MembersModal({ channel, members, currentUserId, currentUser, client, on
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
       <div className="rounded-xl shadow-2xl w-full max-w-lg mx-4 bg-[#0f1116] border border-[#e21a1a]">
-        {/* HEADER */}
+        {/* ЗАГОЛОВОК */}
         <div className="flex items-center justify-between border-b border-[#e21a1a]/50 px-6 py-4">
           <h2 className="text-2xl font-semibold text-white">Участники канала</h2>
           <button onClick={onClose} className="text-2xl text-gray-300 hover:text-white">
@@ -92,7 +92,7 @@ function MembersModal({ channel, members, currentUserId, currentUser, client, on
           </button>
         </div>
 
-        {/* MEMBERS LIST */}
+        {/* СПИСОК УЧАСТНИКОВ */}
         <div className="px-6 py-4 max-h-96 overflow-y-auto" data-ui="system-user-filtered">
           {loading ? (
             <p className="text-gray-400">Загрузка участников...</p>
