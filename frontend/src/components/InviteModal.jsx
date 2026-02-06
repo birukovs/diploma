@@ -68,45 +68,46 @@ const InviteModal = ({ channel, onClose }) => {
           {error && <p className="form-error">{error}</p>}
           {users.length === 0 && !isLoadingUsers && <p>Пользователи не найдены</p>}
 
-          {users.length > 0 &&
-            users.map((user) => {
-              const isChecked = selectedMembers.includes(user.id);
+          {users.length > 0 && (
+            <div className="members-list invite-members-list">
+              {users.map((user) => {
+                const isChecked = selectedMembers.includes(user.id);
 
-              return (
-                <label
-                  key={user.id}
-                  className={`flex items-center gap-4 p-3 rounded-lg cursor-pointer transition-all shadow-sm bg-white hover:bg-[#f5f3ff] border-2 ${
-                    isChecked ? "border-[#611f69] bg-[#f3e6fa]" : "border-gray-200"
-                  }`}
-                >
-                  <input
-                    type="checkbox"
-                    className="checkbox checbox-primay checkbox-sm accent-[#611f69]"
-                    value={user.id}
-                    onChange={(e) => {
-                      if (e.target.checked) setSelectedMembers([...selectedMembers, user.id]);
-                      else setSelectedMembers(selectedMembers.filter((id) => id !== user.id));
-                    }}
-                  />
-
-                  {user.image ? (
-                    <img
-                      src={user.image}
-                      alt={user.name}
-                      className="size-9 rounded-full object-cover border border-gray-300"
+                return (
+                  <label
+                    key={user.id}
+                    className={`member-item ${isChecked ? "member-item--selected" : ""}`}
+                  >
+                    <input
+                      type="checkbox"
+                      className="member-checkbox"
+                      value={user.id}
+                      onChange={(e) => {
+                        if (e.target.checked) setSelectedMembers([...selectedMembers, user.id]);
+                        else setSelectedMembers(selectedMembers.filter((id) => id !== user.id));
+                      }}
                     />
-                  ) : (
-                    <div className="size-9 rounded-full bg-gray-300 flex items-center justify-center text-white font-bold text-lg">
-                      {(user.name || user.id).charAt(0).toUpperCase()}
-                    </div>
-                  )}
 
-                  <span className="font-medium text-[#611f69] text-base">
-                    {user.name || user.id}
-                  </span>
-                </label>
-              );
-            })}
+                    {user.image ? (
+                      <img
+                        src={user.image}
+                        alt={user.name || user.id}
+                        className="member-avatar"
+                      />
+                    ) : (
+                      <div className="member-avatar member-avatar-placeholder">
+                        {(user.name || user.id).charAt(0).toUpperCase()}
+                      </div>
+                    )}
+
+                    <span className="member-name">
+                      {user.name || user.id}
+                    </span>
+                  </label>
+                );
+              })}
+            </div>
+          )}
 
           {/* ДЕЙСТВИЯ */}
           <div className="create-channel-modal__actions mt-4">

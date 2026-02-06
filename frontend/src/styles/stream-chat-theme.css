@@ -1159,6 +1159,23 @@ button:hover .str-chat__avatar .str-chat__avatar-status {
   transform: translateX(4px);
 }
 
+.member-item--selected {
+  background: rgba(226, 26, 26, 0.12);
+  outline: 2px solid rgba(226, 26, 26, 0.55);
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.member-item--selected .member-name {
+  color: rgba(255, 255, 255, 0.98);
+}
+
+.invite-members-list {
+  max-height: min(42vh, 320px);
+  margin-top: 0.75rem;
+}
+
 .member-item:hover .str-chat__avatar-status,
 .member-item:hover .str-chat__avatar-status svg,
 .member-item:hover .str-chat__avatar-status path {
