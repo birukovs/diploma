@@ -1,4 +1,9 @@
-import { addUserToPublicChannels, generateStreamToken } from "../config/stream.js";
+import {
+  addUserToPublicChannels,
+  generateStreamToken,
+  upsertStreamUser,
+} from "../config/stream.js";
+import { User } from "../models/user.model.js";
 
 export const getStreamToken = async (req, res) => {
   try {
@@ -6,6 +11,14 @@ export const getStreamToken = async (req, res) => {
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized" });
     }
+
+    const dbUser = await User.findOne({ clerkId: userId }).lean();
+    await upsertStreamUser({
+      id: userId.toString(),
+      ...(dbUser?.name ? { name: dbUser.name } : {}),
+      ...(dbUser?.avatar ? { image: dbUser.avatar } : {}),
+      ...(dbUser?.username ? { username: dbUser.username } : {}),
+    });
 
     // Safety net for first login: ensures user can see discoverable channels
     // even if async user-created sync has not run yet.

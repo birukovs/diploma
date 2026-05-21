@@ -35,37 +35,6 @@ function MembersModal({ channel, members, currentUserId, currentUser, client, on
           existingIds.add(creatorId);
         }
 
-        if (currentUserId && !existingIds.has(currentUserId)) {
-          console.log("Adding current user to list:", currentUserId);
-          membersList.push({
-            user: {
-              id: currentUserId,
-              name: currentUser?.fullName || currentUserId,
-              image: currentUser?.imageUrl || currentUser?.profileImageUrl,
-            }
-          });
-          existingIds.add(currentUserId);
-        }
-
-        if (client && !existingIds.has("semyon0")) {
-          try {
-            const res = await client.queryUsers({ id: { $eq: "semyon0" } }, {}, { limit: 1 });
-            const semUser = res?.users?.[0];
-            if (semUser) {
-              membersList.push({
-                user: {
-                  id: semUser.id,
-                  name: semUser.name || semUser.id,
-                  image: semUser.image,
-                },
-              });
-              existingIds.add(semUser.id);
-            }
-          } catch (err) {
-            console.error("Error fetching semyon0:", err);
-          }
-        }
-
         // Убираем системных пользователей (recording-*, egress-*, и т.п.)
         const filteredMembers = membersList.filter(m => !isSystemUser(m.user));
         console.log("Final member list count:", filteredMembers.length);

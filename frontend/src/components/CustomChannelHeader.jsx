@@ -20,23 +20,10 @@ const CustomChannelHeader = ({ onBack }) => {
 
   useEffect(() => {
     const updateMemberCount = () => {
-      const existingMembers = channel.state.members;
-      const existingIds = Object.keys(existingMembers);
-
-      const allMemberIds = new Set(existingIds);
-
-      const creatorId = channel?.data?.created_by_id || channel?.data?.created_by?.id;
-      if (creatorId) {
-        allMemberIds.add(creatorId);
-      }
-
-      if (user?.id) {
-        allMemberIds.add(user.id);
-      }
-
-      allMemberIds.add("semyon0");
-
-      setMemberCount(allMemberIds.size);
+      const members = Object.values(channel.state.members || {})
+        .map((member) => member.user)
+        .filter((member) => member && !isSystemUser(member));
+      setMemberCount(members.length);
     };
 
     updateMemberCount();
