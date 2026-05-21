@@ -1,5 +1,5 @@
 import { UserButton, useUser } from "@clerk/clerk-react";
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { useSearchParams } from "react-router";
 import { useStreamChat } from "../hooks/useStreamChat";
 import PageLoader from "../components/PageLoader";
@@ -47,6 +47,10 @@ const HomePage = () => {
   }, [chatClient, searchParams]);
 
   const activeChannel = selectedChannel || urlChannel;
+
+  useEffect(() => {
+    setSelectedChannel(null);
+  }, [chatClient]);
 
   const handleSelectChannel = useCallback((channel) => {
     setSelectedChannel(channel);

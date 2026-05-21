@@ -20,7 +20,7 @@ export const useStreamChat = () => {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["streamToken"],
+    queryKey: ["streamToken", user?.id],
     queryFn: () => getStreamToken(getToken),
     enabled: !!user?.id,
   });
@@ -32,28 +32,43 @@ export const useStreamChat = () => {
     let cancelled = false;
 
     const initChat = async () => {
-      if (!tokenData || !user) return;
+      if (!tokenData?.token || !user?.id) return;
 
       try {
-        const client = StreamChat.getInstance(STREAM_API_KEY);
-        console.log("Connecting user:", {
-          id: user.id,
-          name: user.fullName,
-          image: user.profileImageUrl,
-        }, "token:", tokenData.token);
-        await client.connectUser(
-          {
-            id: user.id,
-            name: user.fullName,
-            image: user.profileImageUrl,
-          },
-          tokenData.token,
-          { presence: true }
-        );
+        const client = chatClientRef.current || StreamChat.getInstance(STREAM_API_KEY);
+        const currentUserId = client.userID;
+        const nextUserId = user.id;
+
+        if (currentUserId && currentUserId !== nextUserId) {
+          await client.disconnectUser();
+        }
+
+        if (!client.userID) {
+          console.log(
+            "Connecting user:",
+            {
+              id: user.id,
+              name: user.fullName,
+              image: user.profileImageUrl,
+            },
+            "token:",
+            tokenData.token
+          );
+          await client.connectUser(
+            {
+              id: user.id,
+              name: user.fullName,
+              image: user.profileImageUrl,
+            },
+            tokenData.token,
+            { presence: true }
+          );
+        }
+
         if (cancelled) {
-          client.disconnectUser().catch(console.error);
           return;
         }
+
         chatClientRef.current = client;
         setChatClient(client);
       } catch (error) {
@@ -74,13 +89,18 @@ export const useStreamChat = () => {
 
     return () => {
       cancelled = true;
+    };
+  }, [tokenData?.token, user?.id, user?.fullName, user?.profileImageUrl]);
+
+  useEffect(() => {
+    return () => {
       if (chatClientRef.current) {
         chatClientRef.current.disconnectUser().catch(console.error);
         chatClientRef.current = null;
       }
       setChatClient(null);
     };
-  }, [tokenData, user]);
+  }, []);
 
   return {
     chatClient,
