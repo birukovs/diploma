@@ -10,7 +10,8 @@ export async function getStreamToken(getToken) {
   });
 
   if (!response.ok) {
-    throw new Error("Failed to fetch token");
+    const body = await response.text().catch(() => "");
+    throw new Error(`Failed to fetch token: ${response.status} ${body}`.trim());
   }
 
   return response.json();

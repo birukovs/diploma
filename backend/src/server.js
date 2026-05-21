@@ -12,8 +12,32 @@ import * as Sentry from "@sentry/node";
 
 const app = express();
 
+const allowedOrigins = [
+  ENV.CLIENT_URL,
+  process.env.CLIENT_URL_2,
+  process.env.CLIENT_URL_3,
+].filter(Boolean);
+
+const corsOptions = {
+  origin(origin, callback) {
+    // Allow non-browser or same-origin requests.
+    if (!origin) return callback(null, true);
+
+    const isExplicitlyAllowed = allowedOrigins.includes(origin);
+    const isVercelPreview = /^https:\/\/diploma-frontend(?:-[\w-]+)?\.vercel\.app$/.test(origin);
+    const isLocalhost = /^http:\/\/localhost:\d+$/.test(origin);
+
+    if (isExplicitlyAllowed || isVercelPreview || isLocalhost) {
+      return callback(null, true);
+    }
+
+    return callback(new Error(`CORS blocked for origin: ${origin}`));
+  },
+  credentials: true,
+};
+
 app.use(express.json());
-app.use(cors({origin: ENV.CLIENT_URL, credentials: true}));
+app.use(cors(corsOptions));
 app.use(clerkMiddleware());
 
 app.get("/debug-sentry", (req, res) => {

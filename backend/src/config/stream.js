@@ -38,9 +38,23 @@ export const generateStreamToken = (userId) => {
 }
 
 export const addUserToPublicChannels = async (newUserId) => {
-  const publicChannels = await streamClient.queryChannels({ discoverable: true });
+  const publicChannels = await streamClient.queryChannels({
+    type: "messaging",
+    discoverable: true,
+  });
 
   for (const channel of publicChannels) {
-    await channel.addMembers([newUserId]);
+    try {
+      await channel.addMembers([newUserId]);
+    } catch (error) {
+      // Ignore "already member" style errors to keep this operation idempotent.
+      const message = String(error?.message || "");
+      if (!message.toLowerCase().includes("already")) {
+        console.error(
+          `Failed to add user ${newUserId} to public channel ${channel?.id}:`,
+          error
+        );
+      }
+    }
   }
 };
