@@ -18,26 +18,45 @@ const allowedOrigins = [
   process.env.CLIENT_URL_3,
 ].filter(Boolean);
 
+const isAllowedOrigin = (origin) => {
+  if (!origin) return true;
+  const isExplicitlyAllowed = allowedOrigins.includes(origin);
+  const isVercelPreview = /^https:\/\/diploma-frontend(?:-[\w-]+)?\.vercel\.app$/.test(origin);
+  const isKnownFrontend = origin === "https://diploma-frontend-nu.vercel.app";
+  const isLocalhost = /^http:\/\/localhost:\d+$/.test(origin);
+  return isExplicitlyAllowed || isVercelPreview || isKnownFrontend || isLocalhost;
+};
+
 const corsOptions = {
   origin(origin, callback) {
-    // Allow non-browser or same-origin requests.
-    if (!origin) return callback(null, true);
-
-    const isExplicitlyAllowed = allowedOrigins.includes(origin);
-    const isVercelPreview = /^https:\/\/diploma-frontend(?:-[\w-]+)?\.vercel\.app$/.test(origin);
-    const isLocalhost = /^http:\/\/localhost:\d+$/.test(origin);
-
-    if (isExplicitlyAllowed || isVercelPreview || isLocalhost) {
+    if (isAllowedOrigin(origin)) {
       return callback(null, true);
     }
 
-    return callback(new Error(`CORS blocked for origin: ${origin}`));
+    // Do not throw from CORS callback, otherwise browser sees opaque 500 + CORS error.
+    console.warn(`CORS blocked for origin: ${origin}`);
+    return callback(null, false);
   },
   credentials: true,
 };
 
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (isAllowedOrigin(origin)) {
+    if (origin) {
+      res.header("Access-Control-Allow-Origin", origin);
+      res.header("Vary", "Origin");
+    }
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Headers", "Authorization, Content-Type");
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS");
+  }
+  next();
+});
+
 app.use(express.json());
 app.use(cors(corsOptions));
+app.options("/{*any}", cors(corsOptions));
 app.use(clerkMiddleware());
 
 app.get("/debug-sentry", (req, res) => {

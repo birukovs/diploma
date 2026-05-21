@@ -3,7 +3,6 @@ import {
   generateStreamToken,
   upsertStreamUser,
 } from "../config/stream.js";
-import { User } from "../models/user.model.js";
 
 export const getStreamToken = async (req, res) => {
   try {
@@ -12,17 +11,21 @@ export const getStreamToken = async (req, res) => {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
-    const dbUser = await User.findOne({ clerkId: userId }).lean();
-    await upsertStreamUser({
-      id: userId.toString(),
-      ...(dbUser?.name ? { name: dbUser.name } : {}),
-      ...(dbUser?.avatar ? { image: dbUser.avatar } : {}),
-      ...(dbUser?.username ? { username: dbUser.username } : {}),
-    });
+    try {
+      await upsertStreamUser({
+        id: userId.toString(),
+      });
+    } catch (error) {
+      console.error("Stream upsert warning (token flow continues):", error);
+    }
 
-    // Safety net for first login: ensures user can see discoverable channels
-    // even if async user-created sync has not run yet.
-    await addUserToPublicChannels(userId.toString());
+    try {
+      // Safety net for first login: ensures user can see public channels
+      // even if async user-created sync has not run yet.
+      await addUserToPublicChannels(userId.toString());
+    } catch (error) {
+      console.error("Add to public channels warning (token flow continues):", error);
+    }
 
     const token = generateStreamToken(userId);
     if (!token) {
