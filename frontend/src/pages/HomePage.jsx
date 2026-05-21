@@ -143,10 +143,7 @@ const HomePage = () => {
                 <ChannelList
                   filters={{
                     type: "messaging",
-                    $or: [
-                      { members: { $in: [chatClient.user.id] } },
-                      { discoverable: true },
-                    ],
+                    members: { $in: [chatClient.user.id] },
                   }}
                   options={{ state: true, watch: true }}
                   channelRenderFilterFn={channelRenderFilterFn}
