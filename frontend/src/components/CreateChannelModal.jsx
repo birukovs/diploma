@@ -13,15 +13,21 @@ import {
 } from "lucide-react";
 import { isSystemUser } from "../lib/userUtils";
 
-const transliterate = (text) => {
-  const map = {
-    'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'e',
-    'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm',
-    'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
-    'ф': 'f', 'х': 'kh', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch',
-    'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'
-  };
-  return text.toLowerCase().split('').map(char => map[char] || char).join('');
+const buildChannelId = (name) => {
+  const base = String(name || "")
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9_-]/g, "")
+    .replace(/-+/g, "-")
+    .replace(/^[-_]+|[-_]+$/g, "")
+    .slice(0, 40);
+
+  if (base) return base;
+
+  const random = Math.random().toString(36).slice(2, 8);
+  return `channel-${Date.now().toString(36)}-${random}`.slice(0, 64);
 };
 
 const CreateChannelModal = ({ onClose }) => {
@@ -33,7 +39,7 @@ const CreateChannelModal = ({ onClose }) => {
   const [users, setUsers] = useState([]);
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [loadingUsers, setLoadingUsers] = useState(false);
-  const [_, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
 
   const { client, setActiveChannel } = useChatContext();
 
@@ -48,12 +54,11 @@ const CreateChannelModal = ({ onClose }) => {
           { name: 1 },
           { limit: 100 }
         );
-        // Убираем системных пользователей (recording-*, egress-*, и т.п.)
-        const filteredUsers = (response.users || []).filter(user => !isSystemUser(user));
+        const filteredUsers = (response.users || []).filter((user) => !isSystemUser(user));
         setUsers(filteredUsers);
-      } catch (error) {
-        console.log("Ошибка при получении пользователей:");
-        Sentry.captureException(error, {
+      } catch (fetchError) {
+        console.log("Ошибка при получении пользователей:", fetchError);
+        Sentry.captureException(fetchError, {
           tags: { component: "CreateChannelModal" },
           extra: { context: "fetch_users_for_channel" },
         });
@@ -66,19 +71,18 @@ const CreateChannelModal = ({ onClose }) => {
     fetchUsers();
   }, [client]);
 
-
   useEffect(() => {
-    if (channelType === "public") setSelectedMembers(users.map((u) => u.id));
-    else setSelectedMembers([]);
+    if (channelType === "public") {
+      setSelectedMembers(users.map((u) => u.id));
+    } else {
+      setSelectedMembers([]);
+    }
   }, [channelType, users]);
 
   const validateChannelName = (name) => {
     if (!name.trim()) return "Введите название канала";
-    if (name.length < 3)
-      return "Название канала должно быть не менее 3 символов";
-    if (name.length > 24)
-      return "Название канала должно быть не более 24 символов";
-
+    if (name.length < 3) return "Название канала должно быть не менее 3 символов";
+    if (name.length > 24) return "Название канала должно быть не более 24 символов";
     return "";
   };
 
@@ -111,18 +115,12 @@ const CreateChannelModal = ({ onClose }) => {
     setError("");
 
     try {
-      const channelId = transliterate(channelName)
-        .trim()
-        .replace(/\s+/g, "-")
-        .replace(/[^a-z0-9-_]/g, "")
-        .slice(0, 20);
-
+      const channelId = buildChannelId(channelName);
       const channelData = {
         name: channelName.trim(),
         created_by_id: client.user.id,
+        members: [client.user.id, ...selectedMembers],
       };
-
-      channelData.members = [client.user.id, ...selectedMembers];
 
       if (channelType === "private") {
         channelData.private = true;
@@ -132,19 +130,28 @@ const CreateChannelModal = ({ onClose }) => {
         channelData.discoverable = true;
       }
 
-      console.log("Channel ID:", channelId, "Data:", channelData, "Type:", channelType);
-
       const channel = client.channel("messaging", channelId, channelData);
-
       await channel.watch();
 
       setActiveChannel(channel);
-      setSearchParams({ channel: channelId });
-
+      setSearchParams({ channel: channel.id });
       toast.success(`Канал "${channelName}" создан успешно`);
       onClose();
-    } catch (error) {
-      console.log("Ошибка при создании канала:", error);
+    } catch (createError) {
+      console.log("Ошибка при создании канала:", createError);
+      Sentry.captureException(createError, {
+        tags: { component: "CreateChannelModal" },
+        extra: {
+          context: "create_channel",
+          channelName,
+          channelType,
+          selectedMembersCount: selectedMembers.length,
+        },
+      });
+
+      const message = createError?.message || "Не удалось создать канал";
+      setError(message);
+      toast.error(message);
     } finally {
       setIsCreating(false);
     }
@@ -186,11 +193,7 @@ const CreateChannelModal = ({ onClose }) => {
 
             {channelName && (
               <div className="form-hint">
-                ID канала будет:
-                {channelName
-                  .toLowerCase()
-                  .replace(/\s+/g, "-")
-                  .replace(/[^а-яa-z0-9-_]/g, "")}
+                ID канала будет: {buildChannelId(channelName)}
               </div>
             )}
           </div>
@@ -250,9 +253,7 @@ const CreateChannelModal = ({ onClose }) => {
                   <UsersIcon className="w-4 h-4" />
                   Выбрать всех
                 </button>
-                <span className="selected-count">
-                  {selectedMembers.length} выбрано
-                </span>
+                <span className="selected-count">{selectedMembers.length} выбрано</span>
               </div>
 
               <div className="members-list" data-ui="system-user-filtered-users-list">
@@ -277,14 +278,10 @@ const CreateChannelModal = ({ onClose }) => {
                         />
                       ) : (
                         <div className="member-avatar member-avatar-placeholder">
-                          <span>
-                            {(user.name || user.id).charAt(0).toUpperCase()}
-                          </span>
+                          <span>{(user.name || user.id).charAt(0).toUpperCase()}</span>
                         </div>
                       )}
-                      <span className="member-name">
-                        {user.name || user.id}
-                      </span>
+                      <span className="member-name">{user.name || user.id}</span>
                     </label>
                   ))
                 )}
@@ -305,12 +302,8 @@ const CreateChannelModal = ({ onClose }) => {
           </div>
 
           <div className="create-channel-modal__actions">
-            <button
-              type="button"
-              onClick={onClose}
-              className="btn btn-secondary"
-            >
-                Отмена
+            <button type="button" onClick={onClose} className="btn btn-secondary">
+              Отмена
             </button>
             <button
               type="submit"

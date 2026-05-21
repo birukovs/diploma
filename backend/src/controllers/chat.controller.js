@@ -6,7 +6,7 @@ import {
 
 export const getStreamToken = async (req, res) => {
   try {
-    const userId = req.auth?.().userId;
+    const userId = req.userId;
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized" });
     }
@@ -29,12 +29,23 @@ export const getStreamToken = async (req, res) => {
 
     const token = generateStreamToken(userId);
     if (!token) {
-      return res.status(500).json({ message: "Failed to generate Stream token" });
+      return res.status(500).json({
+        message: "Failed to generate Stream token",
+        diagnostics: {
+          hasStreamApiKey: !!process.env.STREAM_API_KEY,
+          hasStreamApiSecret: !!process.env.STREAM_API_SECRET,
+        },
+      });
     }
 
     return res.status(200).json({ token });
   } catch (error) {
     console.error("Failed to get Stream token:", error);
-    return res.status(500).json({ message: "Failed to get Stream token" });
+    return res.status(500).json({
+      message: "Failed to get Stream token",
+      diagnostics: {
+        error: error?.message || "unknown_error",
+      },
+    });
   }
 };
