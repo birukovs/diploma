@@ -27,6 +27,10 @@ import AuthProvider from "./providers/AuthProvider.jsx";
 
 const queryClient = new QueryClient();
 
+if (typeof window !== "undefined" && typeof window.__APP_BOOTED__ === "function") {
+  window.__APP_BOOTED__();
+}
+
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 const CLERK_JS_URL = import.meta.env.VITE_CLERK_JS_URL;
 const DEFAULT_CLERK_JS_CDN_URL =

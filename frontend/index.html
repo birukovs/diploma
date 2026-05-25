@@ -7,7 +7,71 @@
     <title>Мессенджер</title>
   </head>
   <body>
+    <div
+      id="boot-fallback"
+      style="
+        display:none;
+        min-height:100vh;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+        padding:24px;
+        background:#0f131a;
+        color:#fff;
+        font:500 16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      "
+    >
+      <div>
+        <div style="font-size:20px;font-weight:700;margin-bottom:10px;">Не удалось загрузить сайт</div>
+        <div style="opacity:.85;max-width:560px;">
+          Похоже, сеть нестабильна и файлы приложения не загрузились. Проверьте интернет/VPN и обновите страницу.
+        </div>
+        <button
+          onclick="location.reload()"
+          style="
+            margin-top:14px;
+            border:0;
+            border-radius:10px;
+            padding:10px 16px;
+            font-size:14px;
+            font-weight:600;
+            cursor:pointer;
+          "
+        >
+          Обновить страницу
+        </button>
+      </div>
+    </div>
     <div id="root"></div>
+    <script>
+      (function () {
+        var booted = false;
+        var fallback = document.getElementById("boot-fallback");
+        var root = document.getElementById("root");
+
+        function showFallback() {
+          if (booted || !fallback) return;
+          fallback.style.display = "flex";
+          if (root) root.style.display = "none";
+        }
+
+        window.__APP_BOOTED__ = function () {
+          booted = true;
+          if (fallback) fallback.style.display = "none";
+          if (root) root.style.display = "";
+        };
+
+        window.addEventListener("error", function (event) {
+          var target = event && event.target;
+          var src = target && (target.src || target.href || "");
+          if (typeof src === "string" && src.indexOf("/assets/index-") !== -1) {
+            showFallback();
+          }
+        }, true);
+
+        setTimeout(showFallback, 12000);
+      })();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
