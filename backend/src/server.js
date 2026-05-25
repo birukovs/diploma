@@ -12,19 +12,33 @@ import * as Sentry from "@sentry/node";
 
 const app = express();
 
+const normalizeOrigin = (value) =>
+  typeof value === "string" ? value.trim().replace(/\/+$/, "").toLowerCase() : "";
+
 const allowedOrigins = [
   ENV.CLIENT_URL,
   process.env.CLIENT_URL_2,
   process.env.CLIENT_URL_3,
-].filter(Boolean);
+]
+  .map(normalizeOrigin)
+  .filter(Boolean);
 
 const isAllowedOrigin = (origin) => {
   if (!origin) return true;
-  const isExplicitlyAllowed = allowedOrigins.includes(origin);
-  const isVercelPreview = /^https:\/\/diploma-frontend(?:-[\w-]+)?\.vercel\.app$/.test(origin);
-  const isKnownFrontend = origin === "https://diploma-frontend-nu.vercel.app";
-  const isLocalhost = /^http:\/\/localhost:\d+$/.test(origin);
-  return isExplicitlyAllowed || isVercelPreview || isKnownFrontend || isLocalhost;
+  const normalizedOrigin = normalizeOrigin(origin);
+  const isExplicitlyAllowed = allowedOrigins.includes(normalizedOrigin);
+  const isVercelPreview =
+    /^https:\/\/diploma-frontend(?:-[\w-]+)?\.vercel\.app$/i.test(normalizedOrigin);
+  const isKnownFrontend = normalizedOrigin === "https://diploma-frontend-nu.vercel.app";
+  const isLocalhost = /^http:\/\/localhost:\d+$/i.test(normalizedOrigin);
+  const isCustomDomain = /^https:\/\/([a-z0-9-]+\.)?diplomaqwe\.ru$/i.test(normalizedOrigin);
+  return (
+    isExplicitlyAllowed ||
+    isVercelPreview ||
+    isKnownFrontend ||
+    isLocalhost ||
+    isCustomDomain
+  );
 };
 
 const corsOptions = {
