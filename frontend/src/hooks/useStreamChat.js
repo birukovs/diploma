@@ -6,6 +6,7 @@ import { getStreamToken } from "../lib/api";
 import * as Sentry from "@sentry/react";
 
 const STREAM_API_KEY = import.meta.env.VITE_STREAM_API_KEY;
+const STREAM_REQUEST_TIMEOUT_MS = 15000;
 
 export const useStreamChat = () => {
   const { user } = useUser();
@@ -42,7 +43,9 @@ export const useStreamChat = () => {
       if (!tokenData?.token || !user?.id) return;
 
       try {
-        const client = chatClientRef.current || StreamChat.getInstance(STREAM_API_KEY);
+        const client =
+          chatClientRef.current ||
+          StreamChat.getInstance(STREAM_API_KEY, { timeout: STREAM_REQUEST_TIMEOUT_MS });
         const currentUserId = client.userID;
         const nextUserId = user.id;
 
