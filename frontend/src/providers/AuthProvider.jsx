@@ -14,23 +14,23 @@ export default function AuthProvider({ children }) {
         try {
           const token = await getToken();
           if (token) {
-            config.headers.Authorization = `ÐÐ¾ÑÐ¸Ñ‚ÐµÐ»ÑŒ ${token}`;
+            config.headers.Authorization = `Bearer ${token}`;
           }
         } catch (error) {
           if (
-            error.message?.includes("Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ñ") ||
-            error.message?.includes("Ñ‚Ð¾ÐºÐµÐ½")
+            error.message?.toLowerCase?.().includes("auth") ||
+            error.message?.toLowerCase?.().includes("token")
           ) {
-            toast.error("ÐžÑˆÐ¸Ð±ÐºÐ° Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ð¸.");
+            toast.error("Îøèáêà àâòîðèçàöèè.");
           }
-          console.log("ÐžÑˆÐ¸Ð±ÐºÐ° Ð¿Ñ€Ð¸ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ð¸ Ñ‚Ð¾ÐºÐµÐ½Ð°:", error);
+          console.log("Îøèáêà ïðè ïîëó÷åíèè òîêåíà:", error);
         }
         return config;
       },
       (error) => {
-        console.error("ÐžÑˆÐ¸Ð±ÐºÐ° Ð² Ð¿ÐµÑ€ÐµÑ…Ð²Ð°Ñ‚Ñ‡Ð¸ÐºÐµ Ð·Ð°Ð¿Ñ€Ð¾ÑÐ°:", error);
+        console.error("Îøèáêà â ïåðåõâàò÷èêå çàïðîñà:", error);
         return Promise.reject(error);
-      }
+      },
     );
 
     return () => {

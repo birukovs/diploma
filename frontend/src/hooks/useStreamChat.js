@@ -9,7 +9,7 @@ const STREAM_API_KEY = import.meta.env.VITE_STREAM_API_KEY;
 
 export const useStreamChat = () => {
   const { user } = useUser();
-  const { getToken } = useAuth();
+  const { getToken, isLoaded: isAuthLoaded, isSignedIn } = useAuth();
   const [chatClient, setChatClient] = useState(null);
   const chatClientRef = useRef(null);
 
@@ -21,8 +21,15 @@ export const useStreamChat = () => {
     error,
   } = useQuery({
     queryKey: ["streamToken", user?.id],
-    queryFn: () => getStreamToken(getToken),
-    enabled: !!user?.id,
+    queryFn: async () => {
+      const clerkToken = await getToken();
+      if (!clerkToken) {
+        throw new Error("Clerk token is not available yet");
+      }
+      return getStreamToken(() => clerkToken);
+    },
+    enabled: !!user?.id && isAuthLoaded && !!isSignedIn,
+    retry: false,
   });
 
   console.log("useStreamChat: tokenData", tokenData, "isLoading", isLoading, "error", error);
