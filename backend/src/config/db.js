@@ -1,15 +1,17 @@
-import mongoose from 'mongoose';
-import {ENV} from './env.js'; 
+import mongoose from "mongoose";
+import { ENV } from "./env.js";
 
 export const connectDB = async () => {
+  if (mongoose.connection.readyState === 1) {
+    return mongoose.connection;
+  }
 
-    try {
-        const conn = await mongoose.connect(ENV.MONGO_URI);
-
-        console.log('Подключение к базе данных успешно установлено:', conn.connection.host);
-        
-    } catch (error) {
-        console.log('Ошибка подключения к базе данных:', error);
-        process.exit(1);
-    }
-}
+  try {
+    const conn = await mongoose.connect(ENV.MONGO_URI);
+    console.log("MongoDB connected:", conn.connection.host);
+    return conn.connection;
+  } catch (error) {
+    console.error("MongoDB connection failed:", error);
+    throw error;
+  }
+};
