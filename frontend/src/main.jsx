@@ -6,7 +6,7 @@ import "./styles/polls.css";
 import "./styles/clerk-theme.css";
 import "./styles/clerk-overrides.css";
 import App from "./App.jsx";
-import { ClerkProvider } from "@clerk/clerk-react";
+import { ClerkProvider, ClerkFailed, ClerkLoading } from "@clerk/clerk-react";
 import { dark } from "@clerk/themes";
 import { ruRU } from "@clerk/localizations";
 import {
@@ -28,6 +28,10 @@ import AuthProvider from "./providers/AuthProvider.jsx";
 const queryClient = new QueryClient();
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+const CLERK_JS_URL = import.meta.env.VITE_CLERK_JS_URL;
+const CLERK_SCRIPT_LOAD_TIMEOUT_MS = Number(
+  import.meta.env.VITE_CLERK_SCRIPT_LOAD_TIMEOUT_MS ?? 45000,
+);
 
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -84,8 +88,13 @@ Sentry.init({
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ClerkProvider
-      
       publishableKey={PUBLISHABLE_KEY}
+      scriptLoadTimeout={
+        Number.isFinite(CLERK_SCRIPT_LOAD_TIMEOUT_MS) && CLERK_SCRIPT_LOAD_TIMEOUT_MS > 0
+          ? CLERK_SCRIPT_LOAD_TIMEOUT_MS
+          : 45000
+      }
+      clerkJSUrl={CLERK_JS_URL || undefined}
       localization={ruRU}
       appearance={{
         baseTheme: dark,
@@ -356,6 +365,49 @@ createRoot(document.getElementById("root")).render(
         },
       }}
     >
+      <ClerkLoading>
+        <div
+          style={{
+            minHeight: "100dvh",
+            display: "grid",
+            placeItems: "center",
+            background: "#0f131a",
+            color: "rgba(255,255,255,.78)",
+            fontFamily: "Manrope, system-ui, sans-serif",
+            padding: "24px",
+            textAlign: "center",
+          }}
+        >
+          Загрузка авторизации...
+        </div>
+      </ClerkLoading>
+
+      <ClerkFailed>
+        <div
+          style={{
+            minHeight: "100dvh",
+            display: "grid",
+            placeItems: "center",
+            background: "#0f131a",
+            color: "#fff",
+            fontFamily: "Manrope, system-ui, sans-serif",
+            padding: "24px",
+            textAlign: "center",
+            lineHeight: 1.5,
+          }}
+        >
+          <div>
+            <div style={{ fontSize: "18px", fontWeight: 700, marginBottom: "8px" }}>
+              Не удалось загрузить модуль авторизации
+            </div>
+            <div style={{ opacity: 0.82, maxWidth: "560px" }}>
+              Проверьте подключение к сети, отключите блокировщик рекламы/VPN для сайта и
+              обновите страницу.
+            </div>
+          </div>
+        </div>
+      </ClerkFailed>
+
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
