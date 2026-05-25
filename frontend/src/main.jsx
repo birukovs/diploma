@@ -29,12 +29,24 @@ const queryClient = new QueryClient();
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 const CLERK_JS_URL = import.meta.env.VITE_CLERK_JS_URL;
+const DEFAULT_CLERK_JS_CDN_URL =
+  "https://cdn.jsdelivr.net/npm/@clerk/clerk-js@5/dist/clerk.browser.js";
 const CLERK_SCRIPT_LOAD_TIMEOUT_MS = Number(
   import.meta.env.VITE_CLERK_SCRIPT_LOAD_TIMEOUT_MS ?? 45000,
 );
 
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
+}
+
+if (
+  import.meta.env.PROD &&
+  typeof window !== "undefined" &&
+  PUBLISHABLE_KEY.startsWith("pk_test_")
+) {
+  console.warn(
+    "Clerk: В production используется development publishable key (pk_test_). Рекомендуется переключиться на pk_live_.",
+  );
 }
 
 Sentry.init({
@@ -94,7 +106,7 @@ createRoot(document.getElementById("root")).render(
           ? CLERK_SCRIPT_LOAD_TIMEOUT_MS
           : 45000
       }
-      clerkJSUrl={CLERK_JS_URL || undefined}
+      clerkJSUrl={CLERK_JS_URL || DEFAULT_CLERK_JS_CDN_URL}
       localization={ruRU}
       appearance={{
         baseTheme: dark,
