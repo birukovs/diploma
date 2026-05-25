@@ -22,12 +22,13 @@ const buildChannelId = (name) => {
     .replace(/[^a-z0-9_-]/g, "")
     .replace(/-+/g, "-")
     .replace(/^[-_]+|[-_]+$/g, "")
-    .slice(0, 40);
-
-  if (base) return base;
+    .slice(0, 32);
 
   const random = Math.random().toString(36).slice(2, 8);
-  return `channel-${Date.now().toString(36)}-${random}`.slice(0, 64);
+  const time = Date.now().toString(36);
+  if (base) return `${base}-${time}-${random}`.slice(0, 64);
+
+  return `channel-${time}-${random}`.slice(0, 64);
 };
 
 const CreateChannelModal = ({ onClose }) => {
