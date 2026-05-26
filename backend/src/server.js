@@ -24,7 +24,28 @@ const decodeFrontendApiFromPublishableKey = (key) => {
   }
 };
 
-const getClerkFrontendApiHost = () => {
+const getPublishableKeyFromRequest = (req) => {
+  try {
+    const rawUrl = req.originalUrl || req.url || "";
+    const url = new URL(rawUrl, "https://proxy.local");
+    const candidates = [
+      url.searchParams.get("_clerk_publishable_key"),
+      url.searchParams.get("__clerk_publishable_key"),
+      url.searchParams.get("clerk_publishable_key"),
+      url.searchParams.get("publishable_key"),
+    ];
+
+    const key = candidates.find((value) => typeof value === "string" && value.startsWith("pk_"));
+    return key || null;
+  } catch {
+    return null;
+  }
+};
+
+const getClerkFrontendApiHost = (req) => {
+  const fromRequestKey = decodeFrontendApiFromPublishableKey(getPublishableKeyFromRequest(req));
+  if (fromRequestKey) return fromRequestKey;
+
   const fromEnv = process.env.CLERK_FRONTEND_API_HOST?.trim().toLowerCase();
   if (fromEnv) return fromEnv;
   return decodeFrontendApiFromPublishableKey(ENV.CLERK_PUBLISHABLE_KEY);
@@ -121,7 +142,7 @@ app.use((req, res, next) => {
 });
 
 app.use(["/__clerk", "/clerk"], express.raw({ type: "*/*", limit: "2mb" }), async (req, res) => {
-  const frontendApiHost = getClerkFrontendApiHost();
+  const frontendApiHost = getClerkFrontendApiHost(req);
 
   if (!frontendApiHost || !ENV.CLERK_SECRET_KEY) {
     return res.status(503).json({ error: "Clerk proxy is not configured." });
@@ -158,6 +179,8 @@ app.use(["/__clerk", "/clerk"], express.raw({ type: "*/*", limit: "2mb" }), asyn
       headers,
       body,
     });
+
+    res.setHeader("X-Clerk-Proxy-Upstream", frontendApiHost);
 
     res.status(upstreamResponse.status);
     upstreamResponse.headers.forEach((value, key) => {
