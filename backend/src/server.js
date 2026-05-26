@@ -66,6 +66,12 @@ const getProxyOrigin = (req) => {
   return "";
 };
 
+const getPublicProxyPath = () => {
+  const path = (process.env.CLERK_PROXY_PATH || "/clerk").trim();
+  if (!path) return "/clerk";
+  return path.startsWith("/") ? path.replace(/\/+$/, "") || "/clerk" : `/${path}`.replace(/\/+$/, "");
+};
+
 const filterProxyHeaders = (headers) => {
   const result = new Headers();
   const blocked = new Set([
@@ -150,7 +156,7 @@ app.use(["/__clerk", "/clerk"], express.raw({ type: "*/*", limit: "2mb" }), asyn
 
   const upstreamPath = (req.originalUrl || req.url || "").replace(/^\/(?:__clerk|clerk)/, "");
   const upstreamUrl = `https://${frontendApiHost}${upstreamPath || "/"}`;
-  const proxyBasePath = req.baseUrl === "/clerk" ? "/clerk" : "/__clerk";
+  const proxyBasePath = getPublicProxyPath();
   const proxyOrigin = getProxyOrigin(req);
   const proxyUrl = proxyOrigin ? `${proxyOrigin}${proxyBasePath}` : proxyBasePath;
 

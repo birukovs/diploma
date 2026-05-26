@@ -39,7 +39,7 @@ const DEFAULT_CLERK_JS_CDN_URL =
 const CLERK_SCRIPT_LOAD_TIMEOUT_MS = Number(
   import.meta.env.VITE_CLERK_SCRIPT_LOAD_TIMEOUT_MS ?? 45000,
 );
-const DEFAULT_PROD_CLERK_PROXY_URL = import.meta.env.PROD ? "/__clerk" : undefined;
+const DEFAULT_PROD_CLERK_PROXY_URL = import.meta.env.PROD ? "/clerk" : undefined;
 
 const decodeFrontendApiFromPublishableKey = (key) => {
   try {
