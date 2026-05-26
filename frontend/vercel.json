@@ -1,14 +1,6 @@
 {
   "rewrites": [
     {
-      "source": "/clerk/(.*)",
-      "destination": "https://diploma-backend-six.vercel.app/__clerk/$1"
-    },
-    {
-      "source": "/__clerk/(.*)",
-      "destination": "https://diploma-backend-six.vercel.app/__clerk/$1"
-    },
-    {
       "source": "/(.*)",
       "destination": "/"
     }
