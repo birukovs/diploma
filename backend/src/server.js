@@ -31,6 +31,9 @@ const getClerkFrontendApiHost = () => {
 };
 
 const getProxyOrigin = (req) => {
+  const explicit = (process.env.CLERK_PROXY_ORIGIN || ENV.CLIENT_URL || "").trim();
+  if (explicit) return explicit.replace(/\/+$/, "");
+
   const xfProto = String(req.headers["x-forwarded-proto"] || "https")
     .split(",")[0]
     .trim();
@@ -39,9 +42,7 @@ const getProxyOrigin = (req) => {
     .trim();
 
   if (xfHost) return `${xfProto}://${xfHost}`;
-
-  const fallback = (ENV.CLIENT_URL || "").trim();
-  return fallback || "";
+  return "";
 };
 
 const filterProxyHeaders = (headers) => {
