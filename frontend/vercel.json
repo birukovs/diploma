@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/__clerk/(.*)",
+      "destination": "https://clerk.diplomaqwe.ru/$1"
+    },
+    {
       "source": "/(.*)",
       "destination": "/"
     }
