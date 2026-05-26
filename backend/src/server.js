@@ -221,6 +221,24 @@ app.get("/debug-sentry", () => {
   throw new Error("My first Sentry error");
 });
 
+app.get("/api/debug/clerk-proxy", (req, res) => {
+  const publishableKey = ENV.CLERK_PUBLISHABLE_KEY || "";
+  const fromKeyHost = decodeFrontendApiFromPublishableKey(publishableKey);
+  const requestKey = getPublishableKeyFromRequest(req);
+  const requestKeyHost = decodeFrontendApiFromPublishableKey(requestKey);
+
+  res.json({
+    hasSecretKey: Boolean(ENV.CLERK_SECRET_KEY),
+    publishableKeyPrefix: publishableKey ? publishableKey.slice(0, 12) : null,
+    publishableKeyHost: fromKeyHost,
+    requestPublishableKeyPrefix: requestKey ? requestKey.slice(0, 12) : null,
+    requestPublishableKeyHost: requestKeyHost,
+    proxyOrigin: getProxyOrigin(req),
+    proxyPath: getPublicProxyPath(),
+    effectiveFrontendApiHost: getClerkFrontendApiHost(req),
+  });
+});
+
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
