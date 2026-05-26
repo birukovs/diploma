@@ -54,8 +54,8 @@ const decodeFrontendApiFromPublishableKey = (key) => {
   }
 };
 
-const getEffectiveProxyUrl = (proxyUrl, publishableKey) => {
-  if (!proxyUrl) return undefined;
+const getEffectiveProxyUrl = (proxyUrl, publishableKey, fallbackProxyUrl) => {
+  if (!proxyUrl) return fallbackProxyUrl;
 
   // Relative path proxy (e.g. /__clerk) is valid and should always be allowed.
   if (proxyUrl.startsWith("/")) return proxyUrl;
@@ -70,15 +70,16 @@ const getEffectiveProxyUrl = (proxyUrl, publishableKey) => {
     console.warn(
       `Clerk: proxyUrl host (${proxyHost}) does not match publishable key frontend API (${frontendApi}). Ignoring proxyUrl to prevent 401 errors.`,
     );
-    return undefined;
+    return fallbackProxyUrl;
   } catch {
-    return undefined;
+    return fallbackProxyUrl;
   }
 };
 
 const EFFECTIVE_CLERK_PROXY_URL = getEffectiveProxyUrl(
-  CLERK_PROXY_URL ?? DEFAULT_PROD_CLERK_PROXY_URL,
+  CLERK_PROXY_URL,
   PUBLISHABLE_KEY,
+  DEFAULT_PROD_CLERK_PROXY_URL,
 );
 
 if (!PUBLISHABLE_KEY) {
