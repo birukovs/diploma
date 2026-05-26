@@ -33,6 +33,7 @@ if (typeof window !== "undefined" && typeof window.__APP_BOOTED__ === "function"
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 const CLERK_JS_URL = import.meta.env.VITE_CLERK_JS_URL;
+const CLERK_PROXY_URL = import.meta.env.VITE_CLERK_PROXY_URL;
 const DEFAULT_CLERK_JS_CDN_URL =
   "https://cdn.jsdelivr.net/npm/@clerk/clerk-js@5/dist/clerk.browser.js";
 const CLERK_SCRIPT_LOAD_TIMEOUT_MS = Number(
@@ -111,6 +112,7 @@ createRoot(document.getElementById("root")).render(
           : 45000
       }
       clerkJSUrl={CLERK_JS_URL || DEFAULT_CLERK_JS_CDN_URL}
+      proxyUrl={CLERK_PROXY_URL || undefined}
       localization={ruRU}
       appearance={{
         baseTheme: dark,
