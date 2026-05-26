@@ -67,15 +67,24 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.json());
-app.use(cors(corsOptions));
-app.options("/{*any}", cors(corsOptions));
-
 if (ENV.CLERK_SECRET_KEY) {
-  app.use(clerkMiddleware());
+  app.use(
+    clerkMiddleware({
+      publishableKey: ENV.CLERK_PUBLISHABLE_KEY,
+      secretKey: ENV.CLERK_SECRET_KEY,
+      frontendApiProxy: {
+        enabled: true,
+        path: "/__clerk",
+      },
+    }),
+  );
 } else {
   console.error("CLERK_SECRET_KEY is missing. Auth middleware is disabled.");
 }
+
+app.use(express.json());
+app.use(cors(corsOptions));
+app.options("/{*any}", cors(corsOptions));
 
 app.get("/debug-sentry", () => {
   throw new Error("My first Sentry error");

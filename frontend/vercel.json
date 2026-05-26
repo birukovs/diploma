@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/__clerk/(.*)",
-      "destination": "https://clerk.diplomaqwe.ru/$1"
+      "destination": "https://diploma-backend-six.vercel.app/__clerk/$1"
     },
     {
       "source": "/(.*)",
