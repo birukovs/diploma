@@ -34,12 +34,48 @@ if (typeof window !== "undefined" && typeof window.__APP_BOOTED__ === "function"
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 const CLERK_JS_URL = import.meta.env.VITE_CLERK_JS_URL;
 const CLERK_PROXY_URL = import.meta.env.VITE_CLERK_PROXY_URL;
-const DEFAULT_CLERK_PROXY_URL = "https://faithful-baboon-55.clerk.accounts.dev";
 const DEFAULT_CLERK_JS_CDN_URL =
   "https://cdn.jsdelivr.net/npm/@clerk/clerk-js@5/dist/clerk.browser.js";
 const CLERK_SCRIPT_LOAD_TIMEOUT_MS = Number(
   import.meta.env.VITE_CLERK_SCRIPT_LOAD_TIMEOUT_MS ?? 45000,
 );
+
+const decodeFrontendApiFromPublishableKey = (key) => {
+  try {
+    if (typeof key !== "string") return null;
+    const parts = key.split("_");
+    if (parts.length < 3) return null;
+    const decoded = atob(parts[2]);
+    if (!decoded || !decoded.endsWith("$")) return null;
+    return decoded.slice(0, -1).toLowerCase();
+  } catch {
+    return null;
+  }
+};
+
+const getEffectiveProxyUrl = (proxyUrl, publishableKey) => {
+  if (!proxyUrl) return undefined;
+
+  // Relative path proxy (e.g. /__clerk) is valid and should always be allowed.
+  if (proxyUrl.startsWith("/")) return proxyUrl;
+
+  const frontendApi = decodeFrontendApiFromPublishableKey(publishableKey);
+  if (!frontendApi) return proxyUrl;
+
+  try {
+    const proxyHost = new URL(proxyUrl).host.toLowerCase();
+    if (proxyHost === frontendApi) return proxyUrl;
+
+    console.warn(
+      `Clerk: proxyUrl host (${proxyHost}) does not match publishable key frontend API (${frontendApi}). Ignoring proxyUrl to prevent 401 errors.`,
+    );
+    return undefined;
+  } catch {
+    return undefined;
+  }
+};
+
+const EFFECTIVE_CLERK_PROXY_URL = getEffectiveProxyUrl(CLERK_PROXY_URL, PUBLISHABLE_KEY);
 
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -113,7 +149,7 @@ createRoot(document.getElementById("root")).render(
           : 45000
       }
       clerkJSUrl={CLERK_JS_URL || DEFAULT_CLERK_JS_CDN_URL}
-      proxyUrl={CLERK_PROXY_URL || DEFAULT_CLERK_PROXY_URL}
+      proxyUrl={EFFECTIVE_CLERK_PROXY_URL}
       localization={ruRU}
       appearance={{
         baseTheme: dark,
