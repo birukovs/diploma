@@ -27,6 +27,53 @@ import AuthProvider from "./providers/AuthProvider.jsx";
 
 const queryClient = new QueryClient();
 
+class RootErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    console.error("Root render error", error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div
+          style={{
+            minHeight: "100dvh",
+            display: "grid",
+            placeItems: "center",
+            background: "#0f131a",
+            color: "#fff",
+            fontFamily: "Manrope, system-ui, sans-serif",
+            padding: "24px",
+            textAlign: "center",
+            lineHeight: 1.5,
+          }}
+        >
+          <div>
+            <div style={{ fontSize: "18px", fontWeight: 700, marginBottom: "8px" }}>
+              Не удалось отрисовать приложение
+            </div>
+            <div style={{ opacity: 0.82, maxWidth: "560px" }}>
+              Обновите страницу. Если ошибка повторяется, отключите VPN/блокировщик и попробуйте
+              снова.
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
 if (typeof window !== "undefined" && typeof window.__APP_BOOTED__ === "function") {
   window.__APP_BOOTED__();
 }
@@ -103,7 +150,8 @@ Sentry.init({
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <ClerkProvider
+    <RootErrorBoundary>
+      <ClerkProvider
       publishableKey={PUBLISHABLE_KEY}
       scriptLoadTimeout={
         Number.isFinite(CLERK_SCRIPT_LOAD_TIMEOUT_MS) && CLERK_SCRIPT_LOAD_TIMEOUT_MS > 0
@@ -432,6 +480,7 @@ createRoot(document.getElementById("root")).render(
           <Toaster position="bottom-center" />
         </QueryClientProvider>
       </BrowserRouter>
-    </ClerkProvider>
+      </ClerkProvider>
+    </RootErrorBoundary>
   </StrictMode>
 );

@@ -12,7 +12,25 @@ const SentryRoutes = Sentry.withSentryReactRouterV7Routing(Routes);
 const App = () => {
   const { isSignedIn, isLoaded } = useAuth();
 
-  if (!isLoaded) return null;
+  if (!isLoaded) {
+    return (
+      <div
+        style={{
+          minHeight: "100dvh",
+          display: "grid",
+          placeItems: "center",
+          background: "#0f131a",
+          color: "rgba(255,255,255,.78)",
+          fontFamily: "Manrope, system-ui, sans-serif",
+          padding: "24px",
+          textAlign: "center",
+        }}
+      >
+        Загрузка...
+      </div>
+    );
+  }
+
   return (
     <Suspense fallback={null}>
       <SentryRoutes>
